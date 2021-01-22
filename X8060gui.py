@@ -97,19 +97,35 @@ class X8060GUI(QMainWindow):
                 self.tableWidget_1.setItem(i+1, n+1, QTableWidgetItem('%.3f' % graphData[n][i]))
                 
     def measure_2_click(self):
-        if self.eightbyeight.isChecked(): 
-            prog = b'005'
-        if self.twelvebyeight.isChecked():
+        
+        if self.eightbyeight_2.isChecked(): 
+            
+            if self.integrated_baffle_2.isChecked():
+                prog = b'005'
+                path = r'C:\Users\nmadh\Documents\KEYENCE\LJ-X Series Terminal-Software\USB\SD2\lj-x3d\result\SD1_005'
+            if self.no_integrated_baffle_2.isChecked():
+                prog = b'003'
+                path = r'C:\Users\nmadh\Documents\KEYENCE\LJ-X Series Terminal-Software\USB\SD2\lj-x3d\result\SD1_003'
+                
+        if self.twelvebyeight_2.isChecked():
             prog = b'004'
+            path = r'C:\Users\nmadh\Documents\KEYENCE\LJ-X Series Terminal-Software\USB\SD2\lj-x3d\result\SD1_004'
+            
+        if self.flow_plate_2.isChecked():
+            flowplate = True
+            
+        if self.no_flow_plate_2.isChecked():
+            flowplate = False    
+            
+        
         self.state_2.setText('Not Saved')  
         self.state_2.setStyleSheet("background-color: yellow;  border: 1px solid black;")  #save indicator
         
         self.inputList = [self.sample_id.text(), self.comments.text()] 
-        X8060_XYZ_path(prog)
-        if self.eightbyeight.isChecked(): 
-            self.data = readTextFile(r'C:\Users\nmadh\Documents\KEYENCE\LJ-X Series Terminal-Software\USB\SD2\lj-x3d\result\SD1_005')
-        if self.twelvebyeight.isChecked():
-            self.data = readTextFile(r'C:\Users\nmadh\Documents\KEYENCE\LJ-X Series Terminal-Software\USB\SD2\lj-x3d\result\SD1_004')
+        X8060_XYZ_path(prog,flowplate)
+        expected = []
+        self.names = []
+        self.data = readTextFile(path,expected,self.names)
         
         for n in range(len(self.data)):
             for i in range(len(self.data[n])):
@@ -138,7 +154,7 @@ class X8060GUI(QMainWindow):
     def export_1_click(self):
         print('Saving Files')
         self.inputList = [self.sample_id.text(), self.comments.text()] 
-        file_name = '\BCH&frame_' + self.inputList[0] + '.xlsx'
+        file_name = '\BCH&droop_' + self.inputList[0] + '.xlsx'
         
         while True:
             try:

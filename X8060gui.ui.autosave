@@ -679,7 +679,7 @@
            </property>
            <layout class="QGridLayout" name="gridLayout_13">
             <item row="0" column="0">
-             <widget class="QRadioButton" name="integrate_baffle_2">
+             <widget class="QRadioButton" name="integrated_baffle_2">
               <property name="text">
                <string>Integrated Baffle</string>
               </property>
