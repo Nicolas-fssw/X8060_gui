@@ -18,7 +18,6 @@ def readTextFile(path,expectedOrder,requiredOrder):
         
     temp = []
     for i in range(0,len(data),101):
-        print(data[i])
         if data[i] == 0:
             continue
         if data[i] != 0:
@@ -34,6 +33,5 @@ def readTextFile(path,expectedOrder,requiredOrder):
                 temp.append(dataList[expectedOrder.index(n)])
                 
     dataList = temp
-    print(dataList)
     
     return dataList
