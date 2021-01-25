@@ -42,13 +42,6 @@ class X8060GUI(QMainWindow):
         self.state_3.setAlignment(QtCore.Qt.AlignCenter)
         
         self.plot_1.setBackground('w')
-        self.plot_2.setBackground('w')
-        self.plot_3.setBackground('w')
-        self.plot_4.setBackground('w')
-        self.plot_5.setBackground('w')
-        self.plot_6.setBackground('w')
-        self.plot_7.setBackground('w')
-        self.plot_8.setBackground('w')
         
         self.data = []
         self.summary = []
@@ -72,13 +65,6 @@ class X8060GUI(QMainWindow):
         frame = float(self.frame_input_1.text())
         
         self.plot_1.clear()
-        self.plot_2.clear()
-        self.plot_3.clear()
-        self.plot_4.clear()
-        self.plot_5.clear()
-        self.plot_6.clear()
-        self.plot_7.clear()
-        self.plot_8.clear()
         
         if self.eightbyeight_1.isChecked(): 
             if self.frame_1.isChecked():
@@ -115,17 +101,12 @@ class X8060GUI(QMainWindow):
         self.summary = []
         for i in range(0,len(self.data),2):
             self.summary.append([(np.median(self.data[i]) - actuator) * 1000, (np.median(self.data[i+1]) + frame) * 1000])
+            
+        temp = [np.average([self.summary[index][0], self.summary[index+1][0]]) for index in range(len(self.summary[::2]))]
+            
+        self.plot_1.plot(range(len(temp)), temp) 
           
         self.summary.append([np.average([item[0] for item in self.summary]), np.average([item[1] for item in self.summary])])
-        
-        self.plot_1.plot(range(len(self.data[0])), self.data[0])
-        self.plot_2.plot(range(len(self.data[2])), self.data[2])
-        self.plot_3.plot(range(len(self.data[4])), self.data[4])
-        self.plot_4.plot(range(len(self.data[6])), self.data[6])
-        self.plot_5.plot(range(len(self.data[8])), self.data[8])
-        self.plot_6.plot(range(len(self.data[10])), self.data[10])
-        self.plot_7.plot(range(len(self.data[12])), self.data[12])
-        self.plot_8.plot(range(len(self.data[14])), self.data[14])
         
         self.BCH_1.setText("%.2f" %self.summary[0][0])
         self.DROOP_1.setText("%.2f" %self.summary[0][1])
