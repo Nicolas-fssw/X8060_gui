@@ -107,14 +107,14 @@ class X8060GUI(QMainWindow):
         self.names = ['1LBCH','1LF2A','1RBCH','1RF2A','2LBCH','2LF2A','2RBCH','2RF2A','3LBCH','3LF2A','3RBCH','3RF2A','4LBCH','4LF2A','4RBCH','4RF2A']
         self.data = readTextFile(path,expected,self.names)
         
-        self.summary = [[],[],[],[],[],[],[],[]]
+        self.summary = []
         count = 0
         for i in range(0,len(self.data),2):
-            self.summary[count].append([np.average(self.data[i]), np.average(self.data[i+1])])
-            count = count+1
-            
-            
-        self.summary.append([np.average([item[0] for item in self.summary], np.average([item[1] for item in self.summary]))])
+            self.summary.append([np.average(self.data[i]), np.average(self.data[i+1])])
+          
+        print('******')
+        print(self.summary)
+        self.summary.append([np.average([item[0] for item in self.summary]), np.average([item[1] for item in self.summary])])
         
         self.plot_1.plot(range(len(self.data[0])), self.data[0])
         self.plot_2.plot(range(len(self.data[2])), self.data[2])
@@ -125,24 +125,24 @@ class X8060GUI(QMainWindow):
         self.plot_7.plot(range(len(self.data[12])), self.data[12])
         self.plot_8.plot(range(len(self.data[14])), self.data[14])
         
-        self.BCH_1.setText(self.summary[0][0])
-        self.DROOP_1.setText(self.summary[0][1])
-        self.BCH_2.setText(self.summary[1][0])
-        self.DROOP_2.setText(self.summary[1][1])
-        self.BCH_3.setText(self.summary[2][0])
-        self.DROOP_3.setText(self.summary[2][1])
-        self.BCH_4.setText(self.summary[3][0])
-        self.DROOP_4.setText(self.summary[3][1])
-        self.BCH_5.setText(self.summary[4][0])
-        self.DROOP_5.setText(self.summary[4][1])
-        self.BCH_6.setText(self.summary[5][0])
-        self.DROOP_6.setText(self.summary[5][1])
-        self.BCH_7.setText(self.summary[6][0])
-        self.DROOP_7.setText(self.summary[6][1])
-        self.BCH_8.setText(self.summary[7][0])
-        self.DROOP_8.setText(self.summary[7][1])
-        self.BCH_average_1.setText(self.summary[8][0])
-        self.DROOP_average_1.setText(self.summary[8][1])
+        self.BCH_1.setText(str(self.summary[0][0]))
+        self.DROOP_1.setText(str(self.summary[0][1]))
+        self.BCH_2.setText(str(self.summary[1][0]))
+        self.DROOP_2.setText(str(self.summary[1][1]))
+        self.BCH_3.setText(str(self.summary[2][0]))
+        self.DROOP_3.setText(str(self.summary[2][1]))
+        self.BCH_4.setText(str(self.summary[3][0]))
+        self.DROOP_4.setText(str(self.summary[3][1]))
+        self.BCH_5.setText(str(self.summary[4][0]))
+        self.DROOP_5.setText(str(self.summary[4][1]))
+        self.BCH_6.setText(str(self.summary[5][0]))
+        self.DROOP_6.setText(str(self.summary[5][1]))
+        self.BCH_7.setText(str(self.summary[6][0]))
+        self.DROOP_7.setText(str(self.summary[6][1]))
+        self.BCH_8.setText(str(self.summary[7][0]))
+        self.DROOP_8.setText(str(self.summary[7][1]))
+        self.BCH_average_1.setText(str(self.summary[8][0]))
+        self.DROOP_average_1.setText(str(self.summary[8][1]))
         
 
     def measure_2_click(self):
