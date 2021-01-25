@@ -68,8 +68,8 @@ class X8060GUI(QMainWindow):
         
     def measure_1_click(self):
         
-        actuator = float(self.actuator_1.text())
-        frame = float(self.frame_1.text())
+        actuator = float(self.actuator_input_1.text())
+        frame = float(self.frame_input_1.text())
         
         self.plot_1.clear()
         self.plot_2.clear()
