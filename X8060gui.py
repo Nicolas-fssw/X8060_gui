@@ -61,8 +61,8 @@ class X8060GUI(QMainWindow):
         
     def measure_1_click(self):
         
-        actuator = float(self.actuator_input_1.text())
-        frame = float(self.frame_input_1.text())
+        actuator = float(self.actuator_input_1.text())/1000
+        frame = float(self.frame_input_1.text())/1000
         
         self.plot_1.clear()
         
@@ -102,8 +102,13 @@ class X8060GUI(QMainWindow):
         for i in range(0,len(self.data),2):
             self.summary.append([(np.median(self.data[i]) - actuator) * 1000, (np.median(self.data[i+1]) + frame) * 1000])
             
-        temp = [np.average([self.summary[index][0], self.summary[index+1][0]]) for index in range(len(self.summary[::2]))]
-            
+        temp = [np.average([self.summary[index][0], self.summary[index+1][0]]) for index in range(0,len(self.summary),2)]
+        print(self.summary[0][0], self.summary[1][0])
+        print(self.summary[2][0], self.summary[3][0])
+        print(self.summary[4][0], self.summary[5][0])
+        print(self.summary[6][0], self.summary[7][0])
+        print(temp)
+        
         self.plot_1.plot(range(len(temp)), temp) 
           
         self.summary.append([np.average([item[0] for item in self.summary]), np.average([item[1] for item in self.summary])])
