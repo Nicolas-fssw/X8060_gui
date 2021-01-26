@@ -27,6 +27,7 @@ def readTextFile(path,expectedOrder,requiredOrder):
             temp = []
     
     temp = []
+    
     for i in requiredOrder:
         for n in expectedOrder:
             if i == n:

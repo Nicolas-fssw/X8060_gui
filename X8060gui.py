@@ -165,9 +165,16 @@ class X8060GUI(QMainWindow):
                       '4LHCD', '4LHCW', '4LC2A', '4ANC', '4LD', '4LT','4RHCD', '4RHCW', '4RC2A', '4ANC', '4RD', '4RT']
         self.data = readTextFile(path,expected,self.names)
         
+        for i in range(4,len(self.data),6):
+            self.data[i] = list(np.asarray(self.data[i])*-1)
+        
         self.summary = []
         for i in range(0,len(self.data),6):
             self.summary.append([np.median(self.data[i]), np.median(self.data[i+1]), np.median(self.data[i+2]), np.median(self.data[i+3]), np.median(self.data[i+4]), np.median(self.data[i+5])])
+        
+        for n in range(len(self.summary)):
+            for i in range(len(self.summary[n])):
+                self.tableWidget_2.setItem(n+1, i+1, QTableWidgetItem('0'))
         
         for n in range(len(self.summary)):
             for i in range(len(self.summary[n])):
