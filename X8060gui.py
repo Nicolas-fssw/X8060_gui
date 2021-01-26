@@ -155,9 +155,10 @@ class X8060GUI(QMainWindow):
         
         self.inputList = [self.sample_id.text(), self.comments.text()] 
         X8060_XYZ_path(prog,flowplate)
-        expected = ['1LHCD', '1LHCW','3LHCD', '3LHCW','2LHCD', '2LHCW','4LHCD', '4LHCW','1RHCD', '1RHCW','3RHCD', '3RHCW','2RHCD', '2RHCW','4RHCD', '4RHCW',
-                    '1LC2A','3LC2A','2LC2A','4LC2A','1RC2A','3RC2A','2RC2A','4RC2A','1ANC','3ANC','2ANC','4ANC','1LD','3LD','2LD','4LD','1RD','3RD','2RD','4RD',
-                    '1LT','3LT','2LT','4LT','1RT','3RT','2RT','4RT']
+        expected = ['1LHCD', '1LHCW','3LHCD', '3LHCW', '1RHCD', '1RHCW','3RHCD', '3RHCW', '1LC2A','3LC2A','1RC2A','3RC2A','1ANC','3ANC','1LD','3LD','1RD','3RD',
+                    '1LT','3LT','1RT','3RT','2LHCD', '2LHCW','4LHCD', '4LHCW', '2RHCD', '2RHCW','4RHCD', '4RHCW', '2LC2A','4LC2A','2RC2A','4RC2A','2ANC','4ANC','2LD','4LD','2RD','4RD',
+                    '2LT','4LT','2RT','4RT']
+        
         self.names = ['1LHCD', '1LHCW', '1LC2A', '1ANC', '1LD', '1LT','1RHCD', '1RHCW', '1RC2A', '1ANC', '1RD', '1RT',
                       '2LHCD', '2LHCW', '2LC2A', '2ANC', '2LD', '2LT','2RHCD', '2RHCW', '2RC2A', '2ANC', '2RD', '2RT',
                       '3LHCD', '3LHCW', '3LC2A', '3ANC', '3LD', '3LT','3RHCD', '3RHCW', '3RC2A', '3ANC', '3RD', '3RT',
