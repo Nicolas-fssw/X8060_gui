@@ -212,8 +212,8 @@ class X8060GUI(QMainWindow):
         inputValues.to_excel(writer, sheet_name='Data', index=False, startcol=0, startrow=0)
         
         summaryValues = pd.DataFrame({'side' : sides, 
-                                     self.inputList[0] + '_BCH' : [self.summaryList[i][0] for i in range(8)],
-                                     self.inputList[0] + '_Droop' : [self.summaryList[i][1] for i in range(8)],
+                                     self.inputList[0] + '_BCH' : [self.summary[i][0] for i in range(8)],
+                                     self.inputList[0] + '_Droop' : [self.summary[i][1] for i in range(8)],
                                      })
         
         summaryValues.to_excel(writer, sheet_name='Data', index=False, startcol=3, startrow=0)
