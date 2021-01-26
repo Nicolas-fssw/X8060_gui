@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1099</width>
-    <height>580</height>
+    <height>584</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -1491,12 +1491,12 @@
           </item>
           <item row="0" column="5">
            <property name="text">
-            <string>T Height</string>
+            <string>Droop</string>
            </property>
           </item>
           <item row="0" column="6">
            <property name="text">
-            <string>Droop</string>
+            <string>T-Height</string>
            </property>
           </item>
           <item row="1" column="0">
