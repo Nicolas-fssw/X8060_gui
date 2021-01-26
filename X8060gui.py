@@ -155,13 +155,22 @@ class X8060GUI(QMainWindow):
         
         self.inputList = [self.sample_id.text(), self.comments.text()] 
         X8060_XYZ_path(prog,flowplate)
-        expected = []
-        self.names = []
+        expected = ['1LHCD', '1LHCW','3LHCD', '3LHCW','2LHCD', '2LHCW','4LHCD', '4LHCW','1RHCD', '1RHCW','3RHCD', '3RHCW','2RHCD', '2RHCW','4RHCD', '4RHCW',
+                    '1LC2A','3LC2A','2LC2A','4LC2A','1RC2A','3RC2A','2RC2A','4RC2A','1ANC','3ANC','2ANC','4ANC','1LD','3LD','2LD','4LD','1RD','3RD','2RD','4RD',
+                    '1LT','3LT','2LT','4LT','1RT','3RT','2RT','4RT']
+        self.names = ['1LHCD', '1LHCW', '1LC2A', '1ANC', '1LD', '1LT','1RHCD', '1RHCW', '1RC2A', '1ANC', '1RD', '1RT',
+                      '2LHCD', '2LHCW', '2LC2A', '2ANC', '2LD', '2LT','2RHCD', '2RHCW', '2RC2A', '2ANC', '2RD', '2RT',
+                      '3LHCD', '3LHCW', '3LC2A', '3ANC', '3LD', '3LT','3RHCD', '3RHCW', '3RC2A', '3ANC', '3RD', '3RT',
+                      '4LHCD', '4LHCW', '4LC2A', '4ANC', '4LD', '4LT','4RHCD', '4RHCW', '4RC2A', '4ANC', '4RD', '4RT']
         self.data = readTextFile(path,expected,self.names)
         
-        for n in range(len(self.data)):
-            for i in range(len(self.data[n])):
-                self.tableWidget_2.setItem(n+1, i+1, QTableWidgetItem('%.3f' % self.data[n][i]))
+        self.summary = []
+        for i in range(0,len(self.data),6):
+            self.summary.append([np.median(self.data[i]), np.median(self.data[i+1]), np.median(self.data[i+2]), np.median(self.data[i+3]), np.median(self.data[i+4]), np.median(self.data[i+5])])
+        
+        for n in range(len(self.summary)):
+            for i in range(len(self.summary[n])):
+                self.tableWidget_2.setItem(n+1, i+1, QTableWidgetItem('%.3f' % self.summary[n][i]))
                 
     def measure_3_click(self):
         if self.eightbyeight_3.isChecked(): 

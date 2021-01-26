@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1104</width>
-    <height>602</height>
+    <width>1099</width>
+    <height>580</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -93,7 +93,7 @@
     <item row="1" column="0" colspan="6">
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="tab1">
        <attribute name="title">
@@ -1382,7 +1382,7 @@
            </size>
           </property>
           <property name="columnCount">
-           <number>10</number>
+           <number>7</number>
           </property>
           <attribute name="horizontalHeaderVisible">
            <bool>false</bool>
@@ -1464,9 +1464,6 @@
           <column/>
           <column/>
           <column/>
-          <column/>
-          <column/>
-          <column/>
           <item row="0" column="0">
            <property name="text">
             <string/>
@@ -1474,47 +1471,32 @@
           </item>
           <item row="0" column="1">
            <property name="text">
-            <string>Maximum Hammertail Cavity</string>
+            <string>Hammertail Cavity Depth</string>
            </property>
           </item>
           <item row="0" column="2">
            <property name="text">
-            <string>Minimum Hammertail Cavity</string>
+            <string>Hammertail Cavity Width</string>
            </property>
           </item>
           <item row="0" column="3">
            <property name="text">
-            <string>Average Hammertail Cavity</string>
+            <string>C2A Width</string>
            </property>
           </item>
           <item row="0" column="4">
            <property name="text">
-            <string>Maximum Cavity to Anchor</string>
+            <string>Anchor Width</string>
            </property>
           </item>
           <item row="0" column="5">
            <property name="text">
-            <string>Minimum Cavity to Anchor</string>
+            <string>T Height</string>
            </property>
           </item>
           <item row="0" column="6">
            <property name="text">
-            <string>Average Cavity to Anchor</string>
-           </property>
-          </item>
-          <item row="0" column="7">
-           <property name="text">
-            <string>Maximum Anchor</string>
-           </property>
-          </item>
-          <item row="0" column="8">
-           <property name="text">
-            <string>Minimum Anchor</string>
-           </property>
-          </item>
-          <item row="0" column="9">
-           <property name="text">
-            <string>Average Anchor</string>
+            <string>Droop</string>
            </property>
           </item>
           <item row="1" column="0">
@@ -1892,7 +1874,7 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>1104</width>
+     <width>1099</width>
      <height>21</height>
     </rect>
    </property>
