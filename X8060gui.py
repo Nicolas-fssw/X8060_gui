@@ -167,6 +167,9 @@ class X8060GUI(QMainWindow):
         
         for i in range(4,len(self.data),6):
             self.data[i] = list(np.asarray(self.data[i])*-1)
+            
+        for i in range(5,len(self.data),6):
+            self.data[i] = list(np.asarray(self.data[i])*-1)
         
         self.summary = []
         for i in range(0,len(self.data),6):
@@ -278,8 +281,8 @@ class X8060GUI(QMainWindow):
                 return None
             
         if path.exists(dir_path + file_name): #testing if file already exists
-            self.state_1.setText('Warning: File already exists')
-            self.state_1.setStyleSheet("background-color: red;  border: 1px solid black;") 
+            self.state_2.setText('Warning: File already exists')
+            self.state_2.setStyleSheet("background-color: red;  border: 1px solid black;") 
             print('Could not Save')
             return None
         
@@ -322,8 +325,8 @@ class X8060GUI(QMainWindow):
     
         writer.save()
         print('Finished Saving')
-        self.state_1.setText('Saved File')
-        self.state_1.setStyleSheet("background-color: green;  border: 1px solid black;") 
+        self.state_2.setText('Saved File')
+        self.state_2.setStyleSheet("background-color: green;  border: 1px solid black;") 
         
     def export_3_click(self):
         print('Saving Files')
