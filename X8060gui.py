@@ -265,7 +265,9 @@ class X8060GUI(QMainWindow):
         
     def export_2_click(self):
         print('Saving Files')
-        self.inputList = [self.sample_id.text(), self.comments.text()] 
+        self.inputList[0] = self.sample_id.text()
+        self.inputList[1] = self.comments.text()
+        sides = ['1L', '1R', '2L', '2R', '3L', '3R', '4L', '4R']
         file_name = '\Actuator_' + self.inputList[0] + '.xlsx'
         
         while True:
@@ -276,33 +278,52 @@ class X8060GUI(QMainWindow):
                 return None
             
         if path.exists(dir_path + file_name): #testing if file already exists
-            self.state_2.setText('Warning: File already exists')
-            self.state_2.setStyleSheet("background-color: red;  border: 1px solid black;") 
+            self.state_1.setText('Warning: File already exists')
+            self.state_1.setStyleSheet("background-color: red;  border: 1px solid black;") 
             print('Could not Save')
             return None
         
         print('**************************')
         writer = pd.ExcelWriter(dir_path + file_name, engine='xlsxwriter')
-        given = pd.DataFrame({'names':['Sample ID', 'Comments'], 
-                              'values' : self.inputList
-                              })
-        given.to_excel(writer, sheet_name='Data', header=False, index=False, startcol=0,startrow=0)
         
-        names = ['Maximum Hammertail Cavity', 'Minimum Hammertail Cavity', 'Average Hammertail Cavity', 
-                 'Maximum Cavity to Anchor', 'Minimum Cavity to Anchor', 'Average Cavity to Anchor',
-                 'Maximum Anchor', 'Minimum Anchor', 'Average Anchor']
+        inputValues = pd.DataFrame({'names' : ['Sample ID', 'Comments'], 
+                                    'values' : self.inputList})
         
-        for i in range(9):
-            dataCollected = pd.DataFrame({'Cell':['1L', '1R', '2L', '2R', '3L', '3R', '4L', '4R'],
-                                 names[i] : self.data[i]})
+        inputValues.to_excel(writer, sheet_name='Data', index=False, startcol=0, startrow=0)
+        
+        summaryValues = pd.DataFrame({'side' : sides, 
+                                     self.inputList[0] + '_HCDepth' : [self.summary[i][0] for i in range(8)],
+                                     self.inputList[0] + '_HCWidth' : [self.summary[i][1] for i in range(8)],
+                                     self.inputList[0] + '_C2AWidth' : [self.summary[i][2] for i in range(8)],
+                                     self.inputList[0] + '_AWidth' : [self.summary[i][3] for i in range(8)],
+                                     self.inputList[0] + '_Droop' : [self.summary[i][4] for i in range(8)],
+                                     self.inputList[0] + '_T' : [self.summary[i][5] for i in range(8)],
+                                     })
+        
+        summaryValues.to_excel(writer, sheet_name='Data', index=False, startcol=3, startrow=0)
+        
+        label = []
+        for i in range(len(self.data)):
+            temp = [self.names[i]] * len(self.data[i])
+            label.append(temp)
             
-            dataCollected.to_excel(writer, sheet_name='Data', index=False, startcol=3 + (i * 3), startrow=0)
+        columnNames = ['HCDepth', 'HCWidth', 'C2AWidth', 'AWidth', 'Droop', 'T']
+            
+        for i in range(6):    
+            
+            flat_data = [j for sub in self.data[i::6] for j in sub]
+            flat_names = [j for sub in label[i::6] for j in sub]
         
+            rawData = pd.DataFrame({columnNames[i] : flat_data, 
+                          self.inputList[0] : flat_names})
+                  
+            rawData.to_excel(writer, sheet_name='Data', index=False, startcol=11 + 3*i, startrow=0)
         
+    
         writer.save()
         print('Finished Saving')
-        self.state_2.setText('Saved File')
-        self.state_2.setStyleSheet("background-color: green;  border: 1px solid black;") 
+        self.state_1.setText('Saved File')
+        self.state_1.setStyleSheet("background-color: green;  border: 1px solid black;") 
         
     def export_3_click(self):
         print('Saving Files')
