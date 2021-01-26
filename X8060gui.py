@@ -102,14 +102,9 @@ class X8060GUI(QMainWindow):
         for i in range(0,len(self.data),2):
             self.summary.append([(np.median(self.data[i]) - actuator) * 1000, (np.median(self.data[i+1]) + frame) * 1000])
             
-        temp = [np.average([self.summary[index][0], self.summary[index+1][0]]) for index in range(0,len(self.summary),2)]
-        print(self.summary[0][0], self.summary[1][0])
-        print(self.summary[2][0], self.summary[3][0])
-        print(self.summary[4][0], self.summary[5][0])
-        print(self.summary[6][0], self.summary[7][0])
-        print(temp)
+        self.summary.append([np.average([self.summary[index][0], self.summary[index+1][0]]) for index in range(0,len(self.summary),2)])
         
-        self.plot_1.plot(range(len(temp)), temp) 
+        self.plot_1.plot(range(len(self.summary[-1])), self.summary[-1]) 
           
         self.summary.append([np.average([item[0] for item in self.summary]), np.average([item[1] for item in self.summary])])
         
@@ -190,7 +185,9 @@ class X8060GUI(QMainWindow):
         
     def export_1_click(self):
         print('Saving Files')
-        self.inputList = [self.sample_id.text(), self.comments.text()] 
+        self.inputList[0] = self.sample_id.text()
+        self.inputList[1] = self.comments.text()
+        sides = ['1L', '1R', '2L', '2R', '3L', '3R', '4L', '4R']
         file_name = '\BCH&Droop_' + self.inputList[0] + '.xlsx'
         
         while True:
@@ -209,8 +206,19 @@ class X8060GUI(QMainWindow):
         print('**************************')
         writer = pd.ExcelWriter(dir_path + file_name, engine='xlsxwriter')
         
+        inputValues = pd.DataFrame({'names' : ['Sample ID', 'Comments', 'Actuator Thickness', 'Frame Thickness'], 
+                                    'values' : self.inputList})
+        
+        inputValues.to_excel(writer, sheet_name='Data', index=False, startcol=0, startrow=0)
+        
+        summaryValues = pd.DataFrame({'side' : sides, 
+                                     self.inputList[0] + '_BCH' : [self.summaryList[i][0] for i in range(8)],
+                                     self.inputList[0] + '_Droop' : [self.summaryList[i][1] for i in range(8)],
+                                     })
+        
+        summaryValues.to_excel(writer, sheet_name='Data', index=False, startcol=3, startrow=0)
+        
         label = []
-        print(len(self.data), len(self.names))
         for i in range(len(self.data)):
             temp = [self.names[i]] * len(self.data[i])
             label.append(temp)
@@ -220,17 +228,16 @@ class X8060GUI(QMainWindow):
         
         BCH = pd.DataFrame({'BCH' : flat_data, 
                           self.inputList[0] : flat_names})
-        
-            
-        BCH.to_excel(writer, sheet_name='Data', index=False, startcol=0, startrow=0)
+                  
+        BCH.to_excel(writer, sheet_name='Data', index=False, startcol=6, startrow=0)
         
         flat_data = [j for sub in self.data[1::2] for j in sub]
         flat_names = [j for sub in label[1::2] for j in sub]
         
-        F2A = pd.DataFrame({'Frame to Actuator' : flat_data, 
+        F2A = pd.DataFrame({'Droop' : flat_data, 
                           self.inputList[0] : flat_names})
         
-        F2A.to_excel(writer, sheet_name='Data', index=False, startcol=3, startrow=0)
+        F2A.to_excel(writer, sheet_name='Data', index=False, startcol=9, startrow=0)
         
         
         writer.save()
