@@ -1262,7 +1262,7 @@
          <widget class="QGroupBox" name="groupBox_5">
           <property name="minimumSize">
            <size>
-            <width>108</width>
+            <width>140</width>
             <height>68</height>
            </size>
           </property>
@@ -1310,7 +1310,7 @@
          <widget class="QGroupBox" name="groupBox_4">
           <property name="minimumSize">
            <size>
-            <width>141</width>
+            <width>180</width>
             <height>68</height>
            </size>
           </property>
@@ -1328,7 +1328,7 @@
            </property>
            <layout class="QGridLayout" name="gridLayout_13">
             <item row="0" column="0">
-             <widget class="QRadioButton" name="integrate_baffle_2">
+             <widget class="QRadioButton" name="integrated_baffle_2">
               <property name="text">
                <string>Integrated Baffle</string>
               </property>
