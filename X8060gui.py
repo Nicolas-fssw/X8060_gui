@@ -65,6 +65,24 @@ class X8060GUI(QMainWindow):
         frame = float(self.frame_input_1.text())/1000
         
         self.plot_1.clear()
+        self.BCH_1.setText('n/a')
+        self.DROOP_1.setText('n/a')
+        self.BCH_2.setText('n/a')
+        self.DROOP_2.setText('n/a')
+        self.BCH_3.setText('n/a')
+        self.DROOP_3.setText('n/a')
+        self.BCH_4.setText('n/a')
+        self.DROOP_4.setText('n/a')
+        self.BCH_5.setText('n/a')
+        self.DROOP_5.setText('n/a')
+        self.BCH_6.setText('n/a')
+        self.DROOP_6.setText('n/a')
+        self.BCH_7.setText('n/a')
+        self.DROOP_7.setText('n/a')
+        self.BCH_8.setText('n/a')
+        self.DROOP_8.setText('n/a')
+        self.BCH_average_1.setText('n/a')
+        self.DROOP_average_1.setText('n/a')
         
         if self.eightbyeight_1.isChecked(): 
             if self.frame_1.isChecked():
@@ -135,9 +153,9 @@ class X8060GUI(QMainWindow):
             if self.integrated_baffle_2.isChecked():
                 prog = b'005'
                 path = r'C:\Users\nmadh\Documents\KEYENCE\LJ-X Series Terminal-Software\USB\SD2\lj-x3d\result\SD1_005'
-            if self.no_integrated_baffle_2.isChecked():
-                prog = b'003'
-                path = r'C:\Users\nmadh\Documents\KEYENCE\LJ-X Series Terminal-Software\USB\SD2\lj-x3d\result\SD1_003'
+            if self.no_integrate_baffle_2.isChecked():
+                prog = b'002'
+                path = r'C:\Users\nmadh\Documents\KEYENCE\LJ-X Series Terminal-Software\USB\SD2\lj-x3d\result\SD1_002'
                 
         if self.twelvebyeight_2.isChecked():
             prog = b'004'
@@ -148,6 +166,10 @@ class X8060GUI(QMainWindow):
             
         if self.no_flow_plate_2.isChecked():
             flowplate = False    
+            
+        for n in range(8):
+            for i in range(6):
+                self.tableWidget_2.setItem(n+1, i+1, QTableWidgetItem('n/a'))    
             
         
         self.state_2.setText('Not Saved')  
@@ -174,10 +196,6 @@ class X8060GUI(QMainWindow):
         self.summary = []
         for i in range(0,len(self.data),6):
             self.summary.append([np.median(self.data[i]), np.median(self.data[i+1]), np.median(self.data[i+2]), np.median(self.data[i+3]), np.median(self.data[i+4]), np.median(self.data[i+5])])
-        
-        for n in range(len(self.summary)):
-            for i in range(len(self.summary[n])):
-                self.tableWidget_2.setItem(n+1, i+1, QTableWidgetItem('0'))
         
         for n in range(len(self.summary)):
             for i in range(len(self.summary[n])):

@@ -27,7 +27,7 @@ def readTextFile(path,expectedOrder,requiredOrder):
             temp = []
     
     temp = []
-    
+    print(len(expectedOrder), len(dataList), len(requiredOrder))
     for i in requiredOrder:
         for n in expectedOrder:
             if i == n:
