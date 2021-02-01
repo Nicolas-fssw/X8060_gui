@@ -133,10 +133,10 @@ class X8060GUI(QMainWindow):
         
         if self.eightbyeight_2.isChecked(): 
             
-            if self.integrate_baffle_2.isChecked():
+            if self.integrated_baffle_2.isChecked():
                 prog = b'005'
                 path = r'C:\Users\nmadh\Documents\KEYENCE\LJ-X Series Terminal-Software\USB\SD2\lj-x3d\result\SD1_005'
-            if self.no_integrate_baffle_2.isChecked():
+            if self.no_integrated_baffle_2.isChecked():
                 prog = b'003'
                 path = r'C:\Users\nmadh\Documents\KEYENCE\LJ-X Series Terminal-Software\USB\SD2\lj-x3d\result\SD1_003'
                 

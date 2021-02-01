@@ -1338,7 +1338,7 @@
              </widget>
             </item>
             <item row="1" column="0">
-             <widget class="QRadioButton" name="no_integrate_baffle_2">
+             <widget class="QRadioButton" name="no_integrated_baffle_2">
               <property name="text">
                <string>No Integrated Baffle</string>
               </property>
