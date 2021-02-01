@@ -120,7 +120,7 @@ class X8060GUI(QMainWindow):
         for i in range(0,len(self.data),2):
             self.summary.append([(np.median(self.data[i]) - actuator) * 1000, (np.median(self.data[i+1]) + frame) * 1000])
             
-        self.summary.append([np.average([self.summary[index][0], self.summary[index+1][0]]) for index in range(0,len(self.summary),2)])
+        self.summary.append([np.average([self.summary[index][0], self.summary[index][1]]) for index in range(8)])
         
         self.plot_1.plot(range(len(self.summary[-1])), self.summary[-1]) 
           
