@@ -43,6 +43,25 @@ class X8060GUI(QMainWindow):
         
         self.plot_1.setBackground('w')
         
+
+        my_absolute_dirpath = os.path.abspath(os.path.dirname(__file__))
+        print(my_absolute_dirpath)
+        catch = '\\'
+        catch_count = 0
+        count = 0
+        end = 0
+        for i in my_absolute_dirpath:
+            count = count + 1
+            if i == catch:
+                catch_count = catch_count + 1
+            
+            if catch_count == 3:
+                end = count
+                break
+        
+        self.pathStart = my_absolute_dirpath[:end]
+        print(self.pathStart)
+        
         self.data = []
         self.summary = []
         self.inputList = []
@@ -69,17 +88,17 @@ class X8060GUI(QMainWindow):
         if self.eightbyeight_1.isChecked(): 
             if self.frame_1.isChecked():
                 prog = b'008'
-                path = r'C:\Users\nmadh\Documents\KEYENCE\LJ-X Series Terminal-Software\USB\SD2\lj-x3d\result\SD1_008'
+                path = self.pathStart + r'Documents\KEYENCE\LJ-X Series Terminal-Software\USB\SD2\lj-x3d\result\SD1_008'
                     
         if self.twelvebyeight_1.isChecked():
             if self.frame_1.isChecked():
                 prog = b'011'
-                path = r'C:\Users\nmadh\Documents\KEYENCE\LJ-X Series Terminal-Software\USB\SD2\lj-x3d\result\SD1_011'
+                path = self.pathStart + r'Documents\KEYENCE\LJ-X Series Terminal-Software\USB\SD2\lj-x3d\result\SD1_011'
                 
             if self.no_frame_1.isChecked():
                 frame = 0
                 prog = b'010'
-                path = r'C:\Users\nmadh\Documents\KEYENCE\LJ-X Series Terminal-Software\USB\SD2\lj-x3d\result\SD1_010'
+                path = self.pathStart + r'Documents\KEYENCE\LJ-X Series Terminal-Software\USB\SD2\lj-x3d\result\SD1_010'
                 
         if self.flow_plate_1.isChecked():
             flowplate = True
@@ -135,14 +154,14 @@ class X8060GUI(QMainWindow):
             
             if self.integrated_baffle_2.isChecked():
                 prog = b'006'
-                path = r'C:\Users\nmadh\Documents\KEYENCE\LJ-X Series Terminal-Software\USB\SD2\lj-x3d\result\SD1_006'
+                path = self.pathStart + r'Documents\KEYENCE\LJ-X Series Terminal-Software\USB\SD2\lj-x3d\result\SD1_006'
             if self.no_integrated_baffle_2.isChecked():
                 prog = b'002'
-                path = r'C:\Users\nmadh\Documents\KEYENCE\LJ-X Series Terminal-Software\USB\SD2\lj-x3d\result\SD1_002'
+                path = self.pathStart + r'Documents\KEYENCE\LJ-X Series Terminal-Software\USB\SD2\lj-x3d\result\SD1_002'
                 
         if self.twelvebyeight_2.isChecked():
             prog = b'004'
-            path = r'C:\Users\nmadh\Documents\KEYENCE\LJ-X Series Terminal-Software\USB\SD2\lj-x3d\result\SD1_004'
+            path = self.pathStart + r'Documents\KEYENCE\LJ-X Series Terminal-Software\USB\SD2\lj-x3d\result\SD1_004'
             
         if self.flow_plate_2.isChecked():
             flowplate = True
@@ -195,9 +214,9 @@ class X8060GUI(QMainWindow):
         self.inputList = [self.sample_id.text(), self.comments.text()] 
         X8060_XYZ_path(prog)
         if self.eightbyeight.isChecked(): 
-            self.data = readTextFile(r'C:\Users\nmadh\Documents\KEYENCE\LJ-X Series Terminal-Software\USB\SD2\lj-x3d\result\SD1_001')
+            self.data = readTextFile(self.pathStart + r'Documents\KEYENCE\LJ-X Series Terminal-Software\USB\SD2\lj-x3d\result\SD1_001')
         if self.twelvebyeight.isChecked():
-            self.data = readTextFile(r'C:\Users\nmadh\Documents\KEYENCE\LJ-X Series Terminal-Software\USB\SD2\lj-x3d\result\SD1_001')
+            self.data = readTextFile(self.pathStart + r'Documents\KEYENCE\LJ-X Series Terminal-Software\USB\SD2\lj-x3d\result\SD1_001')
         
         for n in range(len(self.data)):
             for i in range(len(self.data[n])):
@@ -213,7 +232,7 @@ class X8060GUI(QMainWindow):
         
         while True:
             try:
-                dir_path = QFileDialog.getExistingDirectory(self, 'open a folder', r'C:\Users\nmadh\Frore Systems\RnD - Documents\Characterization\Keyence LJXMappingTool\data\X8060_gui_data')
+                dir_path = QFileDialog.getExistingDirectory(self, 'open a folder', self.pathStart + r'Frore Systems\RnD - Documents\Characterization\Keyence LJXMappingTool\data\X8060_gui_data')
                 break
             except PermissionError:
                 return None
@@ -276,7 +295,7 @@ class X8060GUI(QMainWindow):
         
         while True:
             try:
-                dir_path = QFileDialog.getExistingDirectory(self, 'open a folder', r'C:\Users\nmadh\Frore Systems\RnD - Documents\Characterization\Keyence LJXMappingTool\data\X8060_gui_data')
+                dir_path = QFileDialog.getExistingDirectory(self, 'open a folder', self.pathStart + r'Frore Systems\RnD - Documents\Characterization\Keyence LJXMappingTool\data\X8060_gui_data')
                 break
             except PermissionError:
                 return None
@@ -336,7 +355,7 @@ class X8060GUI(QMainWindow):
         
         while True:
             try:
-                dir_path = QFileDialog.getExistingDirectory(self, 'open a folder', r'C:\Users\nmadh\Frore Systems\RnD - Documents\Characterization\Keyence LJXMappingTool\data\X8060_gui_data')
+                dir_path = QFileDialog.getExistingDirectory(self, 'open a folder', self.pathStart + r'Frore Systems\RnD - Documents\Characterization\Keyence LJXMappingTool\data\X8060_gui_data')
                 break
             except PermissionError:
                 return None
