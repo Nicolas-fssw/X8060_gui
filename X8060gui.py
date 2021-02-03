@@ -163,11 +163,7 @@ class X8060GUI(QMainWindow):
             prog = b'004'
             path = self.pathStart + r'Documents\KEYENCE\LJ-X Series Terminal-Software\USB\SD2\lj-x3d\result\SD1_004'
             
-        if self.flow_plate_2.isChecked():
-            flowplate = True
-            
-        if self.no_flow_plate_2.isChecked():
-            flowplate = False    
+        flowplate = False    
             
         
         self.state_2.setText('Not Saved')  
@@ -204,23 +200,38 @@ class X8060GUI(QMainWindow):
                 self.tableWidget_2.setItem(n+1, i+1, QTableWidgetItem('%.3f' % self.summary[n][i]))
                 
     def measure_3_click(self):
+        
         if self.eightbyeight_3.isChecked(): 
             prog = b'001'
+            path = self.pathStart + r'Documents\KEYENCE\LJ-X Series Terminal-Software\USB\SD2\lj-x3d\result\SD1_001'
+                
         if self.twelvebyeight_3.isChecked():
             prog = b'001'
+            path = self.pathStart + r'Documents\KEYENCE\LJ-X Series Terminal-Software\USB\SD2\lj-x3d\result\SD1_001'
+            
+        flowplate = False    
+        
         self.state_3.setText('Not Saved')  
         self.state_3.setStyleSheet("background-color: yellow;  border: 1px solid black;")  #save indicator
         
         self.inputList = [self.sample_id.text(), self.comments.text()] 
-        X8060_XYZ_path(prog)
-        if self.eightbyeight.isChecked(): 
-            self.data = readTextFile(self.pathStart + r'Documents\KEYENCE\LJ-X Series Terminal-Software\USB\SD2\lj-x3d\result\SD1_001')
-        if self.twelvebyeight.isChecked():
-            self.data = readTextFile(self.pathStart + r'Documents\KEYENCE\LJ-X Series Terminal-Software\USB\SD2\lj-x3d\result\SD1_001')
+        X8060_XYZ_path(prog,flowplate)
+        expected = []
         
-        for n in range(len(self.data)):
-            for i in range(len(self.data[n])):
-                self.tableWidget_3.setItem(i+1, n+1, QTableWidgetItem('%.3f' % self.data[n][i]))
+        self.names = []
+        self.data = readTextFile(path,expected,self.names)
+        
+        self.summary = []
+        for i in range(0,len(self.data),6):
+            self.summary.append([np.median(self.data[i]), np.median(self.data[i+1]), np.median(self.data[i+2]), np.median(self.data[i+3]), np.median(self.data[i+4]), np.median(self.data[i+5])])
+        
+        for n in range(len(self.summary)):
+            for i in range(len(self.summary[n])):
+                self.tableWidget_2.setItem(n+1, i+1, QTableWidgetItem('0'))
+        
+        for n in range(len(self.summary)):
+            for i in range(len(self.summary[n])):
+                self.tableWidget_2.setItem(n+1, i+1, QTableWidgetItem('%.3f' % self.summary[n][i]))
 
         
     def export_1_click(self):
