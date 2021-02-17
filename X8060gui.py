@@ -94,8 +94,9 @@ class X8060GUI(QMainWindow):
                 
         if self.onebyfour_1.isChecked(): 
             prog = b'012'
+            frame = 0
             path = self.pathStart + r'Documents\KEYENCE\LJ-X Series Terminal-Software\USB\SD2\lj-x3d\result\SD1_012'
-            expected = ['4LBCH','4LF2A','3RBCH','3RF2A','2LBCH','2LF2A','1RBCH','1RF2A']
+            expected = ['4LBCH','4LF2A','4RBCH','4RF2A','3LBCH','3LF2A','3RBCH','3RF2A','2LBCH','2LF2A','2RBCH','2RF2A','1LBCH','1LF2A','1RBCH','1RF2A']
             self.names = ['1LBCH','1LF2A','1RBCH','1RF2A','2LBCH','2LF2A','2RBCH','2RF2A','3LBCH','3LF2A','3RBCH','3RF2A','4LBCH','4LF2A','4RBCH','4RF2A']
 
                     
