@@ -87,8 +87,8 @@ class X8060GUI(QMainWindow):
         
         if self.eightbyeight_1.isChecked(): 
             if self.frame_1.isChecked():
-                prog = b'008'
-                path = self.pathStart + r'Documents\KEYENCE\LJ-X Series Terminal-Software\USB\SD2\lj-x3d\result\SD1_008'
+                prog = b'012'
+                path = self.pathStart + r'Documents\KEYENCE\LJ-X Series Terminal-Software\USB\SD2\lj-x3d\result\SD1_012'
                     
         if self.twelvebyeight_1.isChecked():
             if self.frame_1.isChecked():

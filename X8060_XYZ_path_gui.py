@@ -16,8 +16,8 @@ def X8060_XYZ_path(programNumber, flowplate):
         pathDict = {
             b'000' : [31000,24360,26730,31000,50760,26730,41590,24360,26730,41590,50760,26730], #(8X8) BCH No-Frame
             b'002' : [31000,18360,26730,31000,56760,26730,41590,18360,26730,41590,56760,26730], #(12X8) BCH No-Frame
-            b'010' : [31000,18360,26730,31000,56760,26730,41590,18360,26730,41590,56760,26730],
-            b'011' : [31000,18360,26730,31000,56760,26730,41590,18360,26730,41590,56760,26730],
+            b'010' : [31000,18360,29730,31000,56760,29730,41590,18360,29730,41590,56760,29730],
+            b'011' : [31000,18360,29730,31000,56760,29730,41590,18360,29730,41590,56760,29730],
             b'006' : [31000,18360,26730,31000,56760,26730,41590,18360,26730,41590,56760,26730], 
             
             b'003' : [31000,24360,26730,31000,50760,26730,41590,24360,26730,41590,50760,26730], #(8X8) Actuator
@@ -40,7 +40,10 @@ def X8060_XYZ_path(programNumber, flowplate):
             b'004' : [31000,18360,35730,31000,56760,35730,41590,18360,35730,41590,56760,35730], 
             b'005' : [31000,24360,35730,31000,50760,35730,41590,24360,35730,41590,50760,35730], 
             
-            b'001' : [31000,18360,35730,31000,56760,35730,41590,18360,35730,41590,56760,35730]  
+            b'001' : [31000,18360,35730,31000,56760,35730,41590,18360,35730,41590,56760,35730],
+            
+            b'012' : [7680, 13920, 29760, 7680, 38160, 29760, 18680, 13920, 29760, 18680, 38160, 29760, 29680, 13920, 29760, 29680, 38160, 29760, 40680, 13920, 29760, 40680, 38160, 29760]
+            
             }
     
 
@@ -82,32 +85,21 @@ def X8060_XYZ_path(programNumber, flowplate):
     
     acc = 20
     dcl = 20
-    vel = 20
     delay = 0.1
       
-    ######  
-    Move_XYZ(TTA,acc,dcl,vel,pathDict[programNumber][0],pathDict[programNumber][1],pathDict[programNumber][2],delay)
+    for i in range(0,len(pathDict[programNumber]),6):
+        
+        vel = 20
+        ######  
+        Move_XYZ(TTA,acc,dcl,vel,pathDict[programNumber][i],pathDict[programNumber][i+1],pathDict[programNumber][i+2],delay)
     
-    vel = 5
-    LJX8060.write(b'T1\r') #Switch to communication mode 
-    response = LJX8060.read(12)
-    print(response)
+        vel = 5
+        LJX8060.write(b'T1\r') #Switch to communication mode 
+        response = LJX8060.read(12)
+        print(response)
     
-    Move_XYZ(TTA,acc,dcl,vel,pathDict[programNumber][3],pathDict[programNumber][4],pathDict[programNumber][5],delay)
-    
-    vel = 20
-    #####
-    
-    Move_XYZ(TTA,acc,dcl,vel,pathDict[programNumber][6],pathDict[programNumber][7],pathDict[programNumber][8],delay)
-    
-    vel = 5
-    LJX8060.write(b'T1\r') #Switch to communication mode 
-    response = LJX8060.read(12)
-    print(response)
-    
-    Move_XYZ(TTA,acc,dcl,vel,pathDict[programNumber][9],pathDict[programNumber][10],pathDict[programNumber][11],delay)
-    
-    ######
+        Move_XYZ(TTA,acc,dcl,vel,pathDict[programNumber][i+3],pathDict[programNumber][i+4],pathDict[programNumber][i+5],delay)
+
     
     Home(TTA)
     
