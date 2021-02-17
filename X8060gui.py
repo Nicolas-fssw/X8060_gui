@@ -87,8 +87,17 @@ class X8060GUI(QMainWindow):
         
         if self.eightbyeight_1.isChecked(): 
             if self.frame_1.isChecked():
-                prog = b'012'
-                path = self.pathStart + r'Documents\KEYENCE\LJ-X Series Terminal-Software\USB\SD2\lj-x3d\result\SD1_012'
+                prog = b'008'
+                path = self.pathStart + r'Documents\KEYENCE\LJ-X Series Terminal-Software\USB\SD2\lj-x3d\result\SD1_008'
+            expected = ['2LBCH','2LF2A','2RBCH','2RF2A','4LBCH','4LF2A','4RBCH','4RF2A','1LBCH','1LF2A','1RBCH','1RF2A','3LBCH','3LF2A','3RBCH','3RF2A']
+            self.names = ['1LBCH','1LF2A','1RBCH','1RF2A','2LBCH','2LF2A','2RBCH','2RF2A','3LBCH','3LF2A','3RBCH','3RF2A','4LBCH','4LF2A','4RBCH','4RF2A']
+                
+        if self.onebyfour_1.isChecked(): 
+            prog = b'012'
+            path = self.pathStart + r'Documents\KEYENCE\LJ-X Series Terminal-Software\USB\SD2\lj-x3d\result\SD1_012'
+            expected = ['4LBCH','4LF2A','3RBCH','3RF2A','2LBCH','2LF2A','1RBCH','1RF2A']
+            self.names = ['1LBCH','1LF2A','1RBCH','1RF2A','2LBCH','2LF2A','2RBCH','2RF2A','3LBCH','3LF2A','3RBCH','3RF2A','4LBCH','4LF2A','4RBCH','4RF2A']
+
                     
         if self.twelvebyeight_1.isChecked():
             if self.frame_1.isChecked():
@@ -100,6 +109,9 @@ class X8060GUI(QMainWindow):
                 prog = b'010'
                 path = self.pathStart + r'Documents\KEYENCE\LJ-X Series Terminal-Software\USB\SD2\lj-x3d\result\SD1_010'
                 
+            expected = ['2LBCH','2LF2A','2RBCH','2RF2A','4LBCH','4LF2A','4RBCH','4RF2A','1LBCH','1LF2A','1RBCH','1RF2A','3LBCH','3LF2A','3RBCH','3RF2A']
+            self.names = ['1LBCH','1LF2A','1RBCH','1RF2A','2LBCH','2LF2A','2RBCH','2RF2A','3LBCH','3LF2A','3RBCH','3RF2A','4LBCH','4LF2A','4RBCH','4RF2A']
+
         if self.flow_plate_1.isChecked():
             flowplate = True
             
@@ -113,8 +125,6 @@ class X8060GUI(QMainWindow):
         
         self.inputList = [self.sample_id.text(), self.comments.text(), actuator, frame] 
         X8060_XYZ_path(prog,flowplate)
-        expected = ['2LBCH','2LF2A','2RBCH','2RF2A','4LBCH','4LF2A','4RBCH','4RF2A','1LBCH','1LF2A','1RBCH','1RF2A','3LBCH','3LF2A','3RBCH','3RF2A']
-        self.names = ['1LBCH','1LF2A','1RBCH','1RF2A','2LBCH','2LF2A','2RBCH','2RF2A','3LBCH','3LF2A','3RBCH','3RF2A','4LBCH','4LF2A','4RBCH','4RF2A']
         self.data = readTextFile(path,expected,self.names)
         
         self.summary = []
