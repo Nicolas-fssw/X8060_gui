@@ -193,17 +193,18 @@ class X8060GUI(QMainWindow):
                           '4LHCD', '4LHCW', '4LC2A', '4ANC', '4LD', '4LT','4RHCD', '4RHCW', '4RC2A', '4ANC', '4RD', '4RT']
             
         if self.onebyfour_2.isChecked():
-            prog = b'013'
-            path = self.pathStart + r'Documents\KEYENCE\LJ-X Series Terminal-Software\USB\SD2\lj-x3d\result\SD1_013'
+            prog = b'014'
+            path = self.pathStart + r'Documents\KEYENCE\LJ-X Series Terminal-Software\USB\SD2\lj-x3d\result\SD1_014'
             
-            # expected = ['1LHCD', '1LHCW','3LHCD', '3LHCW', '1RHCD', '1RHCW','3RHCD', '3RHCW', '1LC2A','3LC2A','1RC2A','3RC2A','1ANC','3ANC','1LD','3LD','1RD','3RD',
-            #         '1LT','3LT','1RT','3RT','2LHCD', '2LHCW','4LHCD', '4LHCW', '2RHCD', '2RHCW','4RHCD', '4RHCW', '2LC2A','4LC2A','2RC2A','4RC2A','2ANC','4ANC','2LD','4LD','2RD','4RD',
-            #         '2LT','4LT','2RT','4RT']
+            expected = ['1LD', '1RD', '1LHCW', '1RHCW', '1LHCD', '1RHCD', '1LC2A', '1RC2A', '1ANC', '1LT', '1RT',
+                        '2LD', '2RD', '2LHCW', '2RHCW', '2LHCD', '2RHCD', '2LC2A', '2RC2A', '2ANC', '2LT', '2RT',
+                        '3LD', '3RD', '3LHCW', '3RHCW', '3LHCD', '3RHCD', '3LC2A', '3RC2A', '3ANC', '3LT', '3RT',
+                        '4LD', '4RD', '4LHCW', '4RHCW', '4LHCD', '4RHCD', '4LC2A', '4RC2A', '4ANC', '4LT', '4RT',]
         
-            # self.names = ['1LHCD', '1LHCW', '1LC2A', '1ANC', '1LD', '1LT','1RHCD', '1RHCW', '1RC2A', '1ANC', '1RD', '1RT',
-            #               '2LHCD', '2LHCW', '2LC2A', '2ANC', '2LD', '2LT','2RHCD', '2RHCW', '2RC2A', '2ANC', '2RD', '2RT',
-            #               '3LHCD', '3LHCW', '3LC2A', '3ANC', '3LD', '3LT','3RHCD', '3RHCW', '3RC2A', '3ANC', '3RD', '3RT',
-            #               '4LHCD', '4LHCW', '4LC2A', '4ANC', '4LD', '4LT','4RHCD', '4RHCW', '4RC2A', '4ANC', '4RD', '4RT']
+            self.names = ['1LHCD', '1LHCW', '1LC2A', '1ANC', '1LD', '1LT','1RHCD', '1RHCW', '1RC2A', '1ANC', '1RD', '1RT',
+                          '2LHCD', '2LHCW', '2LC2A', '2ANC', '2LD', '2LT','2RHCD', '2RHCW', '2RC2A', '2ANC', '2RD', '2RT',
+                          '3LHCD', '3LHCW', '3LC2A', '3ANC', '3LD', '3LT','3RHCD', '3RHCW', '3RC2A', '3ANC', '3RD', '3RT',
+                          '4LHCD', '4LHCW', '4LC2A', '4ANC', '4LD', '4LT','4RHCD', '4RHCW', '4RC2A', '4ANC', '4RD', '4RT']
             
         flowplate = False    
             
