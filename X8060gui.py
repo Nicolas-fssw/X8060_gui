@@ -152,8 +152,14 @@ class X8060GUI(QMainWindow):
                 self.plot_1.plot([i/2], [BCH], symbol = 'o')
                 average_list[0].append(BCH)
                 average_list[1].append(droop)
+                if len(self.data[i]) < 20 or len(self.data[i+1]) < 20:
+                    self.state_1.setText('Potentially Bad Measurement')  
+                    self.state_1.setStyleSheet("background-color: red;  border: 1px solid black;")
+                    
             else:
                 self.summary.append([999,999])
+                self.state_1.setText('Failed Measurement')  
+                self.state_1.setStyleSheet("background-color: red;  border: 1px solid black;")
         
         print(self.summary)
         self.summary.append([np.average(average_list[0]), np.average(average_list[1])])
