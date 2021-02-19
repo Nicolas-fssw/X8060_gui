@@ -119,8 +119,7 @@ class X8060GUI(QMainWindow):
         if self.no_frame_1.isChecked():
             frame_thickness = 0
     
-        
-        progam_number = b'012'
+    
         save_path = self.pathStart + r'Documents\KEYENCE\LJ-X Series Terminal-Software\USB\SD2\lj-x3d\result\SD1_012'
         expected_output = ['4LBCH','4LF2A','4RBCH','4RF2A','3LBCH','3LF2A','3RBCH','3RF2A','2LBCH','2LF2A','2RBCH','2RF2A','1LBCH','1LF2A','1RBCH','1RF2A']
         self.names = ['1LBCH','1LF2A','1RBCH','1RF2A','2LBCH','2LF2A','2RBCH','2RF2A','3LBCH','3LF2A','3RBCH','3RF2A','4LBCH','4LF2A','4RBCH','4RF2A']
@@ -132,10 +131,12 @@ class X8060GUI(QMainWindow):
         if self.onebyfour_1.isChecked(): 
             laser_path = '1by4 Bottom Stack'
             self.type = '1by4_'
+            progam_number = b'012'
                     
         if self.eightbytwelve_1.isChecked():
             laser_path = '8by12 Bottom Stack'
             self.type = '8by12_'
+            progam_number = b'013'
                 
         if self.flow_plate_1.isChecked():
             flowplate = True
