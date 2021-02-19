@@ -10,7 +10,7 @@ import time
 import serial
 import pyvisa as visa
 
-def X8060_XYZ_path(programNumber, flowplate):
+def X8060_XYZ_path(programNumber, laserpath, flowplate):
     
     if(flowplate == True):
         pathDict = {
@@ -88,18 +88,18 @@ def X8060_XYZ_path(programNumber, flowplate):
     dcl = 20
     delay = 0.1
       
-    for i in range(0,len(pathDict[programNumber]),6):
+    for i in range(0,len(pathDict[laserpath]),6):
         
         vel = 20
         ######  
-        Move_XYZ(TTA,acc,dcl,vel,pathDict[programNumber][i],pathDict[programNumber][i+1],pathDict[programNumber][i+2],delay)
+        Move_XYZ(TTA,acc,dcl,vel,pathDict[laserpath][i],pathDict[laserpath][i+1],pathDict[laserpath][i+2],delay)
     
         vel = 5
         LJX8060.write(b'T1\r') #Switch to communication mode 
         response = LJX8060.read(12)
         print(response)
     
-        Move_XYZ(TTA,acc,dcl,vel,pathDict[programNumber][i+3],pathDict[programNumber][i+4],pathDict[programNumber][i+5],delay)
+        Move_XYZ(TTA,acc,dcl,vel,pathDict[laserpath][i+3],pathDict[laserpath][i+4],pathDict[laserpath][i+5],delay)
 
     
     Home(TTA)

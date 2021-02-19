@@ -66,6 +66,7 @@ class X8060GUI(QMainWindow):
         self.summary = []
         self.inputList = []
         self.names = []
+        self.type = []
         
         self.initUI()
         self.show()
@@ -103,6 +104,8 @@ class X8060GUI(QMainWindow):
         self.DROOP_average_1.setText("n/a")
         
         self.plot_1.clear()
+        self.plot_1.plot([0,7], [25,25], pen=pg.mkPen('r', width=2))
+        self.plot_1.plot([0,7], [35,35], pen=pg.mkPen('g', width=2))
         
         actuator_thickness = float(self.actuator_input_1.text())/1000
         frame_thickness = float(self.frame_input_1.text())/1000
@@ -118,12 +121,15 @@ class X8060GUI(QMainWindow):
         
         if self.eightbyeight_1.isChecked(): 
             laser_path = '8by8 Bottom Stack'
+            self.type = '8by8_'
               
         if self.onebyfour_1.isChecked(): 
             laser_path = '1by4 Bottom Stack'
+            self.type = '1by4_'
                     
         if self.twelvebyeight_1.isChecked():
             laser_path = '12by8 Bottom Stack'
+            self.type = '12by8_'
                 
         if self.flow_plate_1.isChecked():
             flowplate = True
@@ -137,18 +143,20 @@ class X8060GUI(QMainWindow):
         
         self.summary = []
         average_list = [[],[]]
+        print(self.data)
         for i in range(0,len(self.data),2):
-            try:
+            if self.data[i][0] != "Fail":
                 BCH = (np.median(self.data[i]) - actuator_thickness) * 1000
                 droop = (np.median(self.data[i+1]) + frame_thickness) * 1000
                 self.summary.append([BCH, droop])
                 self.plot_1.plot([i/2], [BCH], symbol = 'o')
                 average_list[0].append(BCH)
                 average_list[1].append(droop)
-            except:
-                self.summary.append(["n/a","n/a"])
+            else:
+                self.summary.append([999,999])
         
-        self.summary.append(np.average(average_list[0]), np.average(average_list[1]))
+        print(self.summary)
+        self.summary.append([np.average(average_list[0]), np.average(average_list[1])])
         
         
         self.BCH_1.setText("%.2f" %self.summary[0][0])
@@ -287,7 +295,7 @@ class X8060GUI(QMainWindow):
         self.inputList[0] = self.sample_id.text()
         self.inputList[1] = self.comments.text()
         sides = ['1L', '1R', '2L', '2R', '3L', '3R', '4L', '4R']
-        file_name = '\BCH&Droop_' + self.inputList[0] + '.xlsx'
+        file_name = '\BCH&Droop_' + self.type + self.inputList[0] + '.xlsx'
         
         while True:
             try:
