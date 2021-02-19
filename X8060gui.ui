@@ -93,7 +93,7 @@
     <item row="1" column="0" colspan="6">
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>1</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="tab1">
        <attribute name="title">
@@ -170,7 +170,7 @@
            <item row="0" column="0">
             <layout class="QGridLayout" name="gridLayout_3">
              <item row="1" column="0">
-              <widget class="QRadioButton" name="twelvebyeight_1">
+              <widget class="QRadioButton" name="eightbytwelve_1">
                <property name="minimumSize">
                 <size>
                  <width>70</width>
@@ -178,7 +178,7 @@
                 </size>
                </property>
                <property name="text">
-                <string>12X8</string>
+                <string>8X12</string>
                </property>
                <property name="checked">
                 <bool>false</bool>

@@ -127,9 +127,9 @@ class X8060GUI(QMainWindow):
             laser_path = '1by4 Bottom Stack'
             self.type = '1by4_'
                     
-        if self.twelvebyeight_1.isChecked():
-            laser_path = '12by8 Bottom Stack'
-            self.type = '12by8_'
+        if self.eightbytwelve_1.isChecked():
+            laser_path = '8by12 Bottom Stack'
+            self.type = '8by12_'
                 
         if self.flow_plate_1.isChecked():
             flowplate = True
