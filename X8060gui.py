@@ -41,6 +41,10 @@ class X8060GUI(QMainWindow):
         self.state_3.setStyleSheet("background-color:lightblue;  border: 1px solid black;")  #save indicator
         self.state_3.setAlignment(QtCore.Qt.AlignCenter)
         
+        self.rating_1.setText('Nothing Measured')  
+        self.rating_1.setStyleSheet("background-color:lightblue;  border: 1px solid black;")  #save indicator
+        self.rating_1.setAlignment(QtCore.Qt.AlignCenter)
+        
         self.plot_1.setBackground('w')
         
 
@@ -83,6 +87,8 @@ class X8060GUI(QMainWindow):
         
         self.state_1.setText('Not Saved')  
         self.state_1.setStyleSheet("background-color: yellow;  border: 1px solid black;")
+        self.rating_1.setText('Nothing Measured')  
+        self.rating_1.setStyleSheet("background-color:lightblue;  border: 1px solid black;")  #save indicator
         
         self.BCH_1.setText("n/a")
         self.DROOP_1.setText("n/a")
@@ -184,7 +190,17 @@ class X8060GUI(QMainWindow):
         self.BCH_average_1.setText("%.2f" %self.summary[8][0])
         self.DROOP_average_1.setText("%.2f" %self.summary[8][1])
         
-
+        try:
+            grade = [value > 25 for sublist in self.summmary[:8] for value in sublist]
+            if all(grade) == True:
+                self.rating_1.setText('Pass - BCH above 25 microns')  
+                self.rating_1.setStyleSheet("background-color:green;  border: 1px solid black;")  
+                
+        except:
+            self.rating_1.setText('Fail - BCH too low')  
+            self.rating_1.setStyleSheet("background-color:red;  border: 1px solid black;")   
+        
+        
     def measure_2_click(self):
         
         if self.eightbyeight_2.isChecked(): 
