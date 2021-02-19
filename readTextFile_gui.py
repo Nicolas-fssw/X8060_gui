@@ -15,10 +15,12 @@ def readTextFile(path,expectedOrder,requiredOrder):
     data = raw.split(',')
     data.pop(-1)
     data = [float(i) for i in data]
-        
+    
+    
     temp = []
     for i in range(0,len(data),101):
         if data[i] == 0:
+            dataList.append("Fail")
             continue
         if data[i] != 0:
             for n in range(i+1, i + int(data[i]) + 1):
@@ -27,7 +29,6 @@ def readTextFile(path,expectedOrder,requiredOrder):
             temp = []
     
     temp = []
-    print(len(expectedOrder), len(dataList), len(requiredOrder))
     for i in requiredOrder:
         for n in expectedOrder:
             if i == n:

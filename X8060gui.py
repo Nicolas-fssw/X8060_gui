@@ -80,64 +80,76 @@ class X8060GUI(QMainWindow):
         
     def measure_1_click(self):
         
-        actuator = float(self.actuator_input_1.text())/1000
-        frame = float(self.frame_input_1.text())/1000
+        self.state_1.setText('Not Saved')  
+        self.state_1.setStyleSheet("background-color: yellow;  border: 1px solid black;")
+        
+        self.BCH_1.setText("n/a")
+        self.DROOP_1.setText("n/a")
+        self.BCH_2.setText("n/a")
+        self.DROOP_2.setText("n/a")
+        self.BCH_3.setText("n/a")
+        self.DROOP_3.setText("n/a")
+        self.BCH_4.setText("n/a")
+        self.DROOP_4.setText("n/a")
+        self.BCH_5.setText("n/a")
+        self.DROOP_5.setText("n/a")
+        self.BCH_6.setText("n/a")
+        self.DROOP_6.setText("n/a")
+        self.BCH_7.setText("n/a")
+        self.DROOP_7.setText("n/a")
+        self.BCH_8.setText("n/a")
+        self.DROOP_8.setText("n/a")
+        self.BCH_average_1.setText("n/a")
+        self.DROOP_average_1.setText("n/a")
         
         self.plot_1.clear()
         
+        actuator_thickness = float(self.actuator_input_1.text())/1000
+        frame_thickness = float(self.frame_input_1.text())/1000
+        
+        if self.no_frame_1.isChecked():
+            frame_thickness = 0
+    
+        
+        progam_number = b'012'
+        save_path = self.pathStart + r'Documents\KEYENCE\LJ-X Series Terminal-Software\USB\SD2\lj-x3d\result\SD1_012'
+        expected_output = ['4LBCH','4LF2A','4RBCH','4RF2A','3LBCH','3LF2A','3RBCH','3RF2A','2LBCH','2LF2A','2RBCH','2RF2A','1LBCH','1LF2A','1RBCH','1RF2A']
+        self.names = ['1LBCH','1LF2A','1RBCH','1RF2A','2LBCH','2LF2A','2RBCH','2RF2A','3LBCH','3LF2A','3RBCH','3RF2A','4LBCH','4LF2A','4RBCH','4RF2A']
+        
         if self.eightbyeight_1.isChecked(): 
-            if self.frame_1.isChecked():
-                prog = b'008'
-                path = self.pathStart + r'Documents\KEYENCE\LJ-X Series Terminal-Software\USB\SD2\lj-x3d\result\SD1_008'
-            expected = ['2LBCH','2LF2A','2RBCH','2RF2A','4LBCH','4LF2A','4RBCH','4RF2A','1LBCH','1LF2A','1RBCH','1RF2A','3LBCH','3LF2A','3RBCH','3RF2A']
-            self.names = ['1LBCH','1LF2A','1RBCH','1RF2A','2LBCH','2LF2A','2RBCH','2RF2A','3LBCH','3LF2A','3RBCH','3RF2A','4LBCH','4LF2A','4RBCH','4RF2A']
-                
+            laser_path = '8by8 Bottom Stack'
+              
         if self.onebyfour_1.isChecked(): 
-            prog = b'012'
-            frame = 0
-            path = self.pathStart + r'Documents\KEYENCE\LJ-X Series Terminal-Software\USB\SD2\lj-x3d\result\SD1_012'
-            expected = ['4LBCH','4LF2A','4RBCH','4RF2A','3LBCH','3LF2A','3RBCH','3RF2A','2LBCH','2LF2A','2RBCH','2RF2A','1LBCH','1LF2A','1RBCH','1RF2A']
-            self.names = ['1LBCH','1LF2A','1RBCH','1RF2A','2LBCH','2LF2A','2RBCH','2RF2A','3LBCH','3LF2A','3RBCH','3RF2A','4LBCH','4LF2A','4RBCH','4RF2A']
-
+            laser_path = '1by4 Bottom Stack'
                     
         if self.twelvebyeight_1.isChecked():
-            if self.frame_1.isChecked():
-                prog = b'011'
-                path = self.pathStart + r'Documents\KEYENCE\LJ-X Series Terminal-Software\USB\SD2\lj-x3d\result\SD1_011'
+            laser_path = '12by8 Bottom Stack'
                 
-            if self.no_frame_1.isChecked():
-                frame = 0
-                prog = b'010'
-                path = self.pathStart + r'Documents\KEYENCE\LJ-X Series Terminal-Software\USB\SD2\lj-x3d\result\SD1_010'
-                
-            expected = ['2LBCH','2LF2A','2RBCH','2RF2A','4LBCH','4LF2A','4RBCH','4RF2A','1LBCH','1LF2A','1RBCH','1RF2A','3LBCH','3LF2A','3RBCH','3RF2A']
-            self.names = ['1LBCH','1LF2A','1RBCH','1RF2A','2LBCH','2LF2A','2RBCH','2RF2A','3LBCH','3LF2A','3RBCH','3RF2A','4LBCH','4LF2A','4RBCH','4RF2A']
-
         if self.flow_plate_1.isChecked():
             flowplate = True
-            
-        if self.no_flow_plate_1.isChecked():
+        else:
             flowplate = False
-                    
-                                     
-        self.state_1.setText('Not Saved')  
-        self.state_1.setStyleSheet("background-color: yellow;  border: 1px solid black;")  #save indicator
+            
         
-        
-        self.inputList = [self.sample_id.text(), self.comments.text(), actuator, frame] 
-        X8060_XYZ_path(prog,flowplate)
-        self.data = readTextFile(path,expected,self.names)
+        self.inputList = [self.sample_id.text(), self.comments.text(), actuator_thickness, frame_thickness] 
+        X8060_XYZ_path(progam_number,laser_path,flowplate)
+        self.data = readTextFile(save_path,expected_output,self.names)
         
         self.summary = []
+        average_list = [[],[]]
         for i in range(0,len(self.data),2):
-            self.summary.append([(np.median(self.data[i]) - actuator) * 1000, (np.median(self.data[i+1]) + frame) * 1000])
-            
-        self.summary.append([np.average([self.summary[index][0], self.summary[index+1][0]]) for index in range(0,len(self.summary),2)])
+            try:
+                BCH = (np.median(self.data[i]) - actuator_thickness) * 1000
+                droop = (np.median(self.data[i+1]) + frame_thickness) * 1000
+                self.summary.append([BCH, droop])
+                self.plot_1.plot([i/2], [BCH], symbol = 'o')
+                average_list[0].append(BCH)
+                average_list[1].append(droop)
+            except:
+                self.summary.append(["n/a","n/a"])
         
-        self.plot_1.plot(range(len(self.summary[-1])), self.summary[-1]) 
-          
-        print(self.summary)
-        self.summary.append([np.average([item[0] for item in self.summary[0:7]]), np.average([item[1] for item in self.summary[0:7]])])
+        self.summary.append(np.average(average_list[0]), np.average(average_list[1]))
+        
         
         self.BCH_1.setText("%.2f" %self.summary[0][0])
         self.DROOP_1.setText("%.2f" %self.summary[0][1])
@@ -155,8 +167,8 @@ class X8060GUI(QMainWindow):
         self.DROOP_7.setText("%.2f" %self.summary[6][1])
         self.BCH_8.setText("%.2f" %self.summary[7][0])
         self.DROOP_8.setText("%.2f" %self.summary[7][1])
-        self.BCH_average_1.setText("%.2f" %self.summary[9][0])
-        self.DROOP_average_1.setText("%.2f" %self.summary[9][1])
+        self.BCH_average_1.setText("%.2f" %self.summary[8][0])
+        self.DROOP_average_1.setText("%.2f" %self.summary[8][1])
         
 
     def measure_2_click(self):
