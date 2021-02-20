@@ -41,17 +41,21 @@ class X8060GUI(QMainWindow):
         self.state_3.setStyleSheet("background-color:lightblue;  border: 1px solid black;")  #save indicator
         self.state_3.setAlignment(QtCore.Qt.AlignCenter)
         
-        self.rating_1.setText('Nothing Measured')  
-        self.rating_1.setStyleSheet("background-color:lightblue;  border: 1px solid black;")  #save indicator
-        self.rating_1.setAlignment(QtCore.Qt.AlignCenter)
+        self.goodmeasure_1.setText('Nothing Measured')  
+        self.goodmeasure_1.setStyleSheet("background-color:lightblue;  border: 1px solid black;")  #save indicator
+        self.goodmeasure_1.setAlignment(QtCore.Qt.AlignCenter)
         
-        self.rating_1_2.setText('Nothing Measured')  
-        self.rating_1_2.setStyleSheet("background-color:lightblue;  border: 1px solid black;")  #save indicator
-        self.rating_1_2.setAlignment(QtCore.Qt.AlignCenter)
+        self.grading_1.setText('Nothing Measured')  
+        self.grading_1.setStyleSheet("background-color:lightblue;  border: 1px solid black;")  #save indicator
+        self.grading_1.setAlignment(QtCore.Qt.AlignCenter)
         
-        self.rating_2_2.setText('Nothing Measured')  
-        self.rating_2_2.setStyleSheet("background-color:lightblue;  border: 1px solid black;")  #save indicator
-        self.rating_2_2.setAlignment(QtCore.Qt.AlignCenter)
+        self.goodmeasure_2.setText('Nothing Measured')  
+        self.goodmeasure_2.setStyleSheet("background-color:lightblue;  border: 1px solid black;")  #save indicator
+        self.goodmeasure_2.setAlignment(QtCore.Qt.AlignCenter)
+        
+        self.grading_2.setText('Nothing Measured')  
+        self.grading_2.setStyleSheet("background-color:lightblue;  border: 1px solid black;")  #save indicator
+        self.grading_2.setAlignment(QtCore.Qt.AlignCenter)
         
         self.plot_1.setBackground('w')
            
@@ -165,26 +169,22 @@ class X8060GUI(QMainWindow):
                 self.plot_1.plot([i/2], [BCH], symbol = 'o')
             else:
                 BCH = 999
-                self.state_1.setText('Failed Measurement')  
-                self.state_1.setStyleSheet("background-color: red;  border: 1px solid black;")
+                self.goodmeasure_1.setText('Failed Measurement')  
+                self.goodmeasure_1.setStyleSheet("background-color: red;  border: 1px solid black;")
             if self.data[i+1][0] != "Fail":
                 droop = (np.median(self.data[i+1]) + frame_thickness) * 1000
                 average_list[1].append(droop)
             else:
                 droop = 999
-                self.state_1.setText('Failed Measurement')  
-                self.state_1.setStyleSheet("background-color: red;  border: 1px solid black;")
+                self.goodmeasure_1.setText('Failed Measurement')  
+                self.goodmeasure_1.setStyleSheet("background-color: red;  border: 1px solid black;")
                 
             self.summary.append([BCH, droop])
             
             if len(self.data[i]) < 20 or len(self.data[i+1]) < 20:
-                self.state_1.setText('Potentially Bad Measurement')  
-                self.state_1.setStyleSheet("background-color: red;  border: 1px solid black;")
-                    
-            else:
-                self.summary.append([999,999])
-                self.state_1.setText('Failed Measurement')  
-                self.state_1.setStyleSheet("background-color: red;  border: 1px solid black;")
+                self.goodmeasure_1.setText('Potentially Bad Measurement')  
+                self.goodmeasure_1.setStyleSheet("background-color: red;  border: 1px solid black;")
+
         
         self.summary.append([np.average(average_list[0]), np.average(average_list[1])])
         
@@ -211,12 +211,12 @@ class X8060GUI(QMainWindow):
         try:
             grade = [value > 25 for sublist in self.summmary[:8] for value in sublist]
             if all(grade) == True:
-                self.rating_1.setText('Pass - BCH above 25 microns')  
-                self.rating_1.setStyleSheet("background-color:green;  border: 1px solid black;")  
+                self.grading_1.setText('Pass - BCH above 25 microns')  
+                self.grading_1.setStyleSheet("background-color:green;  border: 1px solid black;")  
                 
         except:
-            self.rating_1.setText('Fail - BCH too low')  
-            self.rating_1.setStyleSheet("background-color:red;  border: 1px solid black;")   
+            self.grading_1.setText('Fail - BCH too low')  
+            self.grading_1.setStyleSheet("background-color:red;  border: 1px solid black;")   
         
         
     def measure_2_click(self):
@@ -269,44 +269,44 @@ class X8060GUI(QMainWindow):
                 temp.append(np.median(self.data[i]))
             else:
                  temp.append(999)
-                 self.state_2.setText('Failed Measurement')  
-                 self.state_2.setStyleSheet("background-color: red;  border: 1px solid black;")
+                 self.goodmeasure_2.setText('Failed Measurement')  
+                 self.goodmeasure_2.setStyleSheet("background-color: red;  border: 1px solid black;")
             if self.data[i+1][0] != "Fail":
                 temp.append(np.median(self.data[i+1]))
             else:
                  temp.append(999)
-                 self.state_2.setText('Failed Measurement')  
-                 self.state_2.setStyleSheet("background-color: red;  border: 1px solid black;")
+                 self.goodmeasure_2.setText('Failed Measurement')  
+                 self.goodmeasure_2.setStyleSheet("background-color: red;  border: 1px solid black;")
             if self.data[i+2][0] != "Fail":
                 temp.append(np.median(self.data[i+2]))
             else:
                  temp.append(999)
-                 self.state_2.setText('Failed Measurement')  
-                 self.state_2.setStyleSheet("background-color: red;  border: 1px solid black;")
+                 self.goodmeasure_2.setText('Failed Measurement')  
+                 self.goodmeasure_2.setStyleSheet("background-color: red;  border: 1px solid black;")
             if self.data[i+3][0] != "Fail":
                 temp.append(np.median(self.data[i+3]))
             else:
                  temp.append(999)
-                 self.state_2.setText('Failed Measurement')  
-                 self.state_2.setStyleSheet("background-color: red;  border: 1px solid black;")
+                 self.goodmeasure_2.setText('Failed Measurement')  
+                 self.goodmeasure_2.setStyleSheet("background-color: red;  border: 1px solid black;")
             if self.data[i+4][0] != "Fail":
                 temp.append(np.median(self.data[i+4]))
             else:
                  temp.append(999)
-                 self.state_2.setText('Failed Measurement')  
-                 self.state_2.setStyleSheet("background-color: red;  border: 1px solid black;")
+                 self.goodmeasure_2.setText('Failed Measurement')  
+                 self.goodmeasure_2.setStyleSheet("background-color: red;  border: 1px solid black;")
             if self.data[i+5][0] != "Fail":
                 temp.append(np.median(self.data[i+5]))
             else:
                  temp.append(999)
-                 self.state_2.setText('Failed Measurement')  
-                 self.state_2.setStyleSheet("background-color: red;  border: 1px solid black;")
+                 self.goodmeasure_2.setText('Failed Measurement')  
+                 self.goodmeasure_2.setStyleSheet("background-color: red;  border: 1px solid black;")
             if self.data[i+6][0] != "Fail":
                 temp.append(np.median(self.data[i+6]))
             else:
                  temp.append(999)
-                 self.state_2.setText('Failed Measurement')  
-                 self.state_2.setStyleSheet("background-color: red;  border: 1px solid black;")
+                 self.goodmeasure_2.setText('Failed Measurement')  
+                 self.goodmeasure_2.setStyleSheet("background-color: red;  border: 1px solid black;")
             
             self.summary.append(temp)
             temp = []
@@ -314,10 +314,40 @@ class X8060GUI(QMainWindow):
         for n in range(len(self.summary)):
             for i in range(len(self.summary[n])):
                 self.tableWidget_2.setItem(n+1, i+1, QTableWidgetItem('%.3f' % self.summary[n][i]))
-                if self.summary[n][i] == 999:
-                    self.rating_1_2.setText('Failed Measurement')  
-                    self.rating_1_2.setStyleSheet("background-color:red;  border: 1px solid black;") 
                 
+        C2A = [] 
+        grade = []
+        for i in [sublist[3] for sublist in self.summary]:
+            C2A.append(i)
+            
+        for n in range(0,len(C2A),2):
+            if C2A[n] == 999 or C2A[n+1] == 999:
+                continue
+            else:
+                grade.append(C2A[n])
+                grade.append(C2A[n+1])
+                
+        left = [value for value in grade[::2]]
+        right = [value for value in grade[1::2]]
+        difference = (sum(left) - sum(right))/len(left)
+            
+        if difference > 0.1:
+            self.grading_2.setText('Grade Fail')  
+            self.grading_2.setStyleSheet("background-color: red;  border: 1px solid black;")
+            
+        if difference <= 0.1 and difference > 0.05:
+            self.grading_2.setText('Grade C')  
+            self.grading_2.setStyleSheet("background-color: yellow;  border: 1px solid black;")
+            
+        if difference <= 0.05 and difference > 0.025:
+            self.grading_2.setText('Grade B')  
+            self.grading_2.setStyleSheet("background-color: green;  border: 1px solid black;")
+        
+        if difference <= 0.025:
+            self.grading_2.setText('Grade A')  
+            self.grading_2.setStyleSheet("background-color: green;  border: 1px solid black;")
+            
+
     def measure_3_click(self):
         
         if self.eightbyeight_3.isChecked(): 
