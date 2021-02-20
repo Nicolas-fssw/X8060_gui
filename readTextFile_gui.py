@@ -21,7 +21,6 @@ def readTextFile(path,expectedOrder,requiredOrder):
     for i in range(0,len(data),101):
         if data[i] == 0:
             dataList.append(["Fail"])
-            print('fail')
             continue
         if data[i] != 0:
             for n in range(i+1, i + int(data[i]) + 1):

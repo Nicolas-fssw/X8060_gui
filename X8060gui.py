@@ -98,6 +98,10 @@ class X8060GUI(QMainWindow):
         
         self.state_1.setText('Not Saved')  
         self.state_1.setStyleSheet("background-color: yellow;  border: 1px solid black;")
+        self.grading_1.setText('Nothing Measured')  
+        self.grading_1.setStyleSheet("background-color:lightblue;  border: 1px solid black;")
+        self.goodmeasure_1.setText('Good Measurement')  
+        self.goodmeasure_1.setStyleSheet("background-color: green;  border: 1px solid black;")
         
         self.BCH_1.setText("n/a")
         self.DROOP_1.setText("n/a")
@@ -161,7 +165,7 @@ class X8060GUI(QMainWindow):
         
         self.summary = []
         average_list = [[],[]]
-        print(self.data)
+
         for i in range(0,len(self.data),2):
             if self.data[i][0] != "Fail":
                 BCH = (np.median(self.data[i]) - actuator_thickness) * 1000
@@ -225,6 +229,11 @@ class X8060GUI(QMainWindow):
         
         self.state_2.setText('Not Saved')  
         self.state_2.setStyleSheet("background-color: yellow;  border: 1px solid black;")  #save indicator
+        self.grading_2.setText('Nothing Measured')  
+        self.grading_2.setStyleSheet("background-color:lightblue;  border: 1px solid black;")
+        self.goodmeasure_2.setText('Good Measurement')  
+        self.goodmeasure_2.setStyleSheet("background-color: green;  border: 1px solid black;")
+        
         
         for n in range(8):
             for i in range(7):
@@ -475,12 +484,13 @@ class X8060GUI(QMainWindow):
         inputValues.to_excel(writer, sheet_name='Data', index=False, startcol=0, startrow=0)
         
         summaryValues = pd.DataFrame({'side' : sides, 
-                                     self.inputList[0] + '_HCDepth' : [self.summary[i][0] for i in range(8)],
-                                     self.inputList[0] + '_HCWidth' : [self.summary[i][1] for i in range(8)],
-                                     self.inputList[0] + '_C2AWidth' : [self.summary[i][2] for i in range(8)],
-                                     self.inputList[0] + '_AWidth' : [self.summary[i][3] for i in range(8)],
-                                     self.inputList[0] + '_Droop' : [self.summary[i][4] for i in range(8)],
-                                     self.inputList[0] + '_T' : [self.summary[i][5] for i in range(8)],
+                                     self.inputList[0] + '_HWidth' : [self.summary[i][0]*1000 for i in range(8)],
+                                     self.inputList[0] + '_HCDepth' : [self.summary[i][1]*1000 for i in range(8)],
+                                     self.inputList[0] + '_HCWidth' : [self.summary[i][2] for i in range(8)],
+                                     self.inputList[0] + '_C2AWidth' : [self.summary[i][3] for i in range(8)],
+                                     self.inputList[0] + '_AWidth' : [self.summary[i][4] for i in range(8)],
+                                     self.inputList[0] + '_Droop' : [self.summary[i][5]*1000 for i in range(8)],
+                                     self.inputList[0] + '_T' : [self.summary[i][6]*1000 for i in range(8)],
                                      })
         
         summaryValues.to_excel(writer, sheet_name='Data', index=False, startcol=3, startrow=0)
@@ -490,12 +500,12 @@ class X8060GUI(QMainWindow):
             temp = [self.names[i]] * len(self.data[i])
             label.append(temp)
             
-        columnNames = ['HCDepth', 'HCWidth', 'C2AWidth', 'AWidth', 'Droop', 'T']
+        columnNames = ['HWidth', 'HCDepth', 'HCWidth', 'C2AWidth', 'AWidth', 'Droop', 'T']
             
-        for i in range(6):    
+        for i in range(7):    
             
-            flat_data = [j for sub in self.data[i::6] for j in sub]
-            flat_names = [j for sub in label[i::6] for j in sub]
+            flat_data = [j for sub in self.data[i::7] for j in sub]
+            flat_names = [j for sub in label[i::7] for j in sub]
         
             rawData = pd.DataFrame({columnNames[i] : flat_data, 
                           self.inputList[0] : flat_names})
