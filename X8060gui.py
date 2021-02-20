@@ -161,14 +161,25 @@ class X8060GUI(QMainWindow):
         for i in range(0,len(self.data),2):
             if self.data[i][0] != "Fail":
                 BCH = (np.median(self.data[i]) - actuator_thickness) * 1000
-                droop = (np.median(self.data[i+1]) + frame_thickness) * 1000
-                self.summary.append([BCH, droop])
-                self.plot_1.plot([i/2], [BCH], symbol = 'o')
                 average_list[0].append(BCH)
+                self.plot_1.plot([i/2], [BCH], symbol = 'o')
+            else:
+                BCH = 999
+                self.state_1.setText('Failed Measurement')  
+                self.state_1.setStyleSheet("background-color: red;  border: 1px solid black;")
+            if self.data[i+1][0] != "Fail":
+                droop = (np.median(self.data[i+1]) + frame_thickness) * 1000
                 average_list[1].append(droop)
-                if len(self.data[i]) < 20 or len(self.data[i+1]) < 20:
-                    self.state_1.setText('Potentially Bad Measurement')  
-                    self.state_1.setStyleSheet("background-color: red;  border: 1px solid black;")
+            else:
+                droop = 999
+                self.state_1.setText('Failed Measurement')  
+                self.state_1.setStyleSheet("background-color: red;  border: 1px solid black;")
+                
+            self.summary.append([BCH, droop])
+            
+            if len(self.data[i]) < 20 or len(self.data[i+1]) < 20:
+                self.state_1.setText('Potentially Bad Measurement')  
+                self.state_1.setStyleSheet("background-color: red;  border: 1px solid black;")
                     
             else:
                 self.summary.append([999,999])
@@ -217,7 +228,7 @@ class X8060GUI(QMainWindow):
         
         for n in range(8):
             for i in range(7):
-                self.tableWidget_2.setItem(n+1, i+1, QTableWidgetItem('n/a'))
+                self.tableWidget_2.setItem(n+1, i+1, QTableWidgetItem(999))
                 
                 
         expected_output = ['1LD', '1RD', '1LHW', '1RHW', '1LHCW', '1RHCW', '1LHCD', '1RHCD', '1LC2A', '1RC2A', '1ANC', '1LT', '1RT',
@@ -252,11 +263,53 @@ class X8060GUI(QMainWindow):
         self.data = readTextFile(save_path,expected_output,self.names)
         
         self.summary = []
+        temp = []
         for i in range(0,len(self.data),7):
-            self.summary.append([np.median(self.data[i]), np.median(self.data[i+1]), np.median(self.data[i+2]), np.median(self.data[i+3]), np.median(self.data[i+4]), np.median(self.data[i+5]), np.median(self.data[i+6])])
-        
-        print(len(self.summary), len(self.summary[n]))
-        
+            if self.data[i][0] != "Fail":
+                temp.append(np.median(self.data[i]))
+            else:
+                 temp.append(999)
+                 self.state_1_2.setText('Failed Measurement')  
+                 self.state_1_2.setStyleSheet("background-color: red;  border: 1px solid black;")
+            if self.data[i+1][0] != "Fail":
+                temp.append(np.median(self.data[i+1]))
+            else:
+                 temp.append(999)
+                 self.state_1_2.setText('Failed Measurement')  
+                 self.state_1_2.setStyleSheet("background-color: red;  border: 1px solid black;")
+            if self.data[i+2][0] != "Fail":
+                temp.append(np.median(self.data[i+2]))
+            else:
+                 temp.append(999)
+                 self.state_1_2.setText('Failed Measurement')  
+                 self.state_1_2.setStyleSheet("background-color: red;  border: 1px solid black;")
+            if self.data[i+3][0] != "Fail":
+                temp.append(np.median(self.data[i+3]))
+            else:
+                 temp.append(999)
+                 self.state_1_2.setText('Failed Measurement')  
+                 self.state_1_2.setStyleSheet("background-color: red;  border: 1px solid black;")
+            if self.data[i+4][0] != "Fail":
+                temp.append(np.median(self.data[i+4]))
+            else:
+                 temp.append(999)
+                 self.state_1_2.setText('Failed Measurement')  
+                 self.state_1_2.setStyleSheet("background-color: red;  border: 1px solid black;")
+            if self.data[i+5][0] != "Fail":
+                temp.append(np.median(self.data[i+5]))
+            else:
+                 temp.append(999)
+                 self.state_1_2.setText('Failed Measurement')  
+                 self.state_1_2.setStyleSheet("background-color: red;  border: 1px solid black;")
+            if self.data[i+6][0] != "Fail":
+                temp.append(np.median(self.data[i+6]))
+            else:
+                 temp.append(999)
+                 self.state_1_2.setText('Failed Measurement')  
+                 self.state_1_2.setStyleSheet("background-color: red;  border: 1px solid black;")
+            
+            self.summary.append(temp)
+            
         for n in range(len(self.summary)):
             for i in range(len(self.summary[n])):
                 self.tableWidget_2.setItem(n+1, i+1, QTableWidgetItem('%.3f' % self.summary[n][i]))
