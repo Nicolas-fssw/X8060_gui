@@ -16,8 +16,6 @@ def readTextFile(path,expectedOrder,requiredOrder):
     data.pop(-1)
     data = [float(i) for i in data]
     
-    print(data)
-    
     
     temp = []
     for i in range(0,len(data),101):

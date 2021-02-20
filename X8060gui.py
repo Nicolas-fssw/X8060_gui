@@ -54,8 +54,7 @@ class X8060GUI(QMainWindow):
         self.rating_2_2.setAlignment(QtCore.Qt.AlignCenter)
         
         self.plot_1.setBackground('w')
-        
-
+           
         my_absolute_dirpath = os.path.abspath(os.path.dirname(__file__))
         print(my_absolute_dirpath)
         catch = '\\'
@@ -216,19 +215,20 @@ class X8060GUI(QMainWindow):
         self.state_2.setText('Not Saved')  
         self.state_2.setStyleSheet("background-color: yellow;  border: 1px solid black;")  #save indicator
         
-        for n in range(9):
-            for i in range(8):
+        for n in range(8):
+            for i in range(7):
                 self.tableWidget_2.setItem(n+1, i+1, QTableWidgetItem('n/a'))
                 
-        expected_output = ['1LD', '1RD', '1LHCW', '1RHCW', '1LHCD', '1RHCD', '1LC2A', '1RC2A', '1ANC', '1LT', '1RT',
-                           '2LD', '2RD', '2LHCW', '2RHCW', '2LHCD', '2RHCD', '2LC2A', '2RC2A', '2ANC', '2LT', '2RT',
-                           '3LD', '3RD', '3LHCW', '3RHCW', '3LHCD', '3RHCD', '3LC2A', '3RC2A', '3ANC', '3LT', '3RT',
-                           '4LD', '4RD', '4LHCW', '4RHCW', '4LHCD', '4RHCD', '4LC2A', '4RC2A', '4ANC', '4LT', '4RT',]
+                
+        expected_output = ['1LD', '1RD', '1LHW', '1RHW', '1LHCW', '1RHCW', '1LHCD', '1RHCD', '1LC2A', '1RC2A', '1ANC', '1LT', '1RT',
+                           '2LD', '2RD', '2LHW', '2RHW', '2LHCW', '2RHCW', '2LHCD', '2RHCD', '2LC2A', '2RC2A', '2ANC', '2LT', '2RT',
+                           '3LD', '3RD', '3LHW', '3RHW', '3LHCW', '3RHCW', '3LHCD', '3RHCD', '3LC2A', '3RC2A', '3ANC', '3LT', '3RT',
+                           '4LD', '4RD', '4LHW', '4RHW', '4LHCW', '4RHCW', '4LHCD', '4RHCD', '4LC2A', '4RC2A', '4ANC', '4LT', '4RT',]
         
-        self.names = ['1LHCD', '1LHCW', '1LC2A', '1ANC', '1LD', '1LT','1RHCD', '1RHCW', '1RC2A', '1ANC', '1RD', '1RT',
-                      '2LHCD', '2LHCW', '2LC2A', '2ANC', '2LD', '2LT','2RHCD', '2RHCW', '2RC2A', '2ANC', '2RD', '2RT',
-                      '3LHCD', '3LHCW', '3LC2A', '3ANC', '3LD', '3LT','3RHCD', '3RHCW', '3RC2A', '3ANC', '3RD', '3RT',
-                      '4LHCD', '4LHCW', '4LC2A', '4ANC', '4LD', '4LT','4RHCD', '4RHCW', '4RC2A', '4ANC', '4RD', '4RT']
+        self.names = ['1LHW', '1LHCD', '1LHCW', '1LC2A', '1ANC', '1LD', '1LT', '1RHW', '1RHCD', '1RHCW', '1RC2A', '1ANC', '1RD', '1RT',
+                      '2LHW', '2LHCD', '2LHCW', '2LC2A', '2ANC', '2LD', '2LT', '2RHW', '2RHCD', '2RHCW', '2RC2A', '2ANC', '2RD', '2RT',
+                      '3LHW', '3LHCD', '3LHCW', '3LC2A', '3ANC', '3LD', '3LT', '3RHW', '3RHCD', '3RHCW', '3RC2A', '3ANC', '3RD', '3RT',
+                      '4LHW', '4LHCD', '4LHCW', '4LC2A', '4ANC', '4LD', '4LT', '4RHW', '4RHCD', '4RHCW', '4RC2A', '4ANC', '4RD', '4RT']
                 
         if self.eightbyeight_2.isChecked(): 
             laser_path = '8by8 Actuator'
@@ -252,8 +252,10 @@ class X8060GUI(QMainWindow):
         self.data = readTextFile(save_path,expected_output,self.names)
         
         self.summary = []
-        for i in range(0,len(self.data),6):
-            self.summary.append([np.median(self.data[i]), np.median(self.data[i+1]), np.median(self.data[i+2]), np.median(self.data[i+3]), np.median(self.data[i+4]), np.median(self.data[i+5])])
+        for i in range(0,len(self.data),7):
+            self.summary.append([np.median(self.data[i]), np.median(self.data[i+1]), np.median(self.data[i+2]), np.median(self.data[i+3]), np.median(self.data[i+4]), np.median(self.data[i+5]), np.median(self.data[i+6])])
+        
+        print(len(self.summary), len(self.summary[n]))
         
         for n in range(len(self.summary)):
             for i in range(len(self.summary[n])):
