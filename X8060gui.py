@@ -45,6 +45,14 @@ class X8060GUI(QMainWindow):
         self.rating_1.setStyleSheet("background-color:lightblue;  border: 1px solid black;")  #save indicator
         self.rating_1.setAlignment(QtCore.Qt.AlignCenter)
         
+        self.rating_1_2.setText('Nothing Measured')  
+        self.rating_1_2.setStyleSheet("background-color:lightblue;  border: 1px solid black;")  #save indicator
+        self.rating_1_2.setAlignment(QtCore.Qt.AlignCenter)
+        
+        self.rating_2_2.setText('Nothing Measured')  
+        self.rating_2_2.setStyleSheet("background-color:lightblue;  border: 1px solid black;")  #save indicator
+        self.rating_2_2.setAlignment(QtCore.Qt.AlignCenter)
+        
         self.plot_1.setBackground('w')
         
 
@@ -87,8 +95,6 @@ class X8060GUI(QMainWindow):
         
         self.state_1.setText('Not Saved')  
         self.state_1.setStyleSheet("background-color: yellow;  border: 1px solid black;")
-        self.rating_1.setText('Nothing Measured')  
-        self.rating_1.setStyleSheet("background-color:lightblue;  border: 1px solid black;")  #save indicator
         
         self.BCH_1.setText("n/a")
         self.DROOP_1.setText("n/a")
@@ -118,9 +124,10 @@ class X8060GUI(QMainWindow):
         
         if self.no_frame_1.isChecked():
             frame_thickness = 0
+            
+        self.inputList = [self.sample_id.text(), self.comments.text(), actuator_thickness, frame_thickness] 
     
     
-        save_path = self.pathStart + r'Documents\KEYENCE\LJ-X Series Terminal-Software\USB\SD2\lj-x3d\result\SD1_012'
         expected_output = ['4LBCH','4LF2A','4RBCH','4RF2A','3LBCH','3LF2A','3RBCH','3RF2A','2LBCH','2LF2A','2RBCH','2RF2A','1LBCH','1LF2A','1RBCH','1RF2A']
         self.names = ['1LBCH','1LF2A','1RBCH','1RF2A','2LBCH','2LF2A','2RBCH','2RF2A','3LBCH','3LF2A','3RBCH','3RF2A','4LBCH','4LF2A','4RBCH','4RF2A']
         
@@ -132,11 +139,13 @@ class X8060GUI(QMainWindow):
             laser_path = '1by4 Bottom Stack'
             self.type = '1by4_'
             progam_number = b'012'
+            save_path = self.pathStart + r'Documents\KEYENCE\LJ-X Series Terminal-Software\USB\SD2\lj-x3d\result\SD1_012'
                     
         if self.eightbytwelve_1.isChecked():
             laser_path = '8by12 Bottom Stack'
             self.type = '8by12_'
             progam_number = b'013'
+            save_path = self.pathStart + r'Documents\KEYENCE\LJ-X Series Terminal-Software\USB\SD2\lj-x3d\result\SD1_013'
                 
         if self.flow_plate_1.isChecked():
             flowplate = True
@@ -144,7 +153,6 @@ class X8060GUI(QMainWindow):
             flowplate = False
             
         
-        self.inputList = [self.sample_id.text(), self.comments.text(), actuator_thickness, frame_thickness] 
         X8060_XYZ_path(progam_number,laser_path,flowplate)
         self.data = readTextFile(save_path,expected_output,self.names)
         
@@ -168,7 +176,6 @@ class X8060GUI(QMainWindow):
                 self.state_1.setText('Failed Measurement')  
                 self.state_1.setStyleSheet("background-color: red;  border: 1px solid black;")
         
-        print(self.summary)
         self.summary.append([np.average(average_list[0]), np.average(average_list[1])])
         
         
@@ -204,75 +211,49 @@ class X8060GUI(QMainWindow):
         
     def measure_2_click(self):
         
-        if self.eightbyeight_2.isChecked(): 
-            
-            if self.integrated_baffle_2.isChecked():
-                prog = b'006'
-                path = self.pathStart + r'Documents\KEYENCE\LJ-X Series Terminal-Software\USB\SD2\lj-x3d\result\SD1_006'
-            if self.no_integrated_baffle_2.isChecked():
-                prog = b'002'
-                path = self.pathStart + r'Documents\KEYENCE\LJ-X Series Terminal-Software\USB\SD2\lj-x3d\result\SD1_002'
+        self.inputList = [self.sample_id.text(), self.comments.text()] 
+        
+        self.state_2.setText('Not Saved')  
+        self.state_2.setStyleSheet("background-color: yellow;  border: 1px solid black;")  #save indicator
+        
+        for n in range(9):
+            for i in range(8):
+                self.tableWidget_2.setItem(n+1, i+1, QTableWidgetItem('n/a'))
                 
-        expected = ['1LHCD', '1LHCW','3LHCD', '3LHCW', '1RHCD', '1RHCW','3RHCD', '3RHCW', '1LC2A','3LC2A','1RC2A','3RC2A','1ANC','3ANC','1LD','3LD','1RD','3RD',
-                    '1LT','3LT','1RT','3RT','2LHCD', '2LHCW','4LHCD', '4LHCW', '2RHCD', '2RHCW','4RHCD', '4RHCW', '2LC2A','4LC2A','2RC2A','4RC2A','2ANC','4ANC','2LD','4LD','2RD','4RD',
-                    '2LT','4LT','2RT','4RT']
+        expected_output = ['1LD', '1RD', '1LHCW', '1RHCW', '1LHCD', '1RHCD', '1LC2A', '1RC2A', '1ANC', '1LT', '1RT',
+                           '2LD', '2RD', '2LHCW', '2RHCW', '2LHCD', '2RHCD', '2LC2A', '2RC2A', '2ANC', '2LT', '2RT',
+                           '3LD', '3RD', '3LHCW', '3RHCW', '3LHCD', '3RHCD', '3LC2A', '3RC2A', '3ANC', '3LT', '3RT',
+                           '4LD', '4RD', '4LHCW', '4RHCW', '4LHCD', '4RHCD', '4LC2A', '4RC2A', '4ANC', '4LT', '4RT',]
         
         self.names = ['1LHCD', '1LHCW', '1LC2A', '1ANC', '1LD', '1LT','1RHCD', '1RHCW', '1RC2A', '1ANC', '1RD', '1RT',
                       '2LHCD', '2LHCW', '2LC2A', '2ANC', '2LD', '2LT','2RHCD', '2RHCW', '2RC2A', '2ANC', '2RD', '2RT',
                       '3LHCD', '3LHCW', '3LC2A', '3ANC', '3LD', '3LT','3RHCD', '3RHCW', '3RC2A', '3ANC', '3RD', '3RT',
                       '4LHCD', '4LHCW', '4LC2A', '4ANC', '4LD', '4LT','4RHCD', '4RHCW', '4RC2A', '4ANC', '4RD', '4RT']
                 
-        if self.twelvebyeight_2.isChecked():
-            prog = b'004'
-            path = self.pathStart + r'Documents\KEYENCE\LJ-X Series Terminal-Software\USB\SD2\lj-x3d\result\SD1_004'
-            
-            expected = ['1LHCD', '1LHCW','3LHCD', '3LHCW', '1RHCD', '1RHCW','3RHCD', '3RHCW', '1LC2A','3LC2A','1RC2A','3RC2A','1ANC','3ANC','1LD','3LD','1RD','3RD',
-                    '1LT','3LT','1RT','3RT','2LHCD', '2LHCW','4LHCD', '4LHCW', '2RHCD', '2RHCW','4RHCD', '4RHCW', '2LC2A','4LC2A','2RC2A','4RC2A','2ANC','4ANC','2LD','4LD','2RD','4RD',
-                    '2LT','4LT','2RT','4RT']
-        
-            self.names = ['1LHCD', '1LHCW', '1LC2A', '1ANC', '1LD', '1LT','1RHCD', '1RHCW', '1RC2A', '1ANC', '1RD', '1RT',
-                          '2LHCD', '2LHCW', '2LC2A', '2ANC', '2LD', '2LT','2RHCD', '2RHCW', '2RC2A', '2ANC', '2RD', '2RT',
-                          '3LHCD', '3LHCW', '3LC2A', '3ANC', '3LD', '3LT','3RHCD', '3RHCW', '3RC2A', '3ANC', '3RD', '3RT',
-                          '4LHCD', '4LHCW', '4LC2A', '4ANC', '4LD', '4LT','4RHCD', '4RHCW', '4RC2A', '4ANC', '4RD', '4RT']
+        if self.eightbyeight_2.isChecked(): 
+            laser_path = '8by8 Actuator'
+            self.type = '8by8_'
+                
+        if self.eightbytwelve_2.isChecked():
+            laser_path = '8by12 Actuator'
+            self.type = '8by12_'
+            progam_number = b''
+            save_path = self.pathStart + r'Documents\KEYENCE\LJ-X Series Terminal-Software\USB\SD2\lj-x3d\result\SD1_'
             
         if self.onebyfour_2.isChecked():
-            prog = b'014'
-            path = self.pathStart + r'Documents\KEYENCE\LJ-X Series Terminal-Software\USB\SD2\lj-x3d\result\SD1_014'
-            
-            expected = ['1LD', '1RD', '1LHCW', '1RHCW', '1LHCD', '1RHCD', '1LC2A', '1RC2A', '1ANC', '1LT', '1RT',
-                        '2LD', '2RD', '2LHCW', '2RHCW', '2LHCD', '2RHCD', '2LC2A', '2RC2A', '2ANC', '2LT', '2RT',
-                        '3LD', '3RD', '3LHCW', '3RHCW', '3LHCD', '3RHCD', '3LC2A', '3RC2A', '3ANC', '3LT', '3RT',
-                        '4LD', '4RD', '4LHCW', '4RHCW', '4LHCD', '4RHCD', '4LC2A', '4RC2A', '4ANC', '4LT', '4RT',]
-        
-            self.names = ['1LHCD', '1LHCW', '1LC2A', '1ANC', '1LD', '1LT','1RHCD', '1RHCW', '1RC2A', '1ANC', '1RD', '1RT',
-                          '2LHCD', '2LHCW', '2LC2A', '2ANC', '2LD', '2LT','2RHCD', '2RHCW', '2RC2A', '2ANC', '2RD', '2RT',
-                          '3LHCD', '3LHCW', '3LC2A', '3ANC', '3LD', '3LT','3RHCD', '3RHCW', '3RC2A', '3ANC', '3RD', '3RT',
-                          '4LHCD', '4LHCW', '4LC2A', '4ANC', '4LD', '4LT','4RHCD', '4RHCW', '4RC2A', '4ANC', '4RD', '4RT']
-            
+            laser_path = '1by4 Actuator'
+            self.type = '1by4_'
+            progam_number = b'014'
+            save_path = self.pathStart + r'Documents\KEYENCE\LJ-X Series Terminal-Software\USB\SD2\lj-x3d\result\SD1_014'
+         
         flowplate = False    
-            
         
-        self.state_2.setText('Not Saved')  
-        self.state_2.setStyleSheet("background-color: yellow;  border: 1px solid black;")  #save indicator
-        
-        self.inputList = [self.sample_id.text(), self.comments.text()] 
-        X8060_XYZ_path(prog,flowplate)
-
-        self.data = readTextFile(path,expected,self.names)
-        
-        for i in range(4,len(self.data),6):
-            self.data[i] = list(np.asarray(self.data[i])*-1)
-            
-        for i in range(5,len(self.data),6):
-            self.data[i] = list(np.asarray(self.data[i])*-1)
+        X8060_XYZ_path(progam_number,laser_path,flowplate)
+        self.data = readTextFile(save_path,expected_output,self.names)
         
         self.summary = []
         for i in range(0,len(self.data),6):
             self.summary.append([np.median(self.data[i]), np.median(self.data[i+1]), np.median(self.data[i+2]), np.median(self.data[i+3]), np.median(self.data[i+4]), np.median(self.data[i+5])])
-        
-        for n in range(len(self.summary)):
-            for i in range(len(self.summary[n])):
-                self.tableWidget_2.setItem(n+1, i+1, QTableWidgetItem('0'))
         
         for n in range(len(self.summary)):
             for i in range(len(self.summary[n])):
