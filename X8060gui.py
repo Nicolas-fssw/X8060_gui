@@ -141,12 +141,12 @@ class X8060GUI(QMainWindow):
         if self.eightbyeight_1.isChecked(): 
             laser_path = '8by8 Bottom Stack'
             self.type = '8by8_'
-              
+        
         if self.onebyfour_1.isChecked(): 
             laser_path = '1by4 Bottom Stack'
             self.type = '1by4_'
-            progam_number = b'012'
-            save_path = self.pathStart + r'Documents\KEYENCE\LJ-X Series Terminal-Software\USB\SD2\lj-x3d\result\SD1_012'
+            progam_number = b'015'
+            save_path = self.pathStart + r'Documents\KEYENCE\LJ-X Series Terminal-Software\USB\SD2\lj-x3d\result\SD1_015'
                     
         if self.eightbytwelve_1.isChecked():
             laser_path = '8by12 Bottom Stack'
@@ -213,13 +213,16 @@ class X8060GUI(QMainWindow):
         self.DROOP_average_1.setText("%.2f" %self.summary[8][1])
         
         try:
-            grade = [value > 25 for sublist in self.summmary[:8] for value in sublist]
+            grade = [value > 25 for sublist in self.summary[:8] for value in sublist[::2]]
+            print(grade)
             if all(grade) == True:
                 self.grading_1.setText('Pass - BCH above 25 microns')  
                 self.grading_1.setStyleSheet("background-color:green;  border: 1px solid black;")  
-                
+            else:
+                self.grading_1.setText('Fail - BCH too low')  
+                self.grading_1.setStyleSheet("background-color:red;  border: 1px solid black;")   
         except:
-            self.grading_1.setText('Fail - BCH too low')  
+            self.grading_1.setText('Fail - Measurement Error')  
             self.grading_1.setStyleSheet("background-color:red;  border: 1px solid black;")   
         
         

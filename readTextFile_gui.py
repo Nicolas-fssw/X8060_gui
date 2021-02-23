@@ -18,19 +18,19 @@ def readTextFile(path,expectedOrder,requiredOrder):
     
     
     temp = []
-    for i in range(0,len(data),101):
-        if data[i] == 0:
+    for i in range(0,len(data),102):
+        if data[i+1] == 0:
             dataList.append(["Fail"])
             continue
-        if data[i] != 0:
+        if data[i+1] != 0:
             count = 0
-            total = data[i]
-            for n in range(i+1, i + int(data[i]) + 1):
+            total = data[i+1]
+            for n in range(i+2, i + int(data[i]) + 2):
                 if data[n] != 0:
                     temp.append(data[n])
                     count = count + 1
             if count < total:
-                for i in range(total - count):
+                for i in range(int(total - count)):
                     temp.append(0)
                    
             dataList.append(temp)
