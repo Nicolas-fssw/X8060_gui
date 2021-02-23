@@ -260,8 +260,8 @@ class X8060GUI(QMainWindow):
         if self.eightbytwelve_2.isChecked():
             laser_path = '8by12 Actuator'
             self.type = '8by12_'
-            progam_number = b''
-            save_path = self.pathStart + r'Documents\KEYENCE\LJ-X Series Terminal-Software\USB\SD2\lj-x3d\result\SD1_'
+            progam_number = b'014'
+            save_path = self.pathStart + r'Documents\KEYENCE\LJ-X Series Terminal-Software\USB\SD2\lj-x3d\result\SD1_014'
             
         if self.onebyfour_2.isChecked():
             laser_path = '1by4 Actuator'
@@ -277,6 +277,14 @@ class X8060GUI(QMainWindow):
         self.summary = []
         temp = []
         for i in range(0,len(self.data),7):
+            
+            lengthcheck = [len(sublist) for sublist in self.data[i:i+6]]  
+            print(lengthcheck)
+            for r in lengthcheck:
+                if r < 20:
+                    self.goodmeasure_2.setText('Potentially Bad Measurement')  
+                    self.goodmeasure_2.setStyleSheet("background-color: red;  border: 1px solid black;")
+            
             if self.data[i][0] != "Fail":
                 temp.append(np.median(self.data[i]))
             else:
@@ -341,7 +349,8 @@ class X8060GUI(QMainWindow):
                 
         left = [value for value in grade[::2]]
         right = [value for value in grade[1::2]]
-        difference = (sum(left) - sum(right))/len(left)
+        difference = np.abs((sum(left) - sum(right))/len(left))
+        print(difference)
             
         if difference > 0.1:
             self.grading_2.setText('Grade Fail')  
