@@ -23,8 +23,16 @@ def readTextFile(path,expectedOrder,requiredOrder):
             dataList.append(["Fail"])
             continue
         if data[i] != 0:
+            count = 0
+            total = data[i]
             for n in range(i+1, i + int(data[i]) + 1):
-                temp.append(data[n])
+                if data[n] != 0:
+                    temp.append(data[n])
+                    count = count + 1
+            if count < total:
+                for i in range(total - count):
+                    temp.append(0)
+                   
             dataList.append(temp)
             temp = []
     
