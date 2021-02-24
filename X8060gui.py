@@ -431,19 +431,19 @@ class X8060GUI(QMainWindow):
     
         self.names = ['1TW', '1BW', '1TL', '1BL','2TW', '2BW', '2TL', '2BL','3TW', '3BW', '3TL', '3BL','4TW', '4BW', '4TL', '4BL']
         
-        if self.eightbyeight_1.isChecked(): 
-            laser_path = '8by8 Jet Channel'
-            self.type = '8by8_'
-            expected_output = ['3TW','3BW','3TL','3BL','1TW','1BW','1TL','1BL','4TW','4BW','4TL','4BL','2TW','2BW','2TL','2BL']
+        # if self.eightbyeight_1.isChecked(): 
+        #     laser_path = '8by8 Jet Channel'
+        #     self.type = '8by8_'
+        #     expected_output = ['3TW','3BW','3TL','3BL','1TW','1BW','1TL','1BL','4TW','4BW','4TL','4BL','2TW','2BW','2TL','2BL']
         
-        if self.onebyfour_1.isChecked(): 
+        if self.onebyfour_4.isChecked(): 
             laser_path = '1by4 Jet Channel'
             self.type = '1by4_'
             expected_output = ['1TW', '1BW', '1TL', '1BL','2TW', '2BW', '2TL', '2BL','3TW', '3BW', '3TL', '3BL','4TW', '4BW', '4TL', '4BL']
             progam_number = b'0'
             save_path = self.pathStart + r'Documents\KEYENCE\LJ-X Series Terminal-Software\USB\SD2\lj-x3d\result\SD1_0'
                     
-        if self.eightbytwelve_1.isChecked():
+        if self.twobytwo_4.isChecked():
             laser_path = '8by12 Jet Channel'
             self.type = '8by12_'
             expected_output = ['3TW','3BW','3TL','3BL','1TW','1BW','1TL','1BL','4TW','4BW','4TL','4BL','2TW','2BW','2TL','2BL']
