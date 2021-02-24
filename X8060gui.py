@@ -379,38 +379,39 @@ class X8060GUI(QMainWindow):
             
 
     def measure_3_click(self):
+        self.state_3.setText('Not Saved')  
+        self.state_3.setStyleSheet("background-color: yellow;  border: 1px solid black;")  #save indicator
+        
+        for n in range(8):
+            for i in range(3):
+                self.tableWidget_3.setItem(n+1, i+1, QTableWidgetItem(999))
+        
+        self.names = ['1LFC','1RFC','1D','2LFC','2RFC','2D','3LFC','3RFC','3D','4LFC','4RFC','4D']
         
         if self.eightbyeight_3.isChecked(): 
             prog = b'001'
             path = self.pathStart + r'Documents\KEYENCE\LJ-X Series Terminal-Software\USB\SD2\lj-x3d\result\SD1_001'
                 
         if self.twelvebyeight_3.isChecked():
-            prog = b'001'
-            path = self.pathStart + r'Documents\KEYENCE\LJ-X Series Terminal-Software\USB\SD2\lj-x3d\result\SD1_001'
+            laser_path = '8by12 Orifice'
+            self.type = '8by12_'
+            progam_number = b'017'
+            save_path = self.pathStart + r'Documents\KEYENCE\LJ-X Series Terminal-Software\USB\SD2\lj-x3d\result\SD1_017'
+            expected_output = ['4LFC','4RFC','4D','2LFC','2RFC','2D','3LFC','3RFC','3D','1LFC','1RFC','1D']
             
         flowplate = False    
         
-        self.state_3.setText('Not Saved')  
-        self.state_3.setStyleSheet("background-color: yellow;  border: 1px solid black;")  #save indicator
-        
         self.inputList = [self.sample_id.text(), self.comments.text()] 
-        X8060_XYZ_path(prog,flowplate)
-        expected = []
-        
-        self.names = []
-        self.data = readTextFile(path,expected,self.names)
+        X8060_XYZ_path(progam_number,laser_path,flowplate)
+        self.data = readTextFile(save_path,expected_output,self.names)
         
         self.summary = []
-        for i in range(0,len(self.data),6):
-            self.summary.append([np.median(self.data[i]), np.median(self.data[i+1]), np.median(self.data[i+2]), np.median(self.data[i+3]), np.median(self.data[i+4]), np.median(self.data[i+5])])
+        for i in range(0,len(self.data),3):
+            self.summary.append([np.median(self.data[i]), np.median(self.data[i+1]), np.median(self.data[i+2])])
         
         for n in range(len(self.summary)):
             for i in range(len(self.summary[n])):
-                self.tableWidget_2.setItem(n+1, i+1, QTableWidgetItem('0'))
-        
-        for n in range(len(self.summary)):
-            for i in range(len(self.summary[n])):
-                self.tableWidget_2.setItem(n+1, i+1, QTableWidgetItem('%.3f' % self.summary[n][i]))
+                self.tableWidget_3.setItem(n+1, i+1, QTableWidgetItem('%.3f' % self.summary[n][i]))
 
 
     def measure_4_click(self):
