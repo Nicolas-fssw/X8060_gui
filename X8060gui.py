@@ -93,6 +93,7 @@ class X8060GUI(QMainWindow):
         self.export_2.clicked.connect(self.export_2_click)
         self.measure_3.clicked.connect(self.measure_3_click)
         self.export_3.clicked.connect(self.export_3_click)
+        self.measure_4.clicked.connect(self.measure_4_click)
         
     def measure_1_click(self):
         
@@ -134,23 +135,24 @@ class X8060GUI(QMainWindow):
             
         self.inputList = [self.sample_id.text(), self.comments.text(), actuator_thickness, frame_thickness] 
     
-    
-        expected_output = ['4LBCH','4LF2A','4RBCH','4RF2A','3LBCH','3LF2A','3RBCH','3RF2A','2LBCH','2LF2A','2RBCH','2RF2A','1LBCH','1LF2A','1RBCH','1RF2A']
         self.names = ['1LBCH','1LF2A','1RBCH','1RF2A','2LBCH','2LF2A','2RBCH','2RF2A','3LBCH','3LF2A','3RBCH','3RF2A','4LBCH','4LF2A','4RBCH','4RF2A']
         
         if self.eightbyeight_1.isChecked(): 
             laser_path = '8by8 Bottom Stack'
             self.type = '8by8_'
+            expected_output = ['4LBCH','4LF2A','4RBCH','4RF2A','2LBCH','2LF2A','2RBCH','2RF2A','3LBCH','3LF2A','3RBCH','3RF2A','1LBCH','1LF2A','1RBCH','1RF2A']
         
         if self.onebyfour_1.isChecked(): 
             laser_path = '1by4 Bottom Stack'
             self.type = '1by4_'
+            expected_output = ['4LBCH','4LF2A','4RBCH','4RF2A','3LBCH','3LF2A','3RBCH','3RF2A','2LBCH','2LF2A','2RBCH','2RF2A','1LBCH','1LF2A','1RBCH','1RF2A']
             progam_number = b'015'
             save_path = self.pathStart + r'Documents\KEYENCE\LJ-X Series Terminal-Software\USB\SD2\lj-x3d\result\SD1_015'
                     
         if self.eightbytwelve_1.isChecked():
             laser_path = '8by12 Bottom Stack'
             self.type = '8by12_'
+            expected_output = ['4LBCH','4LF2A','4RBCH','4RF2A','2LBCH','2LF2A','2RBCH','2RF2A','3LBCH','3LF2A','3RBCH','3RF2A','1LBCH','1LF2A','1RBCH','1RF2A']
             progam_number = b'013'
             save_path = self.pathStart + r'Documents\KEYENCE\LJ-X Series Terminal-Software\USB\SD2\lj-x3d\result\SD1_013'
                 
@@ -241,12 +243,7 @@ class X8060GUI(QMainWindow):
         for n in range(8):
             for i in range(7):
                 self.tableWidget_2.setItem(n+1, i+1, QTableWidgetItem(999))
-                
-                
-        expected_output = ['1LD', '1RD', '1LHW', '1RHW', '1LHCW', '1RHCW', '1LHCD', '1RHCD', '1LC2A', '1RC2A', '1ANC', '1LT', '1RT',
-                           '2LD', '2RD', '2LHW', '2RHW', '2LHCW', '2RHCW', '2LHCD', '2RHCD', '2LC2A', '2RC2A', '2ANC', '2LT', '2RT',
-                           '3LD', '3RD', '3LHW', '3RHW', '3LHCW', '3RHCW', '3LHCD', '3RHCD', '3LC2A', '3RC2A', '3ANC', '3LT', '3RT',
-                           '4LD', '4RD', '4LHW', '4RHW', '4LHCW', '4RHCW', '4LHCD', '4RHCD', '4LC2A', '4RC2A', '4ANC', '4LT', '4RT',]
+
         
         self.names = ['1LHW', '1LHCD', '1LHCW', '1LC2A', '1ANC', '1LD', '1LT', '1RHW', '1RHCD', '1RHCW', '1RC2A', '1ANC', '1RD', '1RT',
                       '2LHW', '2LHCD', '2LHCW', '2LC2A', '2ANC', '2LD', '2LT', '2RHW', '2RHCD', '2RHCW', '2RC2A', '2ANC', '2RD', '2RT',
@@ -256,16 +253,28 @@ class X8060GUI(QMainWindow):
         if self.eightbyeight_2.isChecked(): 
             laser_path = '8by8 Actuator'
             self.type = '8by8_'
+            expected_output = ['3LD', '3RD', '3LHW', '3RHW', '3LHCW', '3RHCW', '3LHCD', '3RHCD', '3LC2A', '3RC2A', '3ANC', '3LT', '3RT',
+                               '1LD', '1RD', '1LHW', '1RHW', '1LHCW', '1RHCW', '1LHCD', '1RHCD', '1LC2A', '1RC2A', '1ANC', '1LT', '1RT',
+                               '4LD', '4RD', '4LHW', '4RHW', '4LHCW', '4RHCW', '4LHCD', '4RHCD', '4LC2A', '4RC2A', '4ANC', '4LT', '4RT',
+                               '2LD', '2RD', '2LHW', '2RHW', '2LHCW', '2RHCW', '2LHCD', '2RHCD', '2LC2A', '2RC2A', '2ANC', '2LT', '2RT']
                 
         if self.eightbytwelve_2.isChecked():
             laser_path = '8by12 Actuator'
             self.type = '8by12_'
+            expected_output = ['3LD', '3RD', '3LHW', '3RHW', '3LHCW', '3RHCW', '3LHCD', '3RHCD', '3LC2A', '3RC2A', '3ANC', '3LT', '3RT',
+                               '1LD', '1RD', '1LHW', '1RHW', '1LHCW', '1RHCW', '1LHCD', '1RHCD', '1LC2A', '1RC2A', '1ANC', '1LT', '1RT',
+                               '4LD', '4RD', '4LHW', '4RHW', '4LHCW', '4RHCW', '4LHCD', '4RHCD', '4LC2A', '4RC2A', '4ANC', '4LT', '4RT',
+                               '2LD', '2RD', '2LHW', '2RHW', '2LHCW', '2RHCW', '2LHCD', '2RHCD', '2LC2A', '2RC2A', '2ANC', '2LT', '2RT']
             progam_number = b'014'
             save_path = self.pathStart + r'Documents\KEYENCE\LJ-X Series Terminal-Software\USB\SD2\lj-x3d\result\SD1_014'
             
         if self.onebyfour_2.isChecked():
             laser_path = '1by4 Actuator'
             self.type = '1by4_'
+            expected_output = ['1LD', '1RD', '1LHW', '1RHW', '1LHCW', '1RHCW', '1LHCD', '1RHCD', '1LC2A', '1RC2A', '1ANC', '1LT', '1RT',
+                           '2LD', '2RD', '2LHW', '2RHW', '2LHCW', '2RHCW', '2LHCD', '2RHCD', '2LC2A', '2RC2A', '2ANC', '2LT', '2RT',
+                           '3LD', '3RD', '3LHW', '3RHW', '3LHCW', '3RHCW', '3LHCD', '3RHCD', '3LC2A', '3RC2A', '3ANC', '3LT', '3RT',
+                           '4LD', '4RD', '4LHW', '4RHW', '4LHCW', '4RHCW', '4LHCD', '4RHCD', '4LC2A', '4RC2A', '4ANC', '4LT', '4RT']
             progam_number = b'014'
             save_path = self.pathStart + r'Documents\KEYENCE\LJ-X Series Terminal-Software\USB\SD2\lj-x3d\result\SD1_014'
          
@@ -403,6 +412,98 @@ class X8060GUI(QMainWindow):
             for i in range(len(self.summary[n])):
                 self.tableWidget_2.setItem(n+1, i+1, QTableWidgetItem('%.3f' % self.summary[n][i]))
 
+
+    def measure_4_click(self):
+        
+        self.state_4.setText('Not Saved')  
+        self.state_4.setStyleSheet("background-color: yellow;  border: 1px solid black;")
+        
+        self.v_1_4.setText("n/a")
+        self.h_1_4.setText("n/a")
+        self.v_2_4.setText("n/a")
+        self.h_2_4.setText("n/a")
+        self.v_3_4.setText("n/a")
+        self.h_3_4.setText("n/a")
+        self.v_4_4.setText("n/a")
+        self.h_4_4.setText("n/a")
+            
+        self.inputList = [self.sample_id.text(), self.comments.text()]
+    
+        self.names = ['1TW', '1BW', '1TL', '1BL','2TW', '2BW', '2TL', '2BL','3TW', '3BW', '3TL', '3BL','4TW', '4BW', '4TL', '4BL']
+        
+        if self.eightbyeight_1.isChecked(): 
+            laser_path = '8by8 Jet Channel'
+            self.type = '8by8_'
+            expected_output = ['3TW','3BW','3TL','3BL','1TW','1BW','1TL','1BL','4TW','4BW','4TL','4BL','2TW','2BW','2TL','2BL']
+        
+        if self.onebyfour_1.isChecked(): 
+            laser_path = '1by4 Jet Channel'
+            self.type = '1by4_'
+            expected_output = ['1TW', '1BW', '1TL', '1BL','2TW', '2BW', '2TL', '2BL','3TW', '3BW', '3TL', '3BL','4TW', '4BW', '4TL', '4BL']
+            progam_number = b'0'
+            save_path = self.pathStart + r'Documents\KEYENCE\LJ-X Series Terminal-Software\USB\SD2\lj-x3d\result\SD1_0'
+                    
+        if self.eightbytwelve_1.isChecked():
+            laser_path = '8by12 Jet Channel'
+            self.type = '8by12_'
+            expected_output = ['3TW','3BW','3TL','3BL','1TW','1BW','1TL','1BL','4TW','4BW','4TL','4BL','2TW','2BW','2TL','2BL']
+            progam_number = b'016'
+            save_path = self.pathStart + r'Documents\KEYENCE\LJ-X Series Terminal-Software\USB\SD2\lj-x3d\result\SD1_016'
+                
+        flowplate = False
+            
+        X8060_XYZ_path(progam_number,laser_path,flowplate)
+        self.data = readTextFile(save_path,expected_output,self.names)
+        
+        self.summary = []
+
+        for i in range(0,len(self.data),4):
+            if self.data[i][0] != "Fail":
+                topwidth = np.median(self.data[i])
+                
+            else:
+                topwidth = 999
+                
+            if self.data[i+1][0] != "Fail":
+                bottomwidth = np.median(self.data[i])
+                
+            else:
+                bottomwidth = 999
+                
+            if self.data[i+2][0] != "Fail":
+                toplength = np.median(self.data[i])
+                
+            else:
+                toplength = 999
+                
+            if self.data[i+3][0] != "Fail":
+                bottomlength = np.median(self.data[i])
+                
+            else:
+                bottomlength = 999
+
+            temp = []
+            if topwidth != 999 and bottomwidth != 999:
+                temp.append(topwidth - bottomwidth)
+            else:
+                temp.append(999)
+                
+            if toplength != 999 and bottomlength != 999:
+                temp.append(toplength - bottomlength)
+            else:
+                temp.append(999)
+                
+            self.summary.append(temp)
+        
+        
+        self.v_1_4.setText("%.2f" %self.summary[0][0])
+        self.h_1_4.setText("%.2f" %self.summary[0][1])
+        self.v_2_4.setText("%.2f" %self.summary[1][0])
+        self.h_2_4.setText("%.2f" %self.summary[1][1])
+        self.v_3_4.setText("%.2f" %self.summary[2][0])
+        self.h_3_4.setText("%.2f" %self.summary[2][1])
+        self.v_4_4.setText("%.2f" %self.summary[3][0])
+        self.h_4_4.setText("%.2f" %self.summary[3][1])
         
     def export_1_click(self):
         print('Saving Files')
