@@ -29,9 +29,6 @@ def readTextFile(path,expectedOrder,requiredOrder):
                 if data[n] != 0:
                     temp.append(data[n])
                     count = count + 1
-            if count < total:
-                for i in range(int(total - count)):
-                    temp.append(0)
                    
             dataList.append(temp)
             temp = []
