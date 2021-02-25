@@ -634,8 +634,10 @@ class X8060GUI(QMainWindow):
         
     def export_3_click(self):
         print('Saving Files')
-        self.inputList = [self.sample_id.text(), self.comments.text()] 
-        file_name = '\Orifice_' + self.inputList[0] + '.xlsx'
+        self.inputList[0] = self.sample_id.text()
+        self.inputList[1] = self.comments.text()
+        cell = ['1','2','3','4']
+        file_name = '\\' + self.inputList[0] + '.xlsx'
         
         while True:
             try:
@@ -652,21 +654,48 @@ class X8060GUI(QMainWindow):
         
         print('**************************')
         writer = pd.ExcelWriter(dir_path + file_name, engine='xlsxwriter')
-        given = pd.DataFrame({'names':['Sample ID', 'Comments'], 
-                              'values' : self.inputList
-                              })
-        given.to_excel(writer, sheet_name='Data', header=False, index=False, startcol=0,startrow=0)
         
-        names = ['Maximum Frame to Cavity', 'Minimum Frame to Cavity', 'Average Frame to Cavity', 
-                 'Maximum Cavity Length', 'Minimum Cavity Length', 'Average Cavity Length',
-                 'Maximum Cavity Height', 'Minimum Cavity Height', 'Average Cavity Height', 
-                 'Maximum Anchor', 'Minimum Anchor', 'Average Anchor']
+        inputValues = pd.DataFrame({'names' : ['Sample ID', 'Comments'], 
+                                    'values' : self.inputList})
         
-        for i in range(12):
-            dataCollected = pd.DataFrame({'Cell':['1L', '1R', '2L', '2R', '3L', '3R', '4L', '4R'],
-                                 names[i] : self.data[i]})
+        inputValues.to_excel(writer, sheet_name='Data', index=False, startcol=0, startrow=0)
+        
+        summaryValues = pd.DataFrame({'Cell' : cell, 
+                                     self.inputList[0] + '_Left Frame to Anchor' : [self.summary[i][0] for i in range(4)],
+                                     self.inputList[0] + '_Right Frame to Anchor' : [self.summary[i][1] for i in range(4)],
+                                     self.inputList[0] + '_Cavity Depth' : [self.summary[i][2] for i in range(4)]
+                                     })
+        
+        summaryValues.to_excel(writer, sheet_name='Data', index=False, startcol=3, startrow=0)
+        
+        label = []
+        for i in range(len(self.data)):
+            temp = [self.names[i]] * len(self.data[i])
+            label.append(temp)
             
-            dataCollected.to_excel(writer, sheet_name='Data', index=False, startcol=3 + (i * 3), startrow=0)
+        flat_data = [j for sub in self.data[::3] for j in sub]
+        flat_names = [j for sub in label[::3] for j in sub]
+        
+        Left = pd.DataFrame({'Left Frame to Anchor' : flat_data, 
+                             self.inputList[0] : flat_names})
+                  
+        Left.to_excel(writer, sheet_name='Data', index=False, startcol=7, startrow=0)
+        
+        flat_data = [j for sub in self.data[1::3] for j in sub]
+        flat_names = [j for sub in label[1::3] for j in sub]
+        
+        Right = pd.DataFrame({'Right Frame to Anchor' : flat_data, 
+                              self.inputList[0] : flat_names})
+        
+        Right.to_excel(writer, sheet_name='Data', index=False, startcol=10, startrow=0)
+        
+        flat_data = [j for sub in self.data[2::3] for j in sub]
+        flat_names = [j for sub in label[2::3] for j in sub]
+        
+        depth = pd.DataFrame({'Depth' : flat_data, 
+                              self.inputList[0] : flat_names})
+        
+        depth.to_excel(writer, sheet_name='Data', index=False, startcol=13, startrow=0)
         
         
         writer.save()
