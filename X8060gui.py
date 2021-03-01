@@ -389,8 +389,11 @@ class X8060GUI(QMainWindow):
         self.names = ['1LFC','1RFC','1D','2LFC','2RFC','2D','3LFC','3RFC','3D','4LFC','4RFC','4D']
         
         if self.eightbyeight_3.isChecked(): 
-            prog = b'001'
-            path = self.pathStart + r'Documents\KEYENCE\LJ-X Series Terminal-Software\USB\SD2\lj-x3d\result\SD1_001'
+            laser_path = '1by4 Orifice'
+            self.type = '8by12_'
+            progam_number = b'017'
+            save_path = self.pathStart + r'Documents\KEYENCE\LJ-X Series Terminal-Software\USB\SD2\lj-x3d\result\SD1_017'
+            expected_output = ['4LFC','4RFC','4D','3LFC','3RFC','3D','2LFC','2RFC','2D','1LFC','1RFC','1D'] 
                 
         if self.twelvebyeight_3.isChecked():
             laser_path = '8by12 Orifice'
@@ -574,7 +577,7 @@ class X8060GUI(QMainWindow):
         self.inputList[0] = self.sample_id.text()
         self.inputList[1] = self.comments.text()
         sides = ['1L', '1R', '2L', '2R', '3L', '3R', '4L', '4R']
-        file_name = '\Actuator_' + self.inputList[0] + '.xlsx'
+        file_name = '\\' + self.inputList[0] + '.xlsx'
         
         while True:
             try:
