@@ -420,94 +420,35 @@ class X8060GUI(QMainWindow):
     def measure_4_click(self):
         
         self.state_4.setText('Not Saved')  
-        self.state_4.setStyleSheet("background-color: yellow;  border: 1px solid black;")
+        self.state_4.setStyleSheet("background-color: yellow;  border: 1px solid black;")  #save indicator
         
-        self.v_1_4.setText("n/a")
-        self.h_1_4.setText("n/a")
-        self.v_2_4.setText("n/a")
-        self.h_2_4.setText("n/a")
-        self.v_3_4.setText("n/a")
-        self.h_3_4.setText("n/a")
-        self.v_4_4.setText("n/a")
-        self.h_4_4.setText("n/a")
-            
-        self.inputList = [self.sample_id.text(), self.comments.text()]
-    
-        self.names = ['1TW', '1BW', '1TL', '1BL','2TW', '2BW', '2TL', '2BL','3TW', '3BW', '3TL', '3BL','4TW', '4BW', '4TL', '4BL']
+        for n in range(8):
+            for i in range(3):
+                self.tableWidget_4.setItem(n+1, i+1, QTableWidgetItem(999))
         
-        # if self.eightbyeight_1.isChecked(): 
-        #     laser_path = '8by8 Jet Channel'
-        #     self.type = '8by8_'
-        #     expected_output = ['3TW','3BW','3TL','3BL','1TW','1BW','1TL','1BL','4TW','4BW','4TL','4BL','2TW','2BW','2TL','2BL']
-        
-        if self.onebyfour_4.isChecked(): 
-            laser_path = '1by4 Jet Channel'
-            self.type = '1by4_'
-            expected_output = ['1TW', '1BW', '1TL', '1BL','2TW', '2BW', '2TL', '2BL','3TW', '3BW', '3TL', '3BL','4TW', '4BW', '4TL', '4BL']
-            progam_number = b'0'
-            save_path = self.pathStart + r'Documents\KEYENCE\LJ-X Series Terminal-Software\USB\SD2\lj-x3d\result\SD1_0'
-                    
-        if self.twobytwo_4.isChecked():
-            laser_path = '8by12 Jet Channel'
-            self.type = '8by12_'
-            expected_output = ['3TW','3BW','3TL','3BL','1TW','1BW','1TL','1BL','4TW','4BW','4TL','4BL','2TW','2BW','2TL','2BL']
-            progam_number = b'016'
-            save_path = self.pathStart + r'Documents\KEYENCE\LJ-X Series Terminal-Software\USB\SD2\lj-x3d\result\SD1_016'
+        self.names = ['1LFC','1RFC','2LFC','2RFC','3LFC','3RFC','4LFC','4RFC']
                 
-        flowplate = False
+        if self.twelvebyeight_4.isChecked():
+            if self.oneA_4.isChecked():
+                laser_path = '8by12 Jet Channel'
+                self.type = '8by12_'
+                progam_number = b'0'
+                save_path = self.pathStart + r'Documents\KEYENCE\LJ-X Series Terminal-Software\USB\SD2\lj-x3d\result\SD1_0'
+                expected_output = ['4LFC','4RFC','2LFC','2RFC','3LFC','3RFC','1LFC','1RFC']
             
+        flowplate = False    
+        
+        self.inputList = [self.sample_id.text(), self.comments.text()] 
         X8060_XYZ_path(progam_number,laser_path,flowplate)
         self.data = readTextFile(save_path,expected_output,self.names)
         
         self.summary = []
-
-        for i in range(0,len(self.data),4):
-            if self.data[i][0] != "Fail":
-                topwidth = np.median(self.data[i])
-                
-            else:
-                topwidth = 999
-                
-            if self.data[i+1][0] != "Fail":
-                bottomwidth = np.median(self.data[i])
-                
-            else:
-                bottomwidth = 999
-                
-            if self.data[i+2][0] != "Fail":
-                toplength = np.median(self.data[i])
-                
-            else:
-                toplength = 999
-                
-            if self.data[i+3][0] != "Fail":
-                bottomlength = np.median(self.data[i])
-                
-            else:
-                bottomlength = 999
-
-            temp = []
-            if topwidth != 999 and bottomwidth != 999:
-                temp.append(topwidth - bottomwidth)
-            else:
-                temp.append(999)
-                
-            if toplength != 999 and bottomlength != 999:
-                temp.append(toplength - bottomlength)
-            else:
-                temp.append(999)
-                
-            self.summary.append(temp)
+        for i in range(0,len(self.data),2):
+            self.summary.append([np.median(self.data[i]), np.median(self.data[i+1])])
         
-        
-        self.v_1_4.setText("%.2f" %self.summary[0][0])
-        self.h_1_4.setText("%.2f" %self.summary[0][1])
-        self.v_2_4.setText("%.2f" %self.summary[1][0])
-        self.h_2_4.setText("%.2f" %self.summary[1][1])
-        self.v_3_4.setText("%.2f" %self.summary[2][0])
-        self.h_3_4.setText("%.2f" %self.summary[2][1])
-        self.v_4_4.setText("%.2f" %self.summary[3][0])
-        self.h_4_4.setText("%.2f" %self.summary[3][1])
+        for n in range(len(self.summary)):
+            for i in range(len(self.summary[n])):
+                self.tableWidget_3.setItem(n+1, i+1, QTableWidgetItem('%.3f' % self.summary[n][i]))
         
     def export_1_click(self):
         print('Saving Files')
@@ -518,7 +459,7 @@ class X8060GUI(QMainWindow):
         
         while True:
             try:
-                dir_path = QFileDialog.getExistingDirectory(self, 'open a folder', self.pathStart + r'Frore Systems\RnD - Documents\Characterization\Keyence LJXMappingTool\data\X8060_gui_data')
+                dir_path = QFileDialog.getExistingDirectory(self, 'open a folder', self.pathStart + r'Frore Systems\RnD - Documents\Characterization\Keyence LJXMappingTool\data')
                 break
             except PermissionError:
                 return None
@@ -581,7 +522,7 @@ class X8060GUI(QMainWindow):
         
         while True:
             try:
-                dir_path = QFileDialog.getExistingDirectory(self, 'open a folder', self.pathStart + r'Frore Systems\RnD - Documents\Characterization\Keyence LJXMappingTool\data\X8060_gui_data')
+                dir_path = QFileDialog.getExistingDirectory(self, 'open a folder', self.pathStart + r'Frore Systems\RnD - Documents\Characterization\Keyence LJXMappingTool\data')
                 break
             except PermissionError:
                 return None
@@ -644,7 +585,7 @@ class X8060GUI(QMainWindow):
         
         while True:
             try:
-                dir_path = QFileDialog.getExistingDirectory(self, 'open a folder', self.pathStart + r'Frore Systems\RnD - Documents\Characterization\Keyence LJXMappingTool\data\X8060_gui_data')
+                dir_path = QFileDialog.getExistingDirectory(self, 'open a folder', self.pathStart + r'Frore Systems\RnD - Documents\Characterization\Keyence LJXMappingTool\data')
                 break
             except PermissionError:
                 return None
@@ -705,6 +646,67 @@ class X8060GUI(QMainWindow):
         print('Finished Saving')
         self.state_3.setText('Saved File')
         self.state_3.setStyleSheet("background-color: green;  border: 1px solid black;") 
+        
+    def export_4_click(self):
+        print('Saving Files')
+        self.inputList[0] = self.sample_id.text()
+        self.inputList[1] = self.comments.text()
+        cell = ['1','2','3','4']
+        file_name = '\\' + self.inputList[0] + '.xlsx'
+        
+        while True:
+            try:
+                dir_path = QFileDialog.getExistingDirectory(self, 'open a folder', self.pathStart + r'Frore Systems\RnD - Documents\Characterization\Keyence LJXMappingTool\data')
+                break
+            except PermissionError:
+                return None
+            
+        if path.exists(dir_path + file_name): #testing if file already exists
+            self.state_4.setText('Warning: File already exists')
+            self.state_4.setStyleSheet("background-color: red;  border: 1px solid black;") 
+            print('Could not Save')
+            return None
+        
+        print('**************************')
+        writer = pd.ExcelWriter(dir_path + file_name, engine='xlsxwriter')
+        
+        inputValues = pd.DataFrame({'names' : ['Sample ID', 'Comments'], 
+                                    'values' : self.inputList})
+        
+        inputValues.to_excel(writer, sheet_name='Data', index=False, startcol=0, startrow=0)
+        
+        summaryValues = pd.DataFrame({'Cell' : cell, 
+                                     self.inputList[0] + '_Left Frame to Anchor' : [self.summary[i][0] for i in range(4)],
+                                     self.inputList[0] + '_Right Frame to Anchor' : [self.summary[i][1] for i in range(4)],
+                                     })
+        
+        summaryValues.to_excel(writer, sheet_name='Data', index=False, startcol=3, startrow=0)
+        
+        label = []
+        for i in range(len(self.data)):
+            temp = [self.names[i]] * len(self.data[i])
+            label.append(temp)
+            
+        flat_data = [j for sub in self.data[::2] for j in sub]
+        flat_names = [j for sub in label[::2] for j in sub]
+        
+        Left = pd.DataFrame({'Left Frame to Anchor' : flat_data, 
+                             self.inputList[0] : flat_names})
+                  
+        Left.to_excel(writer, sheet_name='Data', index=False, startcol=7, startrow=0)
+        
+        flat_data = [j for sub in self.data[1::2] for j in sub]
+        flat_names = [j for sub in label[1::2] for j in sub]
+        
+        Right = pd.DataFrame({'Right Frame to Anchor' : flat_data, 
+                              self.inputList[0] : flat_names})
+        
+        Right.to_excel(writer, sheet_name='Data', index=False, startcol=10, startrow=0)
+        
+        writer.save()
+        print('Finished Saving')
+        self.state_4.setText('Saved File')
+        self.state_4.setStyleSheet("background-color: green;  border: 1px solid black;") 
         
         
 if __name__ == '__main__':
