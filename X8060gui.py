@@ -94,6 +94,7 @@ class X8060GUI(QMainWindow):
         self.measure_3.clicked.connect(self.measure_3_click)
         self.export_3.clicked.connect(self.export_3_click)
         self.measure_4.clicked.connect(self.measure_4_click)
+        self.export_4.clicked.connect(self.export_4_click)
         
     def measure_1_click(self):
         
@@ -432,9 +433,16 @@ class X8060GUI(QMainWindow):
             if self.oneA_4.isChecked():
                 laser_path = '8by12 Jet Channel'
                 self.type = '8by12_'
-                progam_number = b'0'
-                save_path = self.pathStart + r'Documents\KEYENCE\LJ-X Series Terminal-Software\USB\SD2\lj-x3d\result\SD1_0'
+                progam_number = b'018'
+                save_path = self.pathStart + r'Documents\KEYENCE\LJ-X Series Terminal-Software\USB\SD2\lj-x3d\result\SD1_018'
                 expected_output = ['4LFC','4RFC','2LFC','2RFC','3LFC','3RFC','1LFC','1RFC']
+            
+        if self.onebyfour_4.isChecked():
+            laser_path = '1by4 Jet Channel'
+            self.type = '1by4_'
+            progam_number = b'018'
+            save_path = self.pathStart + r'Documents\KEYENCE\LJ-X Series Terminal-Software\USB\SD2\lj-x3d\result\SD1_018'
+            expected_output = ['4LFC','4RFC','2LFC','2RFC','3LFC','3RFC','1LFC','1RFC']
             
         flowplate = False    
         
@@ -448,7 +456,7 @@ class X8060GUI(QMainWindow):
         
         for n in range(len(self.summary)):
             for i in range(len(self.summary[n])):
-                self.tableWidget_3.setItem(n+1, i+1, QTableWidgetItem('%.3f' % self.summary[n][i]))
+                self.tableWidget_4.setItem(n+1, i+1, QTableWidgetItem('%.3f' % self.summary[n][i]))
         
     def export_1_click(self):
         print('Saving Files')
