@@ -383,6 +383,27 @@ class X8060GUI(QMainWindow):
             
         self.goodmeasure_2.setText('Good Measurement')  
         self.goodmeasure_2.setStyleSheet("background-color: green;  border: 1px solid black;")
+        
+        ht = []
+        
+        for i in [sublist[0] for sublist in self.summary]:
+            ht.append(i)
+            
+        for n in range(0,len(ht),2):
+            if ht[n] == 999 or ht[n+1] == 999:
+                continue
+            else:
+                grade.append(ht[n])
+                grade.append(ht[n+1])
+                
+        left = [value for value in grade[::2]]
+        right = [value for value in grade[1::2]]
+        difference = np.abs((sum(left) - sum(right))/len(left))
+        print(difference)
+            
+        if difference > 0.05:
+            self.grading_2.setText('Grade Fail, HT')  
+            self.grading_2.setStyleSheet("background-color: red;  border: 1px solid black;")
             
 
     def measure_3_click(self):
