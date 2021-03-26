@@ -252,13 +252,16 @@ class X8060GUI(QMainWindow):
                       '4LHW', '4LHCD', '4LHCW', '4LC2A', '4ANC', '4LD', '4LT', '4RHW', '4RHCD', '4RHCW', '4RC2A', '4ANC', '4RD', '4RT']
                 
         if self.eightbyeight_2.isChecked(): 
-            laser_path = '8by8 Actuator'
-            self.type = '8by8_'
+            laser_path = '8by12 Actuator'
+            self.type = '8by12_'
             expected_output = ['3LD', '3RD', '3LHW', '3RHW', '3LHCW', '3RHCW', '3LHCD', '3RHCD', '3LC2A', '3RC2A', '3ANC', '3LT', '3RT',
                                '1LD', '1RD', '1LHW', '1RHW', '1LHCW', '1RHCW', '1LHCD', '1RHCD', '1LC2A', '1RC2A', '1ANC', '1LT', '1RT',
                                '4LD', '4RD', '4LHW', '4RHW', '4LHCW', '4RHCW', '4LHCD', '4RHCD', '4LC2A', '4RC2A', '4ANC', '4LT', '4RT',
                                '2LD', '2RD', '2LHW', '2RHW', '2LHCW', '2RHCW', '2LHCD', '2RHCD', '2LC2A', '2RC2A', '2ANC', '2LT', '2RT']
-                
+            progam_number = b'001'
+            save_path = self.pathStart + r'Documents\KEYENCE\LJ-X Series Terminal-Software\USB\SD2\lj-x3d\result\SD1_001'
+            
+            
         if self.eightbytwelve_2.isChecked():
             laser_path = '8by12 Actuator'
             self.type = '8by12_'
@@ -377,6 +380,9 @@ class X8060GUI(QMainWindow):
         if difference <= 0.025:
             self.grading_2.setText('Grade A')  
             self.grading_2.setStyleSheet("background-color: green;  border: 1px solid black;")
+            
+        self.goodmeasure_2.setText('Good Measurement')  
+        self.goodmeasure_2.setStyleSheet("background-color: green;  border: 1px solid black;")
             
 
     def measure_3_click(self):
