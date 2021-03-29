@@ -57,6 +57,14 @@ class X8060GUI(QMainWindow):
         self.grading_2.setStyleSheet("background-color:lightblue;  border: 1px solid black;")  #save indicator
         self.grading_2.setAlignment(QtCore.Qt.AlignCenter)
         
+        self.grading_3.setText('Nothing Measured')  
+        self.grading_3.setStyleSheet("background-color:lightblue;  border: 1px solid black;")  #save indicator
+        self.grading_3.setAlignment(QtCore.Qt.AlignCenter)
+        
+        self.grading_4.setText('Nothing Measured')  
+        self.grading_4.setStyleSheet("background-color:lightblue;  border: 1px solid black;")  #save indicator
+        self.grading_4.setAlignment(QtCore.Qt.AlignCenter)
+        
         self.plot_1.setBackground('w')
            
         my_absolute_dirpath = os.path.abspath(os.path.dirname(__file__))
@@ -414,6 +422,8 @@ class X8060GUI(QMainWindow):
     def measure_3_click(self):
         self.state_3.setText('Not Saved')  
         self.state_3.setStyleSheet("background-color: yellow;  border: 1px solid black;")  #save indicator
+        self.grading_3.setText('Nothing Measured')  
+        self.grading_3.setStyleSheet("background-color:lightblue;  border: 1px solid black;")
         
         for n in range(8):
             for i in range(3):
@@ -448,10 +458,24 @@ class X8060GUI(QMainWindow):
         for n in range(len(self.summary)):
             for i in range(len(self.summary[n])):
                 self.tableWidget_3.setItem(n+1, i+1, QTableWidgetItem('%.3f' % self.summary[n][i]))
+          
+        self.grading_3.setText('Pass')  
+        self.grading_3.setStyleSheet("background-color: green;  border: 1px solid black;")      
+          
+        for i in range(len(self.summary)):
+            if np.abs(self.summary[i][0] - self.summary[i][2]) > 0.05:
+                self.grading_3.setText('Grade Fail - Anchor Symmetry')  
+                self.grading_3.setStyleSheet("background-color: red;  border: 1px solid black;")
+                break
+            if self.summary[i][1] > 0.05 or self.summary[i][1] < 0.04:
+                self.grading_3.setText('Grade Fail - Cavity Depth')  
+                self.grading_3.setStyleSheet("background-color: red;  border: 1px solid black;")
+                break
 
 
     def measure_4_click(self):
-        
+        self.grading_4.setText('Nothing Measured')  
+        self.grading_4.setStyleSheet("background-color:lightblue;  border: 1px solid black;")
         self.state_4.setText('Not Saved')  
         self.state_4.setStyleSheet("background-color: yellow;  border: 1px solid black;")  #save indicator
         
@@ -489,6 +513,15 @@ class X8060GUI(QMainWindow):
         for n in range(len(self.summary)):
             for i in range(len(self.summary[n])):
                 self.tableWidget_4.setItem(n+1, i+1, QTableWidgetItem('%.3f' % self.summary[n][i]))
+                
+        self.grading_4.setText('Pass')  
+        self.grading_4.setStyleSheet("background-color: green;  border: 1px solid black;")      
+          
+        for i in range(len(self.summary)):
+            if np.abs(self.summary[i][0] - self.summary[i][1]) > 0.05:
+                self.grading_4.setText('Grade Fail - Anchor Symmetry')  
+                self.grading_4.setStyleSheet("background-color: red;  border: 1px solid black;")
+                break
         
     def export_1_click(self):
         print('Saving Files')
