@@ -385,8 +385,12 @@ class X8060GUI(QMainWindow):
         self.goodmeasure_2.setStyleSheet("background-color: green;  border: 1px solid black;")
         
         ht = []
+        grade = []
+        left = []
+        right = []
         
         for i in [sublist[0] for sublist in self.summary]:
+            print(i)
             ht.append(i)
             
         for n in range(0,len(ht),2):
@@ -395,6 +399,7 @@ class X8060GUI(QMainWindow):
             else:
                 grade.append(ht[n])
                 grade.append(ht[n+1])
+                
                 
         left = [value for value in grade[::2]]
         right = [value for value in grade[1::2]]
