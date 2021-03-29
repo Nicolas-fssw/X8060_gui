@@ -41,6 +41,10 @@ class X8060GUI(QMainWindow):
         self.state_3.setStyleSheet("background-color:lightblue;  border: 1px solid black;")  #save indicator
         self.state_3.setAlignment(QtCore.Qt.AlignCenter)
         
+        self.state_4.setText('Nothing Measured')  
+        self.state_4.setStyleSheet("background-color:lightblue;  border: 1px solid black;")  #save indicator
+        self.state_4.setAlignment(QtCore.Qt.AlignCenter)
+        
         self.goodmeasure_1.setText('Nothing Measured')  
         self.goodmeasure_1.setStyleSheet("background-color:lightblue;  border: 1px solid black;")  #save indicator
         self.goodmeasure_1.setAlignment(QtCore.Qt.AlignCenter)
@@ -487,12 +491,11 @@ class X8060GUI(QMainWindow):
         self.names = ['1LFC','1RFC','2LFC','2RFC','3LFC','3RFC','4LFC','4RFC']
                 
         if self.twelvebyeight_4.isChecked():
-            if self.oneA_4.isChecked():
-                laser_path = '8by12 Jet Channel'
-                self.type = '8by12_'
-                progam_number = b'018'
-                save_path = self.pathStart + r'Documents\KEYENCE\LJ-X Series Terminal-Software\USB\SD2\lj-x3d\result\SD1_018'
-                expected_output = ['4LFC','4RFC','2LFC','2RFC','3LFC','3RFC','1LFC','1RFC']
+            laser_path = '8by12 Jet Channel'
+            self.type = '8by12_'
+            progam_number = b'018'
+            save_path = self.pathStart + r'Documents\KEYENCE\LJ-X Series Terminal-Software\USB\SD2\lj-x3d\result\SD1_018'
+            expected_output = ['4LFC','4RFC','2LFC','2RFC','3LFC','3RFC','1LFC','1RFC']
             
         if self.onebyfour_4.isChecked():
             laser_path = '1by4 Jet Channel'
