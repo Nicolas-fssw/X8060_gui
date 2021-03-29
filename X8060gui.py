@@ -463,11 +463,12 @@ class X8060GUI(QMainWindow):
         self.grading_3.setStyleSheet("background-color: green;  border: 1px solid black;")      
           
         for i in range(len(self.summary)):
-            if np.abs(self.summary[i][0] - self.summary[i][2]) > 0.05:
+            if np.abs(self.summary[i][0] - self.summary[i][1]) > 0.05:
                 self.grading_3.setText('Grade Fail - Anchor Symmetry')  
                 self.grading_3.setStyleSheet("background-color: red;  border: 1px solid black;")
                 break
-            if self.summary[i][1] > 0.05 or self.summary[i][1] < 0.04:
+            if self.summary[i][2] > 0.05 or self.summary[i][2] < 0.04:
+                print(self.summary[i][1])
                 self.grading_3.setText('Grade Fail - Cavity Depth')  
                 self.grading_3.setStyleSheet("background-color: red;  border: 1px solid black;")
                 break
@@ -518,7 +519,7 @@ class X8060GUI(QMainWindow):
         self.grading_4.setStyleSheet("background-color: green;  border: 1px solid black;")      
           
         for i in range(len(self.summary)):
-            if np.abs(self.summary[i][0] - self.summary[i][1]) > 0.05:
+            if np.abs(self.summary[i][0] - self.summary[i][1]) > 0.1:
                 self.grading_4.setText('Grade Fail - Anchor Symmetry')  
                 self.grading_4.setStyleSheet("background-color: red;  border: 1px solid black;")
                 break
