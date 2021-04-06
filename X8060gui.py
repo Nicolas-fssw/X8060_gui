@@ -433,7 +433,7 @@ class X8060GUI(QMainWindow):
             for i in range(3):
                 self.tableWidget_3.setItem(n+1, i+1, QTableWidgetItem(999))
         
-        self.names = ['1LFC','1RFC','1D','2LFC','2RFC','2D','3LFC','3RFC','3D','4LFC','4RFC','4D']
+        self.names = ['1LFC','1RFC','1LD','1RD','1AW','2LFC','2RFC','2LD','2RD','2AW','3LFC','3RFC','3LD','3RD','3AW','4LFC','4RFC','4LD','4RD','4AW']
         
         if self.eightbyeight_3.isChecked(): 
             laser_path = '1by4 Orifice'
@@ -447,7 +447,7 @@ class X8060GUI(QMainWindow):
             self.type = '8by12_'
             progam_number = b'017'
             save_path = self.pathStart + r'Documents\KEYENCE\LJ-X Series Terminal-Software\USB\SD2\lj-x3d\result\SD1_017'
-            expected_output = ['4LFC','4RFC','4D','2LFC','2RFC','2D','3LFC','3RFC','3D','1LFC','1RFC','1D']
+            expected_output = ['4LFC','4RFC','4LD','4RD','4AW','2LFC','2RFC','2LD','2RD','2AW','3LFC','3RFC','3LD','3RD','3AW','1LFC','1RFC','1LD','1RD','1AW']
             
         flowplate = False    
         
@@ -456,8 +456,9 @@ class X8060GUI(QMainWindow):
         self.data = readTextFile(save_path,expected_output,self.names)
         
         self.summary = []
-        for i in range(0,len(self.data),3):
-            self.summary.append([np.median(self.data[i]), np.median(self.data[i+1]), np.median(self.data[i+2])])
+        for i in range(0,len(self.data),5):
+            self.summary.append([np.median(self.data[i]), np.median(self.data[i+1]), np.median(self.data[i+2]),
+                                 np.median(self.data[i+3]), np.median(self.data[i+4])])
         
         for n in range(len(self.summary)):
             for i in range(len(self.summary[n])):
