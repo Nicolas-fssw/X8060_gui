@@ -45,17 +45,9 @@ class X8060GUI(QMainWindow):
         self.state_4.setStyleSheet("background-color:lightblue;  border: 1px solid black;")  #save indicator
         self.state_4.setAlignment(QtCore.Qt.AlignCenter)
         
-        self.goodmeasure_1.setText('Nothing Measured')  
-        self.goodmeasure_1.setStyleSheet("background-color:lightblue;  border: 1px solid black;")  #save indicator
-        self.goodmeasure_1.setAlignment(QtCore.Qt.AlignCenter)
-        
         self.grading_1.setText('Nothing Measured')  
         self.grading_1.setStyleSheet("background-color:lightblue;  border: 1px solid black;")  #save indicator
         self.grading_1.setAlignment(QtCore.Qt.AlignCenter)
-        
-        self.goodmeasure_2.setText('Nothing Measured')  
-        self.goodmeasure_2.setStyleSheet("background-color:lightblue;  border: 1px solid black;")  #save indicator
-        self.goodmeasure_2.setAlignment(QtCore.Qt.AlignCenter)
         
         self.grading_2.setText('Nothing Measured')  
         self.grading_2.setStyleSheet("background-color:lightblue;  border: 1px solid black;")  #save indicator
@@ -114,8 +106,6 @@ class X8060GUI(QMainWindow):
         self.state_1.setStyleSheet("background-color: yellow;  border: 1px solid black;")
         self.grading_1.setText('Nothing Measured')  
         self.grading_1.setStyleSheet("background-color:lightblue;  border: 1px solid black;")
-        self.goodmeasure_1.setText('Good Measurement')  
-        self.goodmeasure_1.setStyleSheet("background-color: green;  border: 1px solid black;")
         
         self.BCH_1.setText("n/a")
         self.DROOP_1.setText("n/a")
@@ -138,7 +128,8 @@ class X8060GUI(QMainWindow):
         
         self.plot_1.clear()
         self.plot_1.plot([0,7], [25,25], pen=pg.mkPen('r', width=2))
-        self.plot_1.plot([0,7], [35,35], pen=pg.mkPen('g', width=2))
+        self.plot_1.plot([0,7], [40,40], pen=pg.mkPen('g', width=2))
+        self.plot_1.plot([0,7], [30,30], pen=pg.mkPen('g', width=2))
         
         actuator_thickness = float(self.actuator_input_1.text())/1000
         frame_thickness = float(self.frame_input_1.text())/1000
@@ -149,32 +140,26 @@ class X8060GUI(QMainWindow):
         self.inputList = [self.sample_id.text(), self.comments.text(), actuator_thickness, frame_thickness] 
     
         self.names = ['1LBCH','1LF2A','1RBCH','1RF2A','2LBCH','2LF2A','2RBCH','2RF2A','3LBCH','3LF2A','3RBCH','3RF2A','4LBCH','4LF2A','4RBCH','4RF2A']
-        
-        if self.eightbyeight_1.isChecked(): 
-            laser_path = '8by8 Bottom Stack'
-            self.type = '8by8_'
-            expected_output = ['4LBCH','4LF2A','4RBCH','4RF2A','2LBCH','2LF2A','2RBCH','2RF2A','3LBCH','3LF2A','3RBCH','3RF2A','1LBCH','1LF2A','1RBCH','1RF2A']
-        
-        if self.onebyfour_1.isChecked(): 
-            laser_path = '1by4 Bottom Stack'
-            self.type = '1by4_'
-            expected_output = ['4LBCH','4LF2A','4RBCH','4RF2A','3LBCH','3LF2A','3RBCH','3RF2A','2LBCH','2LF2A','2RBCH','2RF2A','1LBCH','1LF2A','1RBCH','1RF2A']
-            progam_number = b'015'
-            save_path = self.pathStart + r'Documents\KEYENCE\LJ-X Series Terminal-Software\USB\SD2\lj-x3d\result\SD1_015'
                     
-        if self.eightbytwelve_1.isChecked():
+        if self.BCH_mask_1.isChecked():
             laser_path = '8by12 Bottom Stack'
             self.type = '8by12_'
             expected_output = ['4LBCH','4LF2A','4RBCH','4RF2A','2LBCH','2LF2A','2RBCH','2RF2A','3LBCH','3LF2A','3RBCH','3RF2A','1LBCH','1LF2A','1RBCH','1RF2A']
             progam_number = b'013'
             save_path = self.pathStart + r'Documents\KEYENCE\LJ-X Series Terminal-Software\USB\SD2\lj-x3d\result\SD1_013'
+            
+        if self.BCH_mask_2.isChecked(): 
+            laser_path = '1by4 Bottom Stack'
+            self.type = '1by4_'
+            expected_output = ['4LBCH','4LF2A','4RBCH','4RF2A','3LBCH','3LF2A','3RBCH','3RF2A','2LBCH','2LF2A','2RBCH','2RF2A','1LBCH','1LF2A','1RBCH','1RF2A']
+            progam_number = b'015'
+            save_path = self.pathStart + r'Documents\KEYENCE\LJ-X Series Terminal-Software\USB\SD2\lj-x3d\result\SD1_015'
                 
         if self.flow_plate_1.isChecked():
             flowplate = True
         else:
             flowplate = False
             
-        
         X8060_XYZ_path(progam_number,laser_path,flowplate)
         self.data = readTextFile(save_path,expected_output,self.names)
         
@@ -188,26 +173,20 @@ class X8060GUI(QMainWindow):
                 self.plot_1.plot([i/2], [BCH], symbol = 'o')
             else:
                 BCH = 999
-                self.goodmeasure_1.setText('Failed Measurement')  
-                self.goodmeasure_1.setStyleSheet("background-color: red;  border: 1px solid black;")
+                self.state_1.setText('Warning: Bad Data')  
+                self.state_1.setStyleSheet("background-color: red;  border: 1px solid black;")
             if self.data[i+1][0] != "Fail":
                 droop = (np.median(self.data[i+1]) + frame_thickness) * 1000
                 average_list[1].append(droop)
             else:
                 droop = 999
-                self.goodmeasure_1.setText('Failed Measurement')  
-                self.goodmeasure_1.setStyleSheet("background-color: red;  border: 1px solid black;")
+                self.state_1.setText('Warning: Bad Data')  
+                self.state_1.setStyleSheet("background-color: red;  border: 1px solid black;")
                 
             self.summary.append([BCH, droop])
-            
-            if len(self.data[i]) < 20 or len(self.data[i+1]) < 20:
-                self.goodmeasure_1.setText('Potentially Bad Measurement')  
-                self.goodmeasure_1.setStyleSheet("background-color: red;  border: 1px solid black;")
-
         
         self.summary.append([np.average(average_list[0]), np.average(average_list[1])])
-        
-        
+
         self.BCH_1.setText("%.2f" %self.summary[0][0])
         self.DROOP_1.setText("%.2f" %self.summary[0][1])
         self.BCH_2.setText("%.2f" %self.summary[1][0])
@@ -249,32 +228,17 @@ class X8060GUI(QMainWindow):
         self.state_2.setStyleSheet("background-color: yellow;  border: 1px solid black;")  #save indicator
         self.grading_2.setText('Nothing Measured')  
         self.grading_2.setStyleSheet("background-color:lightblue;  border: 1px solid black;")
-        self.goodmeasure_2.setText('Good Measurement')  
-        self.goodmeasure_2.setStyleSheet("background-color: green;  border: 1px solid black;")
-        
         
         for n in range(8):
             for i in range(7):
                 self.tableWidget_2.setItem(n+1, i+1, QTableWidgetItem(999))
 
-        
         self.names = ['1LHW', '1LHCD', '1LHCW', '1LC2A', '1ANC', '1LD', '1LT', '1RHW', '1RHCD', '1RHCW', '1RC2A', '1ANC', '1RD', '1RT',
                       '2LHW', '2LHCD', '2LHCW', '2LC2A', '2ANC', '2LD', '2LT', '2RHW', '2RHCD', '2RHCW', '2RC2A', '2ANC', '2RD', '2RT',
                       '3LHW', '3LHCD', '3LHCW', '3LC2A', '3ANC', '3LD', '3LT', '3RHW', '3RHCD', '3RHCW', '3RC2A', '3ANC', '3RD', '3RT',
                       '4LHW', '4LHCD', '4LHCW', '4LC2A', '4ANC', '4LD', '4LT', '4RHW', '4RHCD', '4RHCW', '4RC2A', '4ANC', '4RD', '4RT']
-                
-        if self.eightbyeight_2.isChecked(): 
-            laser_path = '8by12 Actuator'
-            self.type = '8by12_'
-            expected_output = ['3LD', '3RD', '3LHW', '3RHW', '3LHCW', '3RHCW', '3LHCD', '3RHCD', '3LC2A', '3RC2A', '3ANC', '3LT', '3RT',
-                               '1LD', '1RD', '1LHW', '1RHW', '1LHCW', '1RHCW', '1LHCD', '1RHCD', '1LC2A', '1RC2A', '1ANC', '1LT', '1RT',
-                               '4LD', '4RD', '4LHW', '4RHW', '4LHCW', '4RHCW', '4LHCD', '4RHCD', '4LC2A', '4RC2A', '4ANC', '4LT', '4RT',
-                               '2LD', '2RD', '2LHW', '2RHW', '2LHCW', '2RHCW', '2LHCD', '2RHCD', '2LC2A', '2RC2A', '2ANC', '2LT', '2RT']
-            progam_number = b'001'
-            save_path = self.pathStart + r'Documents\KEYENCE\LJ-X Series Terminal-Software\USB\SD2\lj-x3d\result\SD1_001'
             
-            
-        if self.eightbytwelve_2.isChecked():
+        if self.BCH_mask_3.isChecked():
             laser_path = '8by12 Actuator'
             self.type = '8by12_'
             expected_output = ['3LD', '3RD', '3LHW', '3RHW', '3LHCW', '3RHCW', '3LHCD', '3RHCD', '3LC2A', '3RC2A', '3ANC', '3LT', '3RT',
@@ -284,7 +248,7 @@ class X8060GUI(QMainWindow):
             progam_number = b'014'
             save_path = self.pathStart + r'Documents\KEYENCE\LJ-X Series Terminal-Software\USB\SD2\lj-x3d\result\SD1_014'
             
-        if self.onebyfour_2.isChecked():
+        if self.BCH_mask_4.isChecked():
             laser_path = '1by4 Actuator'
             self.type = '1by4_'
             expected_output = ['1LD', '1RD', '1LHW', '1RHW', '1LHCW', '1RHCW', '1LHCD', '1RHCD', '1LC2A', '1RC2A', '1ANC', '1LT', '1RT',
@@ -301,57 +265,51 @@ class X8060GUI(QMainWindow):
         
         self.summary = []
         temp = []
-        for i in range(0,len(self.data),7):
-            
-            lengthcheck = [len(sublist) for sublist in self.data[i:i+6]]  
-            print(lengthcheck)
-            for r in lengthcheck:
-                if r < 20:
-                    self.goodmeasure_2.setText('Potentially Bad Measurement')  
-                    self.goodmeasure_2.setStyleSheet("background-color: red;  border: 1px solid black;")
+        
+        for i in range(0,len(self.data),7):    
             
             if self.data[i][0] != "Fail":
                 temp.append(np.median(self.data[i]))
             else:
                  temp.append(999)
-                 self.goodmeasure_2.setText('Failed Measurement')  
-                 self.goodmeasure_2.setStyleSheet("background-color: red;  border: 1px solid black;")
+                 self.state_2.setText('Warning: Bad Data')  
+                 self.state_2.setStyleSheet("background-color: red;  border: 1px solid black;")
             if self.data[i+1][0] != "Fail":
                 temp.append(np.median(self.data[i+1]))
             else:
                  temp.append(999)
-                 self.goodmeasure_2.setText('Failed Measurement')  
-                 self.goodmeasure_2.setStyleSheet("background-color: red;  border: 1px solid black;")
+                 self.state_2.setText('Warning: Bad Data')  
+                 self.state_2.setStyleSheet("background-color: red;  border: 1px solid black;")
             if self.data[i+2][0] != "Fail":
                 temp.append(np.median(self.data[i+2]))
             else:
                  temp.append(999)
-                 self.goodmeasure_2.setText('Failed Measurement')  
-                 self.goodmeasure_2.setStyleSheet("background-color: red;  border: 1px solid black;")
+                 self.state_2.setText('Warning: Bad Data')  
+                 self.state_2.setStyleSheet("background-color: red;  border: 1px solid black;")
             if self.data[i+3][0] != "Fail":
                 temp.append(np.median(self.data[i+3]))
             else:
                  temp.append(999)
-                 self.goodmeasure_2.setText('Failed Measurement')  
-                 self.goodmeasure_2.setStyleSheet("background-color: red;  border: 1px solid black;")
+                 self.state_2.setText('Warning: Bad Data')  
+                 self.state_2.setStyleSheet("background-color: red;  border: 1px solid black;")
             if self.data[i+4][0] != "Fail":
                 temp.append(np.median(self.data[i+4]))
             else:
                  temp.append(999)
-                 self.goodmeasure_2.setText('Failed Measurement')  
-                 self.goodmeasure_2.setStyleSheet("background-color: red;  border: 1px solid black;")
+                 self.state_2.setText('Warning: Bad Data')  
+                 self.state_2.setStyleSheet("background-color: red;  border: 1px solid black;")
             if self.data[i+5][0] != "Fail":
                 temp.append(np.median(self.data[i+5]))
             else:
                  temp.append(999)
-                 self.goodmeasure_2.setText('Failed Measurement')  
-                 self.goodmeasure_2.setStyleSheet("background-color: red;  border: 1px solid black;")
+                 self.state_2.setText('Warning: Bad Data')  
+                 self.state_2.setStyleSheet("background-color: red;  border: 1px solid black;")
             if self.data[i+6][0] != "Fail":
                 temp.append(np.median(self.data[i+6]))
             else:
                  temp.append(999)
-                 self.goodmeasure_2.setText('Failed Measurement')  
-                 self.goodmeasure_2.setStyleSheet("background-color: red;  border: 1px solid black;")
+                 self.state_2.setText('Warning: Bad Data')  
+                 self.state_2.setStyleSheet("background-color: red;  border: 1px solid black;")
             
             self.summary.append(temp)
             temp = []
@@ -393,9 +351,6 @@ class X8060GUI(QMainWindow):
             self.grading_2.setText('Grade A')  
             self.grading_2.setStyleSheet("background-color: green;  border: 1px solid black;")
             
-        self.goodmeasure_2.setText('Good Measurement')  
-        self.goodmeasure_2.setStyleSheet("background-color: green;  border: 1px solid black;")
-        
         ht = []
         grade = []
         left = []
@@ -429,26 +384,26 @@ class X8060GUI(QMainWindow):
         self.grading_3.setText('Nothing Measured')  
         self.grading_3.setStyleSheet("background-color:lightblue;  border: 1px solid black;")
         
-        for n in range(8):
-            for i in range(3):
+        for n in range(4):
+            for i in range(5):
                 self.tableWidget_3.setItem(n+1, i+1, QTableWidgetItem(999))
         
         self.names = ['1LFC','1RFC','1LD','1RD','1AW','2LFC','2RFC','2LD','2RD','2AW','3LFC','3RFC','3LD','3RD','3AW','4LFC','4RFC','4LD','4RD','4AW']
-        
-        if self.eightbyeight_3.isChecked(): 
-            laser_path = '1by4 Orifice'
-            self.type = '8by12_'
-            progam_number = b'017'
-            save_path = self.pathStart + r'Documents\KEYENCE\LJ-X Series Terminal-Software\USB\SD2\lj-x3d\result\SD1_017'
-            expected_output = ['4LFC','4RFC','4D','3LFC','3RFC','3D','2LFC','2RFC','2D','1LFC','1RFC','1D'] 
                 
-        if self.twelvebyeight_3.isChecked():
+        if self.BCH_mask_5.isChecked():
             laser_path = '8by12 Orifice'
             self.type = '8by12_'
             progam_number = b'017'
             save_path = self.pathStart + r'Documents\KEYENCE\LJ-X Series Terminal-Software\USB\SD2\lj-x3d\result\SD1_017'
             expected_output = ['4LFC','4RFC','4LD','4RD','4AW','2LFC','2RFC','2LD','2RD','2AW','3LFC','3RFC','3LD','3RD','3AW','1LFC','1RFC','1LD','1RD','1AW']
             
+        if self.BCH_mask_6.isChecked(): 
+            laser_path = '1by4 Orifice'
+            self.type = '1by4_'
+            progam_number = b'017'
+            save_path = self.pathStart + r'Documents\KEYENCE\LJ-X Series Terminal-Software\USB\SD2\lj-x3d\result\SD1_017'
+            expected_output = ['4LFC','4RFC','4D','3LFC','3RFC','3D','2LFC','2RFC','2D','1LFC','1RFC','1D'] 
+                    
         flowplate = False    
         
         self.inputList = [self.sample_id.text(), self.comments.text()] 
@@ -462,22 +417,21 @@ class X8060GUI(QMainWindow):
         
         for n in range(len(self.summary)):
             for i in range(len(self.summary[n])):
-                self.tableWidget_3.setItem(n+1, i+1, QTableWidgetItem('%.3f' % self.summary[n][i]))
-          
-        self.grading_3.setText('Pass')  
-        self.grading_3.setStyleSheet("background-color: green;  border: 1px solid black;")      
+                self.tableWidget_3.setItem(n+1, i+1, QTableWidgetItem('%.3f' % self.summary[n][i]))   
           
         for i in range(len(self.summary)):
-            if np.abs(self.summary[i][0] - self.summary[i][1]) > 0.075:
-                self.grading_3.setText('Grade Fail - Anchor Symmetry')  
-                self.grading_3.setStyleSheet("background-color: red;  border: 1px solid black;")
-                break
-            if self.summary[i][2] > 0.05 or self.summary[i][2] < 0.04:
+            if self.summary[i][2] > 0.05 or self.summary[i][2] < 0.04 or self.summary[i][3] > 0.05 or self.summary[i][3] < 0.04:
                 print(self.summary[i][1])
                 self.grading_3.setText('Grade Fail - Cavity Depth')  
                 self.grading_3.setStyleSheet("background-color: red;  border: 1px solid black;")
                 break
+            if np.abs(self.summary[i][0] - self.summary[i][1]) > 0.075:
+                self.grading_3.setText('Grade Fail - Anchor Symmetry')  
+                self.grading_3.setStyleSheet("background-color: red;  border: 1px solid black;")
+                break
 
+        self.grading_3.setText('Pass')  
+        self.grading_3.setStyleSheet("background-color: green;  border: 1px solid black;")   
 
     def measure_4_click(self):
         self.grading_4.setText('Nothing Measured')  
