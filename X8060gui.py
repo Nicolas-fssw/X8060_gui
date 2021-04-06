@@ -152,8 +152,8 @@ class X8060GUI(QMainWindow):
             laser_path = '1by4 Bottom Stack'
             self.type = '1by4_'
             expected_output = ['4LBCH','4LF2A','4RBCH','4RF2A','3LBCH','3LF2A','3RBCH','3RF2A','2LBCH','2LF2A','2RBCH','2RF2A','1LBCH','1LF2A','1RBCH','1RF2A']
-            progam_number = b'015'
-            save_path = self.pathStart + r'Documents\KEYENCE\LJ-X Series Terminal-Software\USB\SD2\lj-x3d\result\SD1_015'
+            progam_number = b'013'
+            save_path = self.pathStart + r'Documents\KEYENCE\LJ-X Series Terminal-Software\USB\SD2\lj-x3d\result\SD1_013'
                 
         if self.flow_plate_1.isChecked():
             flowplate = True
@@ -402,7 +402,7 @@ class X8060GUI(QMainWindow):
             self.type = '1by4_'
             progam_number = b'017'
             save_path = self.pathStart + r'Documents\KEYENCE\LJ-X Series Terminal-Software\USB\SD2\lj-x3d\result\SD1_017'
-            expected_output = ['4LFC','4RFC','4D','3LFC','3RFC','3D','2LFC','2RFC','2D','1LFC','1RFC','1D'] 
+            expected_output = ['4LFC','4RFC','4LD','4RD','4AW','3LFC','3RFC','3LD','3RD','3AW','2LFC','2RFC','2LD','2RD','2AW','1LFC','1RFC','1LD','1RD','1AW']
                     
         flowplate = False    
         
