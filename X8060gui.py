@@ -440,19 +440,19 @@ class X8060GUI(QMainWindow):
         self.state_4.setStyleSheet("background-color: yellow;  border: 1px solid black;")  #save indicator
         
         for n in range(8):
-            for i in range(3):
+            for i in range(2):
                 self.tableWidget_4.setItem(n+1, i+1, QTableWidgetItem(999))
         
         self.names = ['1LFC','1RFC','2LFC','2RFC','3LFC','3RFC','4LFC','4RFC']
                 
-        if self.twelvebyeight_4.isChecked():
+        if self.BCH_mask_7.isChecked():
             laser_path = '8by12 Jet Channel'
             self.type = '8by12_'
             progam_number = b'018'
             save_path = self.pathStart + r'Documents\KEYENCE\LJ-X Series Terminal-Software\USB\SD2\lj-x3d\result\SD1_018'
             expected_output = ['4LFC','4RFC','2LFC','2RFC','3LFC','3RFC','1LFC','1RFC']
             
-        if self.onebyfour_4.isChecked():
+        if self.BCH_mask_8.isChecked():
             laser_path = '1by4 Jet Channel'
             self.type = '1by4_'
             progam_number = b'018'
@@ -472,15 +472,15 @@ class X8060GUI(QMainWindow):
         for n in range(len(self.summary)):
             for i in range(len(self.summary[n])):
                 self.tableWidget_4.setItem(n+1, i+1, QTableWidgetItem('%.3f' % self.summary[n][i]))
-                
-        self.grading_4.setText('Pass')  
-        self.grading_4.setStyleSheet("background-color: green;  border: 1px solid black;")      
           
         for i in range(len(self.summary)):
             if np.abs(self.summary[i][0] - self.summary[i][1]) > 0.1:
                 self.grading_4.setText('Grade Fail - Anchor Symmetry')  
                 self.grading_4.setStyleSheet("background-color: red;  border: 1px solid black;")
-                break
+                return
+            
+        self.grading_4.setText('Pass')  
+        self.grading_4.setStyleSheet("background-color: green;  border: 1px solid black;")   
         
     def export_1_click(self):
         print('Saving Files')
