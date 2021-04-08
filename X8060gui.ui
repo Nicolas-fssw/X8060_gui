@@ -93,7 +93,7 @@
     <item row="1" column="0" colspan="6">
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>0</number>
+       <number>1</number>
       </property>
       <widget class="QWidget" name="tab1">
        <attribute name="title">
@@ -1254,7 +1254,7 @@
                </property>
               </widget>
              </item>
-             <item row="1" column="2">
+             <item row="0" column="2">
               <widget class="QRadioButton" name="BCH_mask_9">
                <property name="minimumSize">
                 <size>
@@ -1273,7 +1273,7 @@
                </property>
               </widget>
              </item>
-             <item row="0" column="2">
+             <item row="1" column="2">
               <widget class="QRadioButton" name="BCH_mask_10">
                <property name="minimumSize">
                 <size>
@@ -1323,7 +1323,7 @@
           </property>
           <property name="sizeHint" stdset="0">
            <size>
-            <width>597</width>
+            <width>200</width>
             <height>20</height>
            </size>
           </property>
