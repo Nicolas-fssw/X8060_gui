@@ -93,7 +93,7 @@
     <item row="1" column="0" colspan="6">
      <widget class="QTabWidget" name="tabWidget">
       <property name="currentIndex">
-       <number>2</number>
+       <number>0</number>
       </property>
       <widget class="QWidget" name="tab1">
        <attribute name="title">
@@ -1248,6 +1248,44 @@
                </property>
                <property name="checked">
                 <bool>true</bool>
+               </property>
+               <property name="autoExclusive">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="2">
+              <widget class="QRadioButton" name="BCH_mask_9">
+               <property name="minimumSize">
+                <size>
+                 <width>70</width>
+                 <height>20</height>
+                </size>
+               </property>
+               <property name="text">
+                <string>1D 'Step'</string>
+               </property>
+               <property name="checked">
+                <bool>false</bool>
+               </property>
+               <property name="autoExclusive">
+                <bool>true</bool>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="2">
+              <widget class="QRadioButton" name="BCH_mask_10">
+               <property name="minimumSize">
+                <size>
+                 <width>70</width>
+                 <height>20</height>
+                </size>
+               </property>
+               <property name="text">
+                <string>1D 'HT'</string>
+               </property>
+               <property name="checked">
+                <bool>false</bool>
                </property>
                <property name="autoExclusive">
                 <bool>true</bool>
