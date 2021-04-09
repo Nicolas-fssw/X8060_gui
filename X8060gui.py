@@ -156,6 +156,7 @@ class X8060GUI(QMainWindow):
         self.measure_4.clicked.connect(self.measure_4_click)
         self.export_4.clicked.connect(self.export_4_click)
         self.measure_5.clicked.connect(self.measure_5_click)
+        self.export_5.clicked.connect(self.export_5_click)
         
     def measure_1_click(self):
         
@@ -1067,6 +1068,74 @@ class X8060GUI(QMainWindow):
         print('Finished Saving')
         self.state_4.setText('Saved File')
         self.state_4.setStyleSheet("background-color: green;  border: 1px solid black;") 
+        
+    def export_5_click(self):
+        print('Saving Files')
+        self.inputList[0] = self.sample_id.text()
+        self.inputList[1] = self.comments.text()
+        sides = ['1L', '1R', '2L', '2R', '3L', '3R', '4L', '4R']
+        file_name = '\\' + self.inputList[0] + '.xlsx'
+        
+        while True:
+            try:
+                dir_path = QFileDialog.getExistingDirectory(self, 'open a folder', self.pathStart + r'Frore Systems\RnD - Documents\Characterization\Keyence LJXMappingTool\data')
+                break
+            except PermissionError:
+                return None
+            
+        if path.exists(dir_path + file_name): #testing if file already exists
+            self.state_2.setText('Warning: File already exists')
+            self.state_2.setStyleSheet("background-color: red;  border: 1px solid black;") 
+            print('Could not Save')
+            return None
+        
+        print('**************************')
+        for m in range(len(self.summary)):
+            writer = pd.ExcelWriter(dir_path + file_name + '-' + str(m), engine='xlsxwriter')
+            
+            inputValues = pd.DataFrame({'names' : ['Strip ID', 'Comments'], 
+                                        'values' : self.inputList})
+            
+            inputValues.to_excel(writer, sheet_name='Data', index=False, startcol=0, startrow=0)
+            
+            
+            
+            summaryValues = pd.DataFrame({'Actuator ID' : [self.inputList[0] + '-' + str(m),self.inputList[0] + '-' + str(m),self.inputList[0] + '-' + str(m),self.inputList[0] + '-' + str(m),
+                                                           self.inputList[0] + '-' + str(m),self.inputList[0] + '-' + str(m),self.inputList[0] + '-' + str(m),self.inputList[0] + '-' + str(m)],
+                                         'side' : sides, 
+                                         'Hammertail Width' : [self.summary[m][i][0]*1000 for i in range(8)],
+                                         'Cavity Depth' : [self.summary[m][i][1]*1000 for i in range(8)],
+                                         'Cavity Width' : [self.summary[m][i][2] for i in range(8)],
+                                         'C2A Width' : [self.summary[m][i][3] for i in range(8)],
+                                         'Anchor Width' : [self.summary[m][i][4] for i in range(8)],
+                                         'Droop' : [self.summary[m][i][5]*1000 for i in range(8)],
+                                         'T Height' : [self.summary[m][i][6]*1000 for i in range(8)],
+                                         })
+            
+            summaryValues.to_excel(writer, sheet_name='Data', index=False, startcol=3, startrow=0)
+            
+            label = []
+            for i in range(len(self.data)):
+                temp = [self.names[i]] * len(self.data[i])
+                label.append(temp)
+                
+            columnNames = ['Hammertail Width', 'Cavity Depth', 'Cavity Width', 'C2A Width', 'Anchor Width', 'Droop', 'T height']
+                
+            for i in range(7):    
+                
+                flat_data = [j for sub in self.data[i::7] for j in sub]
+                flat_names = [j for sub in label[i::7] for j in sub]
+            
+                rawData = pd.DataFrame({columnNames[i] : flat_data, 
+                                        self.inputList[0] + '-' + str(m) : flat_names})
+                      
+                rawData.to_excel(writer, sheet_name='Data', index=False, startcol=11 + 3*i, startrow=0)
+            
+        
+            writer.save()
+        print('Finished Saving')
+        self.state_2.setText('Saved File')
+        self.state_2.setStyleSheet("background-color: green;  border: 1px solid black;")     
         
         
 if __name__ == '__main__':
