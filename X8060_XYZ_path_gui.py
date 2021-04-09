@@ -94,11 +94,11 @@ def X8060_XYZ_path(programNumber, laserpath, flowplate):
     rm.close()
     LJX8060.close()
     
-def X8060_strip_path(programNumber, laserpath, iteration):
+def X8060_strip_path(programNumber, laserpath, iteration, TTA, LJX8060, rm):
     
     
     pathDict = {
-                '2x7 12x8' : [] 
+                '2x7 12x8' : [19515, 81720, 31920, 19515, 104655, 31920, 19515, 97690, 31920, 19515, 120625, 31920, 30405, 81720, 31920, 30405, 104655, 31920, 30405, 97690, 31920, 30405, 120625, 31920] 
                }
     
     if iteration == 1:
@@ -138,15 +138,13 @@ def X8060_strip_path(programNumber, laserpath, iteration):
         Home(TTA)
         time.sleep(1)
         
-        acc = 20
-        dcl = 20
-        delay = 0.1
-        
     if iteration > 1:
-        ######
-        ######
-        ######
-        print('hi')
+        for t in range(0,24,3):
+            pathDict[laserpath][t] = pathDict[laserpath][t] + 26000 * (iteration-1)
+        
+    acc = 20
+    dcl = 20
+    delay = 0.1
       
     for i in range(0,len(pathDict[laserpath]),6):
         
@@ -159,10 +157,11 @@ def X8060_strip_path(programNumber, laserpath, iteration):
         Move_XYZ(TTA,acc,dcl,vel,pathDict[laserpath][i+3],pathDict[laserpath][i+4],pathDict[laserpath][i+5],delay)
 
     time.sleep(1) 
-    if iteration == 14:  
+    if iteration == 7:  
         vel = 150
         Move_XYZ(TTA,acc,dcl,vel,10,10,10,delay)
         Home(TTA)
         rm.close()
         LJX8060.close()
     
+    return TTA, LJX8060, rm

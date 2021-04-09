@@ -21,7 +21,7 @@ import os
 from os import path
 import time
 
-from X8060_XYZ_path_gui import X8060_XYZ_path
+from X8060_XYZ_path_gui import X8060_XYZ_path, X8060_strip_path
 from readTextFile_gui import readTextFile
 
 class X8060GUI(QMainWindow):
@@ -565,6 +565,10 @@ class X8060GUI(QMainWindow):
         
         self.inputList = [self.sample_id.text(), self.comments.text()] 
         
+        TTA = ''
+        LJX8060 = ''
+        rm = ''
+        
         self.state_5.setText('Not Saved')  
         self.state_5.setStyleSheet("background-color: yellow;  border: 1px solid black;")  #save indicator
 
@@ -578,12 +582,8 @@ class X8060GUI(QMainWindow):
         pass_list = []
         color_list = []
         
-        for m in range(14):
-            self.summary.append([])
-            pass_list.append([])
-            color_list.append([])
-            if self.BCH_mask_12.isChecked():
-                laser_path = '8by12 Actuator'
+        if self.BCH_mask_12.isChecked():
+                laser_path = '2x7 12x8'
                 self.type = '1B_'
                 expected_output = ['3LD', '3RD', '3LHW', '3RHW', '3LHCW', '3RHCW', '3LHCD', '3RHCD', '3LC2A', '3RC2A', '3ANC', '3LT', '3RT',
                                    '1LD', '1RD', '1LHW', '1RHW', '1LHCW', '1RHCW', '1LHCD', '1RHCD', '1LC2A', '1RC2A', '1ANC', '1LT', '1RT',
@@ -591,11 +591,13 @@ class X8060GUI(QMainWindow):
                                    '2LD', '2RD', '2LHW', '2RHW', '2LHCW', '2RHCW', '2LHCD', '2RHCD', '2LC2A', '2RC2A', '2ANC', '2LT', '2RT']
                 progam_number = b'014'
                 save_path = self.pathStart + r'Documents\KEYENCE\LJ-X Series Terminal-Software\USB\SD2\lj-x3d\result\SD1_014'
-                
-             
-            flowplate = False    
-            
-            X8060_XYZ_path(progam_number,laser_path,flowplate)
+        
+        for m in range(7):
+            self.summary.append([])
+            pass_list.append([])
+            color_list.append([])
+                  
+            TTA, LJX8060, rm = X8060_strip_path(progam_number, laser_path, m+1, TTA, LJX8060, rm)
             self.data = readTextFile(save_path,expected_output,self.names)
         
             flag = False
@@ -673,7 +675,8 @@ class X8060GUI(QMainWindow):
                  
                 self.summary[m].append(temp)
                 temp = []
-                
+            
+            print(flag)
             if flag == True:
                 continue
                 
