@@ -572,12 +572,13 @@ class X8060GUI(QMainWindow):
                       '3LHW', '3LHCD', '3LHCW', '3LC2A', '3ANC', '3LD', '3LT', '3RHW', '3RHCD', '3RHCW', '3RC2A', '3ANC', '3RD', '3RT',
                       '4LHW', '4LHCD', '4LHCW', '4LC2A', '4ANC', '4LD', '4LT', '4RHW', '4RHCD', '4RHCW', '4RC2A', '4ANC', '4RD', '4RT']
         
-        self.summary = []
+        self.summary = [[],[],[],[],[],[],[],[],[],[],[],[],[],[]]
         temp = []
-        pass_list = []
-        color_list = []
+        pass_list = [[],[],[],[],[],[],[],[],[],[],[],[],[],[]]
+        color_list = [[],[],[],[],[],[],[],[],[],[],[],[],[],[]]
         
-        for m in [7,6,5,4,3,2,1,8,9,10,11,12,13,14]:
+        #for m in [6,5,4,3,2,1,0,7,8,9,10,11,12,13]:
+        for m in [0,1,2,3]:
         
             if self.BCH_mask_12.isChecked():
                 laser_path = '8by12 Actuator'
@@ -595,7 +596,7 @@ class X8060GUI(QMainWindow):
             X8060_XYZ_path(progam_number,laser_path,flowplate)
             self.data = readTextFile(save_path,expected_output,self.names)
         
-        
+            flag = False
             for i in range(0,len(self.data),7):    
                 
                 if self.data[i][0] != "Fail":
@@ -606,7 +607,8 @@ class X8060GUI(QMainWindow):
                      self.state_5.setStyleSheet("background-color: red;  border: 1px solid black;")
                      pass_list[m] = 'Warning: Bad Data'
                      color_list[m] = "background-color: red;  border: 1px solid black;"
-                     continue
+                     flag = True
+
                 if self.data[i+1][0] != "Fail":
                     temp.append(np.median(self.data[i+1]))
                 else:
@@ -615,7 +617,8 @@ class X8060GUI(QMainWindow):
                      self.state_5.setStyleSheet("background-color: red;  border: 1px solid black;")
                      pass_list[m] = 'Warning: Bad Data'
                      color_list[m] = "background-color: red;  border: 1px solid black;"
-                     continue
+                     flag = True
+
                 if self.data[i+2][0] != "Fail":
                     temp.append(np.median(self.data[i+2]))
                 else:
@@ -624,7 +627,8 @@ class X8060GUI(QMainWindow):
                      self.state_5.setStyleSheet("background-color: red;  border: 1px solid black;")
                      pass_list[m] = 'Warning: Bad Data'
                      color_list[m] = "background-color: red;  border: 1px solid black;"
-                     continue
+                     flag = True
+
                 if self.data[i+3][0] != "Fail":
                     temp.append(np.median(self.data[i+3]))
                 else:
@@ -633,7 +637,8 @@ class X8060GUI(QMainWindow):
                      self.state_5.setStyleSheet("background-color: red;  border: 1px solid black;")
                      pass_list[m] = 'Warning: Bad Data'
                      color_list[m] = "background-color: red;  border: 1px solid black;"
-                     continue
+                     flag = True
+
                 if self.data[i+4][0] != "Fail":
                     temp.append(np.median(self.data[i+4]))
                 else:
@@ -642,7 +647,8 @@ class X8060GUI(QMainWindow):
                      self.state_5.setStyleSheet("background-color: red;  border: 1px solid black;")
                      pass_list[m] = 'Warning: Bad Data'
                      color_list[m] = "background-color: red;  border: 1px solid black;"
-                     continue
+                     flag = True
+
                 if self.data[i+5][0] != "Fail":
                     temp.append(np.median(self.data[i+5]))
                 else:
@@ -651,7 +657,8 @@ class X8060GUI(QMainWindow):
                      self.state_5.setStyleSheet("background-color: red;  border: 1px solid black;")
                      pass_list[m] = 'Warning: Bad Data'
                      color_list[m] = "background-color: red;  border: 1px solid black;"
-                     continue
+                     flag = True
+
                 if self.data[i+6][0] != "Fail":
                     temp.append(np.median(self.data[i+6]))
                 else:
@@ -660,10 +667,15 @@ class X8060GUI(QMainWindow):
                      self.state_5.setStyleSheet("background-color: red;  border: 1px solid black;")
                      pass_list[m] = 'Warning: Bad Data'
                      color_list[m] = "background-color: red;  border: 1px solid black;"
-                     continue
-            
-            self.summary.append(temp)
-            temp = []
+                     flag = True
+                 
+                self.summary[m].append(temp)
+                temp = []
+                
+            if flag == True:
+                continue
+                
+            print(len(self.summary[m]))
                     
             C2A = [] 
             grade = []
@@ -740,45 +752,45 @@ class X8060GUI(QMainWindow):
         self.strip_grade_4.setStyleSheet(color_list[3])  #save indicator
         self.strip_grade_4.setAlignment(QtCore.Qt.AlignCenter)
         
-        self.strip_grade_5.setText(pass_list[4])  
-        self.strip_grade_5.setStyleSheet(color_list[4])  #save indicator
-        self.strip_grade_5.setAlignment(QtCore.Qt.AlignCenter)
+        # self.strip_grade_5.setText(pass_list[4])  
+        # self.strip_grade_5.setStyleSheet(color_list[4])  #save indicator
+        # self.strip_grade_5.setAlignment(QtCore.Qt.AlignCenter)
         
-        self.strip_grade_6.setText(pass_list[5])  
-        self.strip_grade_6.setStyleSheet(color_list[5])  #save indicator
-        self.strip_grade_6.setAlignment(QtCore.Qt.AlignCenter)
+        # self.strip_grade_6.setText(pass_list[5])  
+        # self.strip_grade_6.setStyleSheet(color_list[5])  #save indicator
+        # self.strip_grade_6.setAlignment(QtCore.Qt.AlignCenter)
         
-        self.strip_grade_7.setText(pass_list[6])  
-        self.strip_grade_7.setStyleSheet(color_list[6])  #save indicator
-        self.strip_grade_7.setAlignment(QtCore.Qt.AlignCenter)
+        # self.strip_grade_7.setText(pass_list[6])  
+        # self.strip_grade_7.setStyleSheet(color_list[6])  #save indicator
+        # self.strip_grade_7.setAlignment(QtCore.Qt.AlignCenter)
         
-        self.strip_grade_8.setText(pass_list[7])  
-        self.strip_grade_8.setStyleSheet(color_list[7])  #save indicator
-        self.strip_grade_8.setAlignment(QtCore.Qt.AlignCenter)
+        # self.strip_grade_8.setText(pass_list[7])  
+        # self.strip_grade_8.setStyleSheet(color_list[7])  #save indicator
+        # self.strip_grade_8.setAlignment(QtCore.Qt.AlignCenter)
         
-        self.strip_grade_9.setText(pass_list[8])  
-        self.strip_grade_9.setStyleSheet(color_list[8])  #save indicator
-        self.strip_grade_9.setAlignment(QtCore.Qt.AlignCenter)
+        # self.strip_grade_9.setText(pass_list[8])  
+        # self.strip_grade_9.setStyleSheet(color_list[8])  #save indicator
+        # self.strip_grade_9.setAlignment(QtCore.Qt.AlignCenter)
         
-        self.strip_grade_10.setText(pass_list[9])  
-        self.strip_grade_10.setStyleSheet(color_list[9])  #save indicator
-        self.strip_grade_10.setAlignment(QtCore.Qt.AlignCenter)
+        # self.strip_grade_10.setText(pass_list[9])  
+        # self.strip_grade_10.setStyleSheet(color_list[9])  #save indicator
+        # self.strip_grade_10.setAlignment(QtCore.Qt.AlignCenter)
         
-        self.strip_grade_11.setText(pass_list[10])  
-        self.strip_grade_11.setStyleSheet(color_list[10])  #save indicator
-        self.strip_grade_11.setAlignment(QtCore.Qt.AlignCenter)
+        # self.strip_grade_11.setText(pass_list[10])  
+        # self.strip_grade_11.setStyleSheet(color_list[10])  #save indicator
+        # self.strip_grade_11.setAlignment(QtCore.Qt.AlignCenter)
         
-        self.strip_grade_12.setText(pass_list[11])  
-        self.strip_grade_12.setStyleSheet(color_list[11])  #save indicator
-        self.strip_grade_12.setAlignment(QtCore.Qt.AlignCenter)
+        # self.strip_grade_12.setText(pass_list[11])  
+        # self.strip_grade_12.setStyleSheet(color_list[11])  #save indicator
+        # self.strip_grade_12.setAlignment(QtCore.Qt.AlignCenter)
         
-        self.strip_grade_13.setText(pass_list[12])  
-        self.strip_grade_13.setStyleSheet(color_list[12])  #save indicator
-        self.strip_grade_13.setAlignment(QtCore.Qt.AlignCenter)
+        # self.strip_grade_13.setText(pass_list[12])  
+        # self.strip_grade_13.setStyleSheet(color_list[12])  #save indicator
+        # self.strip_grade_13.setAlignment(QtCore.Qt.AlignCenter)
         
-        self.strip_grade_14.setText(pass_list[13])  
-        self.strip_grade_14.setStyleSheet(color_list[13])  #save indicator
-        self.strip_grade_14.setAlignment(QtCore.Qt.AlignCenter)
+        # self.strip_grade_14.setText(pass_list[13])  
+        # self.strip_grade_14.setStyleSheet(color_list[13])  #save indicator
+        # self.strip_grade_14.setAlignment(QtCore.Qt.AlignCenter)
         
         
     def export_1_click(self):
