@@ -573,14 +573,15 @@ class X8060GUI(QMainWindow):
                       '3LHW', '3LHCD', '3LHCW', '3LC2A', '3ANC', '3LD', '3LT', '3RHW', '3RHCD', '3RHCW', '3RC2A', '3ANC', '3RD', '3RT',
                       '4LHW', '4LHCD', '4LHCW', '4LC2A', '4ANC', '4LD', '4LT', '4RHW', '4RHCD', '4RHCW', '4RC2A', '4ANC', '4RD', '4RT']
         
-        self.summary = [[],[],[],[],[],[],[],[],[],[],[],[],[],[]]
+        self.summary = []
         temp = []
-        pass_list = [[],[],[],[],[],[],[],[],[],[],[],[],[],[]]
-        color_list = [[],[],[],[],[],[],[],[],[],[],[],[],[],[]]
+        pass_list = []
+        color_list = []
         
-        #for m in [6,5,4,3,2,1,0,7,8,9,10,11,12,13]:
-        for m in [0,1,2,3]:
-        
+        for m in range(14):
+            self.summary.append([])
+            pass_list.append([])
+            color_list.append([])
             if self.BCH_mask_12.isChecked():
                 laser_path = '8by12 Actuator'
                 self.type = '1B_'
@@ -753,45 +754,45 @@ class X8060GUI(QMainWindow):
         self.strip_grade_4.setStyleSheet(color_list[3])  #save indicator
         self.strip_grade_4.setAlignment(QtCore.Qt.AlignCenter)
         
-        # self.strip_grade_5.setText(pass_list[4])  
-        # self.strip_grade_5.setStyleSheet(color_list[4])  #save indicator
-        # self.strip_grade_5.setAlignment(QtCore.Qt.AlignCenter)
+        self.strip_grade_5.setText(pass_list[4])  
+        self.strip_grade_5.setStyleSheet(color_list[4])  #save indicator
+        self.strip_grade_5.setAlignment(QtCore.Qt.AlignCenter)
         
-        # self.strip_grade_6.setText(pass_list[5])  
-        # self.strip_grade_6.setStyleSheet(color_list[5])  #save indicator
-        # self.strip_grade_6.setAlignment(QtCore.Qt.AlignCenter)
+        self.strip_grade_6.setText(pass_list[5])  
+        self.strip_grade_6.setStyleSheet(color_list[5])  #save indicator
+        self.strip_grade_6.setAlignment(QtCore.Qt.AlignCenter)
         
-        # self.strip_grade_7.setText(pass_list[6])  
-        # self.strip_grade_7.setStyleSheet(color_list[6])  #save indicator
-        # self.strip_grade_7.setAlignment(QtCore.Qt.AlignCenter)
+        self.strip_grade_7.setText(pass_list[6])  
+        self.strip_grade_7.setStyleSheet(color_list[6])  #save indicator
+        self.strip_grade_7.setAlignment(QtCore.Qt.AlignCenter)
         
-        # self.strip_grade_8.setText(pass_list[7])  
-        # self.strip_grade_8.setStyleSheet(color_list[7])  #save indicator
-        # self.strip_grade_8.setAlignment(QtCore.Qt.AlignCenter)
+        self.strip_grade_8.setText(pass_list[7])  
+        self.strip_grade_8.setStyleSheet(color_list[7])  #save indicator
+        self.strip_grade_8.setAlignment(QtCore.Qt.AlignCenter)
         
-        # self.strip_grade_9.setText(pass_list[8])  
-        # self.strip_grade_9.setStyleSheet(color_list[8])  #save indicator
-        # self.strip_grade_9.setAlignment(QtCore.Qt.AlignCenter)
+        self.strip_grade_9.setText(pass_list[8])  
+        self.strip_grade_9.setStyleSheet(color_list[8])  #save indicator
+        self.strip_grade_9.setAlignment(QtCore.Qt.AlignCenter)
         
-        # self.strip_grade_10.setText(pass_list[9])  
-        # self.strip_grade_10.setStyleSheet(color_list[9])  #save indicator
-        # self.strip_grade_10.setAlignment(QtCore.Qt.AlignCenter)
+        self.strip_grade_10.setText(pass_list[9])  
+        self.strip_grade_10.setStyleSheet(color_list[9])  #save indicator
+        self.strip_grade_10.setAlignment(QtCore.Qt.AlignCenter)
         
-        # self.strip_grade_11.setText(pass_list[10])  
-        # self.strip_grade_11.setStyleSheet(color_list[10])  #save indicator
-        # self.strip_grade_11.setAlignment(QtCore.Qt.AlignCenter)
+        self.strip_grade_11.setText(pass_list[10])  
+        self.strip_grade_11.setStyleSheet(color_list[10])  #save indicator
+        self.strip_grade_11.setAlignment(QtCore.Qt.AlignCenter)
         
-        # self.strip_grade_12.setText(pass_list[11])  
-        # self.strip_grade_12.setStyleSheet(color_list[11])  #save indicator
-        # self.strip_grade_12.setAlignment(QtCore.Qt.AlignCenter)
+        self.strip_grade_12.setText(pass_list[11])  
+        self.strip_grade_12.setStyleSheet(color_list[11])  #save indicator
+        self.strip_grade_12.setAlignment(QtCore.Qt.AlignCenter)
         
-        # self.strip_grade_13.setText(pass_list[12])  
-        # self.strip_grade_13.setStyleSheet(color_list[12])  #save indicator
-        # self.strip_grade_13.setAlignment(QtCore.Qt.AlignCenter)
+        self.strip_grade_13.setText(pass_list[12])  
+        self.strip_grade_13.setStyleSheet(color_list[12])  #save indicator
+        self.strip_grade_13.setAlignment(QtCore.Qt.AlignCenter)
         
-        # self.strip_grade_14.setText(pass_list[13])  
-        # self.strip_grade_14.setStyleSheet(color_list[13])  #save indicator
-        # self.strip_grade_14.setAlignment(QtCore.Qt.AlignCenter)
+        self.strip_grade_14.setText(pass_list[13])  
+        self.strip_grade_14.setStyleSheet(color_list[13])  #save indicator
+        self.strip_grade_14.setAlignment(QtCore.Qt.AlignCenter)
         
         
     def export_1_click(self):
@@ -1074,7 +1075,7 @@ class X8060GUI(QMainWindow):
         self.inputList[0] = self.sample_id.text()
         self.inputList[1] = self.comments.text()
         sides = ['1L', '1R', '2L', '2R', '3L', '3R', '4L', '4R']
-        file_name = '\\' + self.inputList[0] + '.xlsx'
+        file_name = '\\' + self.inputList[0]
         
         while True:
             try:
@@ -1091,7 +1092,8 @@ class X8060GUI(QMainWindow):
         
         print('**************************')
         for m in range(len(self.summary)):
-            writer = pd.ExcelWriter(dir_path + file_name + '-' + str(m), engine='xlsxwriter')
+            act_name = file_name + '-' + str(m+1) + '.xlsx'
+            writer = pd.ExcelWriter(dir_path + act_name, engine='xlsxwriter')
             
             inputValues = pd.DataFrame({'names' : ['Strip ID', 'Comments'], 
                                         'values' : self.inputList})
@@ -1100,8 +1102,8 @@ class X8060GUI(QMainWindow):
             
             
             
-            summaryValues = pd.DataFrame({'Actuator ID' : [self.inputList[0] + '-' + str(m),self.inputList[0] + '-' + str(m),self.inputList[0] + '-' + str(m),self.inputList[0] + '-' + str(m),
-                                                           self.inputList[0] + '-' + str(m),self.inputList[0] + '-' + str(m),self.inputList[0] + '-' + str(m),self.inputList[0] + '-' + str(m)],
+            summaryValues = pd.DataFrame({'Actuator ID' : [self.inputList[0] + '-' + str(m+1),self.inputList[0] + '-' + str(m+1),self.inputList[0] + '-' + str(m+1),self.inputList[0] + '-' + str(m+1),
+                                                           self.inputList[0] + '-' + str(m+1),self.inputList[0] + '-' + str(m+1),self.inputList[0] + '-' + str(m+1),self.inputList[0] + '-' + str(m+1)],
                                          'side' : sides, 
                                          'Hammertail Width' : [self.summary[m][i][0]*1000 for i in range(8)],
                                          'Cavity Depth' : [self.summary[m][i][1]*1000 for i in range(8)],
@@ -1127,9 +1129,9 @@ class X8060GUI(QMainWindow):
                 flat_names = [j for sub in label[i::7] for j in sub]
             
                 rawData = pd.DataFrame({columnNames[i] : flat_data, 
-                                        self.inputList[0] + '-' + str(m) : flat_names})
+                                        self.inputList[0] + '-' + str(m+1) : flat_names})
                       
-                rawData.to_excel(writer, sheet_name='Data', index=False, startcol=11 + 3*i, startrow=0)
+                rawData.to_excel(writer, sheet_name='Data', index=False, startcol=13 + 3*i, startrow=0)
             
         
             writer.save()

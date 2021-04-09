@@ -85,7 +85,8 @@ def X8060_XYZ_path(programNumber, laserpath, flowplate):
         LJX8060.write(b'T1\r') #Switch to communication mode 
         Move_XYZ(TTA,acc,dcl,vel,pathDict[laserpath][i+3],pathDict[laserpath][i+4],pathDict[laserpath][i+5],delay)
 
-        
+     
+    #time.sleep(1)   
     vel = 150
     Move_XYZ(TTA,acc,dcl,vel,10,10,10,delay)
     Home(TTA)
