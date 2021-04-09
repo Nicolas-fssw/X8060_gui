@@ -94,3 +94,75 @@ def X8060_XYZ_path(programNumber, laserpath, flowplate):
     rm.close()
     LJX8060.close()
     
+def X8060_strip_path(programNumber, laserpath, iteration):
+    
+    
+    pathDict = {
+                '2x7 12x8' : [] 
+               }
+    
+    if iteration == 1:
+        LJX8060 = serial.Serial(
+                            port='COM7',
+                            baudrate=115200,
+                            parity=serial.PARITY_NONE,
+                            stopbits=serial.STOPBITS_ONE,
+                            bytesize=serial.EIGHTBITS,
+                            timeout=0.5, 
+                            xonxoff=False, 
+                            rtscts=False, 
+                            write_timeout=None, 
+                            dsrdtr=False, 
+                            inter_byte_timeout=None, 
+                            exclusive=None
+                            )
+        
+        print(LJX8060.name)
+        
+        LJX8060.write(b'R0\r') #Switch to communication mode
+        response = LJX8060.read(12)
+        print(response)
+        
+        LJX8060.write(b'PW,1,' + programNumber + b'\r') #Switch to BCH Program
+        response = LJX8060.read(12)
+        print(response)
+        
+        LJX8060.write(b'TE,1\r') #Switch to communication mode 
+        response = LJX8060.read(12)
+        print(response)
+         
+        
+        rm = visa.ResourceManager()
+        TTA = rm.open_resource('COM4') 
+        Servo_on(TTA)
+        Home(TTA)
+        time.sleep(1)
+        
+        acc = 20
+        dcl = 20
+        delay = 0.1
+        
+    if iteration > 1:
+        ######
+        ######
+        ######
+        print('hi')
+      
+    for i in range(0,len(pathDict[laserpath]),6):
+        
+        vel = 150
+        ######  
+        Move_XYZ(TTA,acc,dcl,vel,pathDict[laserpath][i],pathDict[laserpath][i+1],pathDict[laserpath][i+2],delay)
+    
+        vel = 19
+        LJX8060.write(b'T1\r') #Switch to communication mode 
+        Move_XYZ(TTA,acc,dcl,vel,pathDict[laserpath][i+3],pathDict[laserpath][i+4],pathDict[laserpath][i+5],delay)
+
+    time.sleep(1) 
+    if iteration == 14:  
+        vel = 150
+        Move_XYZ(TTA,acc,dcl,vel,10,10,10,delay)
+        Home(TTA)
+        rm.close()
+        LJX8060.close()
+    
