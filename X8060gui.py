@@ -597,7 +597,7 @@ class X8060GUI(QMainWindow):
             pass_list.append([])
             color_list.append([])
                   
-            TTA, LJX8060, rm = X8060_strip_path(progam_number, laser_path, m+1, TTA, LJX8060, rm)
+            TTA, LJX8060, rm = X8060_strip_path(progam_number, laser_path, m+1)
             self.data = readTextFile(save_path,expected_output,self.names)
         
             flag = False
