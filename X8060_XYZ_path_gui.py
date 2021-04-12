@@ -99,7 +99,7 @@ def X8060_strip_path(programNumber, laserpath, iteration):
     
     pathDict = {
                 '2x7 12x8' : [19515, 81720, 31920, 19515, 104655, 31920, 19515, 97690, 31920, 19515, 120625, 31920, 30405, 81720, 31920, 30405, 104655, 31920, 30405, 97690, 31920, 30405, 120625, 31920],
-                '3x4 1x4' : []
+                '3x4 1x4' : [15840,91000,31920,15840,113935,31920,26730,91000,31920,26730,113935,31920,37620,91000,31920,37620,113935,31920,48510,91000,31920,48510,113935,31920]
                }
     
     
@@ -141,7 +141,7 @@ def X8060_strip_path(programNumber, laserpath, iteration):
         time.sleep(1)
      
         
-    if programNumber ==  '2x7 12x8':
+    if laserpath ==  '2x7 12x8':
         if iteration > 1 and iteration < 8:
             for t in range(0,24,3):
                 pathDict[laserpath][t] = pathDict[laserpath][t] + 26000 * (iteration-1)
@@ -151,6 +151,23 @@ def X8060_strip_path(programNumber, laserpath, iteration):
                 pathDict[laserpath][t] = pathDict[laserpath][t] + 26000 * (iteration-8)
             for t in range(1,24,3):
                 pathDict[laserpath][t] = pathDict[laserpath][t] - 36300
+                
+    if laserpath ==  '3x4 1x4':
+        if iteration > 1 and iteration < 5:
+            for t in range(0,24,3):
+                pathDict[laserpath][t] = pathDict[laserpath][t] + 47000 * (iteration-1)
+                
+        if iteration > 4 and iteration < 9:
+            for t in range(0,24,3):
+                pathDict[laserpath][t] = pathDict[laserpath][t] + 47000 * (iteration-5)
+            for t in range(1,24,3):
+                pathDict[laserpath][t] = pathDict[laserpath][t] - 20700
+                
+        if iteration > 8:
+            for t in range(0,24,3):
+                pathDict[laserpath][t] = pathDict[laserpath][t] + 47000 * (iteration-9)
+            for t in range(1,24,3):
+                pathDict[laserpath][t] = pathDict[laserpath][t] - 20700 * 2
         
         
     acc = 20
@@ -167,8 +184,14 @@ def X8060_strip_path(programNumber, laserpath, iteration):
         LJX8060.write(b'T1\r') #Switch to communication mode 
         Move_XYZ(TTA,acc,dcl,vel,pathDict[laserpath][i+3],pathDict[laserpath][i+4],pathDict[laserpath][i+5],delay)
 
-    if programNumber ==  '2x7 12x8':
+    if laserpath ==  '2x7 12x8':
         if iteration == 14:  
+            vel = 150
+            Move_XYZ(TTA,acc,dcl,vel,10,10,10,delay)
+            Home(TTA) 
+            
+    if laserpath ==  '3x4 1x4':
+        if iteration == 12:  
             vel = 150
             Move_XYZ(TTA,acc,dcl,vel,10,10,10,delay)
             Home(TTA) 
