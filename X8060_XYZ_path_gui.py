@@ -98,7 +98,8 @@ def X8060_strip_path(programNumber, laserpath, iteration):
     
     
     pathDict = {
-                '2x7 12x8' : [19515, 81720, 31920, 19515, 104655, 31920, 19515, 97690, 31920, 19515, 120625, 31920, 30405, 81720, 31920, 30405, 104655, 31920, 30405, 97690, 31920, 30405, 120625, 31920] 
+                '2x7 12x8' : [19515, 81720, 31920, 19515, 104655, 31920, 19515, 97690, 31920, 19515, 120625, 31920, 30405, 81720, 31920, 30405, 104655, 31920, 30405, 97690, 31920, 30405, 120625, 31920],
+                '3x4 1x4' : []
                }
     
     
@@ -138,16 +139,19 @@ def X8060_strip_path(programNumber, laserpath, iteration):
     if iteration == 1:
         Home(TTA)
         time.sleep(1)
+     
         
-    if iteration > 1 and iteration < 8:
-        for t in range(0,24,3):
-            pathDict[laserpath][t] = pathDict[laserpath][t] + 26000 * (iteration-1)
-            
-    if iteration > 7:
-        for t in range(0,24,3):
-            pathDict[laserpath][t] = pathDict[laserpath][t] + 26000 * (iteration-8)
-        for t in range(1,24,3):
-            pathDict[laserpath][t] = pathDict[laserpath][t] - 36300
+    if programNumber ==  '2x7 12x8':
+        if iteration > 1 and iteration < 8:
+            for t in range(0,24,3):
+                pathDict[laserpath][t] = pathDict[laserpath][t] + 26000 * (iteration-1)
+                
+        if iteration > 7:
+            for t in range(0,24,3):
+                pathDict[laserpath][t] = pathDict[laserpath][t] + 26000 * (iteration-8)
+            for t in range(1,24,3):
+                pathDict[laserpath][t] = pathDict[laserpath][t] - 36300
+        
         
     acc = 20
     dcl = 20
@@ -163,10 +167,11 @@ def X8060_strip_path(programNumber, laserpath, iteration):
         LJX8060.write(b'T1\r') #Switch to communication mode 
         Move_XYZ(TTA,acc,dcl,vel,pathDict[laserpath][i+3],pathDict[laserpath][i+4],pathDict[laserpath][i+5],delay)
 
-    if iteration == 14:  
-        vel = 150
-        Move_XYZ(TTA,acc,dcl,vel,10,10,10,delay)
-        Home(TTA) 
+    if programNumber ==  '2x7 12x8':
+        if iteration == 14:  
+            vel = 150
+            Move_XYZ(TTA,acc,dcl,vel,10,10,10,delay)
+            Home(TTA) 
     
     time.sleep(0.8)
     rm.close()
