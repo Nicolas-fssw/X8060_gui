@@ -45,6 +45,14 @@ class X8060GUI(QMainWindow):
         self.state_4.setStyleSheet("background-color:lightblue;  border: 1px solid black;")  #save indicator
         self.state_4.setAlignment(QtCore.Qt.AlignCenter)
         
+        self.state_5.setText('Nothing Measured')  
+        self.state_5.setStyleSheet("background-color:lightblue;  border: 1px solid black;")  #save indicator
+        self.state_5.setAlignment(QtCore.Qt.AlignCenter)
+        
+        self.state_6.setText('Nothing Measured')  
+        self.state_6.setStyleSheet("background-color:lightblue;  border: 1px solid black;")  #save indicator
+        self.state_6.setAlignment(QtCore.Qt.AlignCenter)
+        
         self.grading_1.setText('Nothing Measured')  
         self.grading_1.setStyleSheet("background-color:lightblue;  border: 1px solid black;")  #save indicator
         self.grading_1.setAlignment(QtCore.Qt.AlignCenter)
@@ -61,61 +69,109 @@ class X8060GUI(QMainWindow):
         self.grading_4.setStyleSheet("background-color:lightblue;  border: 1px solid black;")  #save indicator
         self.grading_4.setAlignment(QtCore.Qt.AlignCenter)
         
-        self.strip_grade_1.setText('Nothing Measured')  
-        self.strip_grade_1.setStyleSheet("background-color:lightblue;  border: 1px solid black;")  #save indicator
-        self.strip_grade_1.setAlignment(QtCore.Qt.AlignCenter)
+        self.strip_2X7_grade_1.setText('Nothing Measured')  
+        self.strip_2X7_grade_1.setStyleSheet("background-color:lightblue;  border: 1px solid black;")  #save indicator
+        self.strip_2X7_grade_1.setAlignment(QtCore.Qt.AlignCenter)
         
-        self.strip_grade_2.setText('Nothing Measured')  
-        self.strip_grade_2.setStyleSheet("background-color:lightblue;  border: 1px solid black;")  #save indicator
-        self.strip_grade_2.setAlignment(QtCore.Qt.AlignCenter)
+        self.strip_2X7_grade_2.setText('Nothing Measured')  
+        self.strip_2X7_grade_2.setStyleSheet("background-color:lightblue;  border: 1px solid black;")  #save indicator
+        self.strip_2X7_grade_2.setAlignment(QtCore.Qt.AlignCenter)
         
-        self.strip_grade_3.setText('Nothing Measured')  
-        self.strip_grade_3.setStyleSheet("background-color:lightblue;  border: 1px solid black;")  #save indicator
-        self.strip_grade_3.setAlignment(QtCore.Qt.AlignCenter)
+        self.strip_2X7_grade_3.setText('Nothing Measured')  
+        self.strip_2X7_grade_3.setStyleSheet("background-color:lightblue;  border: 1px solid black;")  #save indicator
+        self.strip_2X7_grade_3.setAlignment(QtCore.Qt.AlignCenter)
         
-        self.strip_grade_4.setText('Nothing Measured')  
-        self.strip_grade_4.setStyleSheet("background-color:lightblue;  border: 1px solid black;")  #save indicator
-        self.strip_grade_4.setAlignment(QtCore.Qt.AlignCenter)
+        self.strip_2X7_grade_4.setText('Nothing Measured')  
+        self.strip_2X7_grade_4.setStyleSheet("background-color:lightblue;  border: 1px solid black;")  #save indicator
+        self.strip_2X7_grade_4.setAlignment(QtCore.Qt.AlignCenter)
         
-        self.strip_grade_5.setText('Nothing Measured')  
-        self.strip_grade_5.setStyleSheet("background-color:lightblue;  border: 1px solid black;")  #save indicator
-        self.strip_grade_5.setAlignment(QtCore.Qt.AlignCenter)
+        self.strip_2X7_grade_5.setText('Nothing Measured')  
+        self.strip_2X7_grade_5.setStyleSheet("background-color:lightblue;  border: 1px solid black;")  #save indicator
+        self.strip_2X7_grade_5.setAlignment(QtCore.Qt.AlignCenter)
         
-        self.strip_grade_6.setText('Nothing Measured')  
-        self.strip_grade_6.setStyleSheet("background-color:lightblue;  border: 1px solid black;")  #save indicator
-        self.strip_grade_6.setAlignment(QtCore.Qt.AlignCenter)
+        self.strip_2X7_grade_6.setText('Nothing Measured')  
+        self.strip_2X7_grade_6.setStyleSheet("background-color:lightblue;  border: 1px solid black;")  #save indicator
+        self.strip_2X7_grade_6.setAlignment(QtCore.Qt.AlignCenter)
         
-        self.strip_grade_7.setText('Nothing Measured')  
-        self.strip_grade_7.setStyleSheet("background-color:lightblue;  border: 1px solid black;")  #save indicator
-        self.strip_grade_7.setAlignment(QtCore.Qt.AlignCenter)
+        self.strip_2X7_grade_7.setText('Nothing Measured')  
+        self.strip_2X7_grade_7.setStyleSheet("background-color:lightblue;  border: 1px solid black;")  #save indicator
+        self.strip_2X7_grade_7.setAlignment(QtCore.Qt.AlignCenter)
         
-        self.strip_grade_8.setText('Nothing Measured')  
-        self.strip_grade_8.setStyleSheet("background-color:lightblue;  border: 1px solid black;")  #save indicator
-        self.strip_grade_8.setAlignment(QtCore.Qt.AlignCenter)
+        self.strip_2X7_grade_8.setText('Nothing Measured')  
+        self.strip_2X7_grade_8.setStyleSheet("background-color:lightblue;  border: 1px solid black;")  #save indicator
+        self.strip_2X7_grade_8.setAlignment(QtCore.Qt.AlignCenter)
         
-        self.strip_grade_9.setText('Nothing Measured')  
-        self.strip_grade_9.setStyleSheet("background-color:lightblue;  border: 1px solid black;")  #save indicator
-        self.strip_grade_9.setAlignment(QtCore.Qt.AlignCenter)
+        self.strip_2X7_grade_9.setText('Nothing Measured')  
+        self.strip_2X7_grade_9.setStyleSheet("background-color:lightblue;  border: 1px solid black;")  #save indicator
+        self.strip_2X7_grade_9.setAlignment(QtCore.Qt.AlignCenter)
         
-        self.strip_grade_10.setText('Nothing Measured')  
-        self.strip_grade_10.setStyleSheet("background-color:lightblue;  border: 1px solid black;")  #save indicator
-        self.strip_grade_10.setAlignment(QtCore.Qt.AlignCenter)
+        self.strip_2X7_grade_10.setText('Nothing Measured')  
+        self.strip_2X7_grade_10.setStyleSheet("background-color:lightblue;  border: 1px solid black;")  #save indicator
+        self.strip_2X7_grade_10.setAlignment(QtCore.Qt.AlignCenter)
         
-        self.strip_grade_11.setText('Nothing Measured')  
-        self.strip_grade_11.setStyleSheet("background-color:lightblue;  border: 1px solid black;")  #save indicator
-        self.strip_grade_11.setAlignment(QtCore.Qt.AlignCenter)
+        self.strip_2X7_grade_11.setText('Nothing Measured')  
+        self.strip_2X7_grade_11.setStyleSheet("background-color:lightblue;  border: 1px solid black;")  #save indicator
+        self.strip_2X7_grade_11.setAlignment(QtCore.Qt.AlignCenter)
         
-        self.strip_grade_12.setText('Nothing Measured')  
-        self.strip_grade_12.setStyleSheet("background-color:lightblue;  border: 1px solid black;")  #save indicator
-        self.strip_grade_12.setAlignment(QtCore.Qt.AlignCenter)
+        self.strip_2X7_grade_12.setText('Nothing Measured')  
+        self.strip_2X7_grade_12.setStyleSheet("background-color:lightblue;  border: 1px solid black;")  #save indicator
+        self.strip_2X7_grade_12.setAlignment(QtCore.Qt.AlignCenter)
         
-        self.strip_grade_13.setText('Nothing Measured')  
-        self.strip_grade_13.setStyleSheet("background-color:lightblue;  border: 1px solid black;")  #save indicator
-        self.strip_grade_13.setAlignment(QtCore.Qt.AlignCenter)
+        self.strip_2X7_grade_13.setText('Nothing Measured')  
+        self.strip_2X7_grade_13.setStyleSheet("background-color:lightblue;  border: 1px solid black;")  #save indicator
+        self.strip_2X7_grade_13.setAlignment(QtCore.Qt.AlignCenter)
         
-        self.strip_grade_14.setText('Nothing Measured')  
-        self.strip_grade_14.setStyleSheet("background-color:lightblue;  border: 1px solid black;")  #save indicator
-        self.strip_grade_14.setAlignment(QtCore.Qt.AlignCenter)
+        self.strip_2X7_grade_14.setText('Nothing Measured')  
+        self.strip_2X7_grade_14.setStyleSheet("background-color:lightblue;  border: 1px solid black;")  #save indicator
+        self.strip_2X7_grade_14.setAlignment(QtCore.Qt.AlignCenter)
+        
+        self.strip_3X4_grade_1.setText('Nothing Measured')  
+        self.strip_3X4_grade_1.setStyleSheet("background-color:lightblue;  border: 1px solid black;")  #save indicator
+        self.strip_3X4_grade_1.setAlignment(QtCore.Qt.AlignCenter)
+        
+        self.strip_3X4_grade_2.setText('Nothing Measured')  
+        self.strip_3X4_grade_2.setStyleSheet("background-color:lightblue;  border: 1px solid black;")  #save indicator
+        self.strip_3X4_grade_2.setAlignment(QtCore.Qt.AlignCenter)
+        
+        self.strip_3X4_grade_3.setText('Nothing Measured')  
+        self.strip_3X4_grade_3.setStyleSheet("background-color:lightblue;  border: 1px solid black;")  #save indicator
+        self.strip_3X4_grade_3.setAlignment(QtCore.Qt.AlignCenter)
+        
+        self.strip_3X4_grade_4.setText('Nothing Measured')  
+        self.strip_3X4_grade_4.setStyleSheet("background-color:lightblue;  border: 1px solid black;")  #save indicator
+        self.strip_3X4_grade_4.setAlignment(QtCore.Qt.AlignCenter)
+        
+        self.strip_3X4_grade_5.setText('Nothing Measured')  
+        self.strip_3X4_grade_5.setStyleSheet("background-color:lightblue;  border: 1px solid black;")  #save indicator
+        self.strip_3X4_grade_5.setAlignment(QtCore.Qt.AlignCenter)
+        
+        self.strip_3X4_grade_6.setText('Nothing Measured')  
+        self.strip_3X4_grade_6.setStyleSheet("background-color:lightblue;  border: 1px solid black;")  #save indicator
+        self.strip_3X4_grade_6.setAlignment(QtCore.Qt.AlignCenter)
+        
+        self.strip_3X4_grade_7.setText('Nothing Measured')  
+        self.strip_3X4_grade_7.setStyleSheet("background-color:lightblue;  border: 1px solid black;")  #save indicator
+        self.strip_3X4_grade_7.setAlignment(QtCore.Qt.AlignCenter)
+        
+        self.strip_3X4_grade_8.setText('Nothing Measured')  
+        self.strip_3X4_grade_8.setStyleSheet("background-color:lightblue;  border: 1px solid black;")  #save indicator
+        self.strip_3X4_grade_8.setAlignment(QtCore.Qt.AlignCenter)
+        
+        self.strip_3X4_grade_9.setText('Nothing Measured')  
+        self.strip_3X4_grade_9.setStyleSheet("background-color:lightblue;  border: 1px solid black;")  #save indicator
+        self.strip_3X4_grade_9.setAlignment(QtCore.Qt.AlignCenter)
+        
+        self.strip_3X4_grade_10.setText('Nothing Measured')  
+        self.strip_3X4_grade_10.setStyleSheet("background-color:lightblue;  border: 1px solid black;")  #save indicator
+        self.strip_3X4_grade_10.setAlignment(QtCore.Qt.AlignCenter)
+        
+        self.strip_3X4_grade_11.setText('Nothing Measured')  
+        self.strip_3X4_grade_11.setStyleSheet("background-color:lightblue;  border: 1px solid black;")  #save indicator
+        self.strip_3X4_grade_11.setAlignment(QtCore.Qt.AlignCenter)
+        
+        self.strip_3X4_grade_12.setText('Nothing Measured')  
+        self.strip_3X4_grade_12.setStyleSheet("background-color:lightblue;  border: 1px solid black;")  #save indicator
+        self.strip_3X4_grade_12.setAlignment(QtCore.Qt.AlignCenter)
         
         self.plot_1.setBackground('w')
            
@@ -157,6 +213,7 @@ class X8060GUI(QMainWindow):
         self.export_4.clicked.connect(self.export_4_click)
         self.measure_5.clicked.connect(self.measure_5_click)
         self.export_5.clicked.connect(self.export_5_click)
+        self.measure_6.clicked.connect(self.measure_6_click)
         
     def measure_1_click(self):
         
@@ -565,10 +622,6 @@ class X8060GUI(QMainWindow):
         
         self.inputList = [self.sample_id.text(), self.comments.text()] 
         
-        TTA = ''
-        LJX8060 = ''
-        rm = ''
-        
         self.state_5.setText('Not Saved')  
         self.state_5.setStyleSheet("background-color: yellow;  border: 1px solid black;")  #save indicator
 
@@ -748,61 +801,301 @@ class X8060GUI(QMainWindow):
                 pass_list[m] = 'Grade Fail - HT'
                 color_list[m] = "background-color: red;  border: 1px solid black;"
                 
-        self.strip_grade_1.setText(pass_list[0])  
-        self.strip_grade_1.setStyleSheet(color_list[0])  #save indicator
-        self.strip_grade_1.setAlignment(QtCore.Qt.AlignCenter)
+        self.strip_2X7_grade_1.setText(pass_list[0])  
+        self.strip_2X7_grade_1.setStyleSheet(color_list[0])  #save indicator
+        self.strip_2X7_grade_1.setAlignment(QtCore.Qt.AlignCenter)
         
-        self.strip_grade_2.setText(pass_list[1])  
-        self.strip_grade_2.setStyleSheet(color_list[1])  #save indicator
-        self.strip_grade_2.setAlignment(QtCore.Qt.AlignCenter)
+        self.strip_2X7_grade_2.setText(pass_list[1])  
+        self.strip_2X7_grade_2.setStyleSheet(color_list[1])  #save indicator
+        self.strip_2X7_grade_2.setAlignment(QtCore.Qt.AlignCenter)
         
-        self.strip_grade_3.setText(pass_list[2])  
-        self.strip_grade_3.setStyleSheet(color_list[2])  #save indicator
-        self.strip_grade_3.setAlignment(QtCore.Qt.AlignCenter)
+        self.strip_2X7_grade_3.setText(pass_list[2])  
+        self.strip_2X7_grade_3.setStyleSheet(color_list[2])  #save indicator
+        self.strip_2X7_grade_3.setAlignment(QtCore.Qt.AlignCenter)
         
-        self.strip_grade_4.setText(pass_list[3])  
-        self.strip_grade_4.setStyleSheet(color_list[3])  #save indicator
-        self.strip_grade_4.setAlignment(QtCore.Qt.AlignCenter)
+        self.strip_2X7_grade_4.setText(pass_list[3])  
+        self.strip_2X7_grade_4.setStyleSheet(color_list[3])  #save indicator
+        self.strip_2X7_grade_4.setAlignment(QtCore.Qt.AlignCenter)
         
-        self.strip_grade_5.setText(pass_list[4])  
-        self.strip_grade_5.setStyleSheet(color_list[4])  #save indicator
-        self.strip_grade_5.setAlignment(QtCore.Qt.AlignCenter)
+        self.strip_2X7_grade_5.setText(pass_list[4])  
+        self.strip_2X7_grade_5.setStyleSheet(color_list[4])  #save indicator
+        self.strip_2X7_grade_5.setAlignment(QtCore.Qt.AlignCenter)
         
-        self.strip_grade_6.setText(pass_list[5])  
-        self.strip_grade_6.setStyleSheet(color_list[5])  #save indicator
-        self.strip_grade_6.setAlignment(QtCore.Qt.AlignCenter)
+        self.strip_2X7_grade_6.setText(pass_list[5])  
+        self.strip_2X7_grade_6.setStyleSheet(color_list[5])  #save indicator
+        self.strip_2X7_grade_6.setAlignment(QtCore.Qt.AlignCenter)
         
-        self.strip_grade_7.setText(pass_list[6])  
-        self.strip_grade_7.setStyleSheet(color_list[6])  #save indicator
-        self.strip_grade_7.setAlignment(QtCore.Qt.AlignCenter)
+        self.strip_2X7_grade_7.setText(pass_list[6])  
+        self.strip_2X7_grade_7.setStyleSheet(color_list[6])  #save indicator
+        self.strip_2X7_grade_7.setAlignment(QtCore.Qt.AlignCenter)
         
-        self.strip_grade_8.setText(pass_list[7])  
-        self.strip_grade_8.setStyleSheet(color_list[7])  #save indicator
-        self.strip_grade_8.setAlignment(QtCore.Qt.AlignCenter)
+        self.strip_2X7_grade_8.setText(pass_list[7])  
+        self.strip_2X7_grade_8.setStyleSheet(color_list[7])  #save indicator
+        self.strip_2X7_grade_8.setAlignment(QtCore.Qt.AlignCenter)
         
-        self.strip_grade_9.setText(pass_list[8])  
-        self.strip_grade_9.setStyleSheet(color_list[8])  #save indicator
-        self.strip_grade_9.setAlignment(QtCore.Qt.AlignCenter)
+        self.strip_2X7_grade_9.setText(pass_list[8])  
+        self.strip_2X7_grade_9.setStyleSheet(color_list[8])  #save indicator
+        self.strip_2X7_grade_9.setAlignment(QtCore.Qt.AlignCenter)
         
-        self.strip_grade_10.setText(pass_list[9])  
-        self.strip_grade_10.setStyleSheet(color_list[9])  #save indicator
-        self.strip_grade_10.setAlignment(QtCore.Qt.AlignCenter)
+        self.strip_2X7_grade_10.setText(pass_list[9])  
+        self.strip_2X7_grade_10.setStyleSheet(color_list[9])  #save indicator
+        self.strip_2X7_grade_10.setAlignment(QtCore.Qt.AlignCenter)
         
-        self.strip_grade_11.setText(pass_list[10])  
-        self.strip_grade_11.setStyleSheet(color_list[10])  #save indicator
-        self.strip_grade_11.setAlignment(QtCore.Qt.AlignCenter)
+        self.strip_2X7_grade_11.setText(pass_list[10])  
+        self.strip_2X7_grade_11.setStyleSheet(color_list[10])  #save indicator
+        self.strip_2X7_grade_11.setAlignment(QtCore.Qt.AlignCenter)
         
-        self.strip_grade_12.setText(pass_list[11])  
-        self.strip_grade_12.setStyleSheet(color_list[11])  #save indicator
-        self.strip_grade_12.setAlignment(QtCore.Qt.AlignCenter)
+        self.strip_2X7_grade_12.setText(pass_list[11])  
+        self.strip_2X7_grade_12.setStyleSheet(color_list[11])  #save indicator
+        self.strip_2X7_grade_12.setAlignment(QtCore.Qt.AlignCenter)
         
-        self.strip_grade_13.setText(pass_list[12])  
-        self.strip_grade_13.setStyleSheet(color_list[12])  #save indicator
-        self.strip_grade_13.setAlignment(QtCore.Qt.AlignCenter)
+        self.strip_2X7_grade_13.setText(pass_list[12])  
+        self.strip_2X7_grade_13.setStyleSheet(color_list[12])  #save indicator
+        self.strip_2X7_grade_13.setAlignment(QtCore.Qt.AlignCenter)
         
-        self.strip_grade_14.setText(pass_list[13])  
-        self.strip_grade_14.setStyleSheet(color_list[13])  #save indicator
-        self.strip_grade_14.setAlignment(QtCore.Qt.AlignCenter)
+        self.strip_2X7_grade_14.setText(pass_list[13])  
+        self.strip_2X7_grade_14.setStyleSheet(color_list[13])  #save indicator
+        self.strip_2X7_grade_14.setAlignment(QtCore.Qt.AlignCenter)
+        
+        
+    def measure_6_click(self):
+        
+        self.inputList = [self.sample_id.text(), self.comments.text()] 
+        
+        self.state_6.setText('Not Saved')  
+        self.state_6.setStyleSheet("background-color: yellow;  border: 1px solid black;")  #save indicator
+
+        self.names = ['1LHW', '1LHCD', '1LHCW', '1LC2A', '1ANC', '1LD', '1LT', '1RHW', '1RHCD', '1RHCW', '1RC2A', '1ANC', '1RD', '1RT',
+                      '2LHW', '2LHCD', '2LHCW', '2LC2A', '2ANC', '2LD', '2LT', '2RHW', '2RHCD', '2RHCW', '2RC2A', '2ANC', '2RD', '2RT',
+                      '3LHW', '3LHCD', '3LHCW', '3LC2A', '3ANC', '3LD', '3LT', '3RHW', '3RHCD', '3RHCW', '3RC2A', '3ANC', '3RD', '3RT',
+                      '4LHW', '4LHCD', '4LHCW', '4LC2A', '4ANC', '4LD', '4LT', '4RHW', '4RHCD', '4RHCW', '4RC2A', '4ANC', '4RD', '4RT']
+        
+        self.summary = []
+        temp = []
+        pass_list = []
+        color_list = []
+        
+        if self.BCH_mask_15.isChecked():
+                laser_path = '3x4 1x4'
+                self.type = '1B-5_'
+                expected_output = ['1LD', '1RD', '1LHW', '1RHW', '1LHCW', '1RHCW', '1LHCD', '1RHCD', '1LC2A', '1RC2A', '1ANC', '1LT', '1RT',
+                                   '2LD', '2RD', '2LHW', '2RHW', '2LHCW', '2RHCW', '2LHCD', '2RHCD', '2LC2A', '2RC2A', '2ANC', '2LT', '2RT',
+                                   '3LD', '3RD', '3LHW', '3RHW', '3LHCW', '3RHCW', '3LHCD', '3RHCD', '3LC2A', '3RC2A', '3ANC', '3LT', '3RT',
+                                   '4LD', '4RD', '4LHW', '4RHW', '4LHCW', '4RHCW', '4LHCD', '4RHCD', '4LC2A', '4RC2A', '4ANC', '4LT', '4RT']
+                progam_number = b'014'
+                save_path = self.pathStart + r'Documents\KEYENCE\LJ-X Series Terminal-Software\USB\SD2\lj-x3d\result\SD1_014'
+        
+        for m in range(12):
+            self.summary.append([])
+            pass_list.append([])
+            color_list.append([])
+                  
+            X8060_strip_path(progam_number, laser_path, m+1)
+            self.data = readTextFile(save_path,expected_output,self.names)
+        
+            flag = False
+            for i in range(0,len(self.data),7):    
+                try:
+                    if self.data[i][0] != "Fail":
+                        temp.append(np.median(self.data[i]))
+                    else:
+                         temp.append(999)
+                         self.state_6.setText('Warning: Bad Data')  
+                         self.state_6.setStyleSheet("background-color: red;  border: 1px solid black;")
+                         pass_list[m] = 'Warning: Bad Data'
+                         color_list[m] = "background-color: red;  border: 1px solid black;"
+                         flag = True
+    
+                    if self.data[i+1][0] != "Fail":
+                        temp.append(np.median(self.data[i+1]))
+                    else:
+                         temp.append(999)
+                         self.state_6.setText('Warning: Bad Data')  
+                         self.state_6.setStyleSheet("background-color: red;  border: 1px solid black;")
+                         pass_list[m] = 'Warning: Bad Data'
+                         color_list[m] = "background-color: red;  border: 1px solid black;"
+                         flag = True
+    
+                    if self.data[i+2][0] != "Fail":
+                        temp.append(np.median(self.data[i+2]))
+                    else:
+                         temp.append(999)
+                         self.state_6.setText('Warning: Bad Data')  
+                         self.state_6.setStyleSheet("background-color: red;  border: 1px solid black;")
+                         pass_list[m] = 'Warning: Bad Data'
+                         color_list[m] = "background-color: red;  border: 1px solid black;"
+                         flag = True
+    
+                    if self.data[i+3][0] != "Fail":
+                        temp.append(np.median(self.data[i+3]))
+                    else:
+                         temp.append(999)
+                         self.state_6.setText('Warning: Bad Data')  
+                         self.state_6.setStyleSheet("background-color: red;  border: 1px solid black;")
+                         pass_list[m] = 'Warning: Bad Data'
+                         color_list[m] = "background-color: red;  border: 1px solid black;"
+                         flag = True
+    
+                    if self.data[i+4][0] != "Fail":
+                        temp.append(np.median(self.data[i+4]))
+                    else:
+                         temp.append(999)
+                         self.state_6.setText('Warning: Bad Data')  
+                         self.state_6.setStyleSheet("background-color: red;  border: 1px solid black;")
+                         pass_list[m] = 'Warning: Bad Data'
+                         color_list[m] = "background-color: red;  border: 1px solid black;"
+                         flag = True
+    
+                    if self.data[i+5][0] != "Fail":
+                        temp.append(np.median(self.data[i+5]))
+                    else:
+                         temp.append(999)
+                         self.state_6.setText('Warning: Bad Data')  
+                         self.state_6.setStyleSheet("background-color: red;  border: 1px solid black;")
+                         pass_list[m] = 'Warning: Bad Data'
+                         color_list[m] = "background-color: red;  border: 1px solid black;"
+                         flag = True
+
+                    if self.data[i+6][0] != "Fail":
+                        temp.append(np.median(self.data[i+6]))
+                    else:
+                         temp.append(999)
+                         self.state_6.setText('Warning: Bad Data')  
+                         self.state_6.setStyleSheet("background-color: red;  border: 1px solid black;")
+                         pass_list[m] = 'Warning: Bad Data'
+                         color_list[m] = "background-color: red;  border: 1px solid black;"
+                         flag = True
+                         
+                except:
+                     temp = [999,999,999,999,999,999,999]
+                     self.state_6.setText('Warning: Bad Data')  
+                     self.state_6.setStyleSheet("background-color: red;  border: 1px solid black;")
+                     pass_list[m] = 'Warning: Bad Data'
+                     color_list[m] = "background-color: red;  border: 1px solid black;"
+                 
+                self.summary[m].append(temp)
+                temp = []
+            
+            print(flag)
+            if flag == True:
+                continue
+                
+            print(len(self.summary[m]))
+                    
+            C2A = [] 
+            grade = []
+            for i in [sublist[3] for sublist in self.summary[m]]:
+                C2A.append(i)
+                
+            for n in range(0,len(C2A),2):
+                if C2A[n] == 999 or C2A[n+1] == 999:
+                    continue
+                else:
+                    grade.append(C2A[n])
+                    grade.append(C2A[n+1])
+                    
+            left = [value for value in grade[::2]]
+            right = [value for value in grade[1::2]]
+            difference = np.abs((sum(left) - sum(right))/len(left))
+            print(difference)
+                
+            if difference > 0.1:
+                pass_list[m] = 'Grade Fail - C2A'
+                color_list[m] = "background-color: red;  border: 1px solid black;"
+                continue
+            
+            if difference <= 0.1 and difference > 0.05:
+                pass_list[m] = 'Grade C'
+                color_list[m] = "background-color: yellow;  border: 1px solid black;"
+            
+            if difference <= 0.05 and difference > 0.025:
+                pass_list[m] = 'Grade B'
+                color_list[m] = "background-color: green;  border: 1px solid black;"
+            
+            if difference <= 0.025:
+                pass_list[m] = 'Grade A'
+                color_list[m] = "background-color: green;  border: 1px solid black;"
+                
+            ht = []
+            grade = []
+            left = []
+            right = []
+            
+            for i in [sublist[0] for sublist in self.summary[m]]:
+                ht.append(i)
+                
+            for n in range(0,len(ht),2):
+                if ht[n] == 999 or ht[n+1] == 999:
+                    continue
+                else:
+                    grade.append(ht[n])
+                    grade.append(ht[n+1])
+                    
+                    
+            left = [value for value in grade[::2]]
+            right = [value for value in grade[1::2]]
+            difference = np.abs((sum(left) - sum(right))/len(left))
+            print(difference)
+                
+            if difference > 0.05:
+                pass_list[m] = 'Grade Fail - HT'
+                color_list[m] = "background-color: red;  border: 1px solid black;"
+                
+        self.strip_3X4_grade_1.setText(pass_list[0])  
+        self.strip_3X4_grade_1.setStyleSheet(color_list[0])  #save indicator
+        self.strip_3X4_grade_1.setAlignment(QtCore.Qt.AlignCenter)
+        
+        self.strip_3X4_grade_2.setText(pass_list[1])  
+        self.strip_3X4_grade_2.setStyleSheet(color_list[1])  #save indicator
+        self.strip_3X4_grade_2.setAlignment(QtCore.Qt.AlignCenter)
+        
+        self.strip_3X4_grade_3.setText(pass_list[2])  
+        self.strip_3X4_grade_3.setStyleSheet(color_list[2])  #save indicator
+        self.strip_3X4_grade_3.setAlignment(QtCore.Qt.AlignCenter)
+        
+        self.strip_3X4_grade_4.setText(pass_list[3])  
+        self.strip_3X4_grade_4.setStyleSheet(color_list[3])  #save indicator
+        self.strip_3X4_grade_4.setAlignment(QtCore.Qt.AlignCenter)
+        
+        self.strip_3X4_grade_5.setText(pass_list[4])  
+        self.strip_3X4_grade_5.setStyleSheet(color_list[4])  #save indicator
+        self.strip_3X4_grade_5.setAlignment(QtCore.Qt.AlignCenter)
+        
+        self.strip_3X4_grade_6.setText(pass_list[5])  
+        self.strip_3X4_grade_6.setStyleSheet(color_list[5])  #save indicator
+        self.strip_3X4_grade_6.setAlignment(QtCore.Qt.AlignCenter)
+        
+        self.strip_3X4_grade_7.setText(pass_list[6])  
+        self.strip_3X4_grade_7.setStyleSheet(color_list[6])  #save indicator
+        self.strip_3X4_grade_7.setAlignment(QtCore.Qt.AlignCenter)
+        
+        self.strip_3X4_grade_8.setText(pass_list[7])  
+        self.strip_3X4_grade_8.setStyleSheet(color_list[7])  #save indicator
+        self.strip_3X4_grade_8.setAlignment(QtCore.Qt.AlignCenter)
+        
+        self.strip_3X4_grade_9.setText(pass_list[8])  
+        self.strip_3X4_grade_9.setStyleSheet(color_list[8])  #save indicator
+        self.strip_3X4_grade_9.setAlignment(QtCore.Qt.AlignCenter)
+        
+        self.strip_3X4_grade_10.setText(pass_list[9])  
+        self.strip_3X4_grade_10.setStyleSheet(color_list[9])  #save indicator
+        self.strip_3X4_grade_10.setAlignment(QtCore.Qt.AlignCenter)
+        
+        self.strip_3X4_grade_11.setText(pass_list[10])  
+        self.strip_3X4_grade_11.setStyleSheet(color_list[10])  #save indicator
+        self.strip_3X4_grade_11.setAlignment(QtCore.Qt.AlignCenter)
+        
+        self.strip_3X4_grade_12.setText(pass_list[11])  
+        self.strip_3X4_grade_12.setStyleSheet(color_list[11])  #save indicator
+        self.strip_3X4_grade_12.setAlignment(QtCore.Qt.AlignCenter)
+        
+        self.strip_3X4_grade_13.setText(pass_list[12])  
+        self.strip_3X4_grade_13.setStyleSheet(color_list[12])  #save indicator
+        self.strip_3X4_grade_13.setAlignment(QtCore.Qt.AlignCenter)
+        
+        self.strip_3X4_grade_14.setText(pass_list[13])  
+        self.strip_3X4_grade_14.setStyleSheet(color_list[13])  #save indicator
+        self.strip_3X4_grade_14.setAlignment(QtCore.Qt.AlignCenter)
         
         
     def export_1_click(self):
@@ -1095,8 +1388,8 @@ class X8060GUI(QMainWindow):
                 return None
             
         if path.exists(dir_path + file_name): #testing if file already exists
-            self.state_2.setText('Warning: File already exists')
-            self.state_2.setStyleSheet("background-color: red;  border: 1px solid black;") 
+            self.state_5.setText('Warning: File already exists')
+            self.state_5.setStyleSheet("background-color: red;  border: 1px solid black;") 
             print('Could not Save')
             return None
         
@@ -1148,6 +1441,76 @@ class X8060GUI(QMainWindow):
         print('Finished Saving')
         self.state_5.setText('Saved File')
         self.state_5.setStyleSheet("background-color: green;  border: 1px solid black;")     
+        
+        
+    def export_6_click(self):
+        print('Saving Files')
+        self.inputList[0] = self.sample_id.text()
+        self.inputList[1] = self.comments.text()
+        sides = ['1L', '1R', '2L', '2R', '3L', '3R', '4L', '4R']
+        file_name = '\\' + self.inputList[0]
+        
+        while True:
+            try:
+                dir_path = QFileDialog.getExistingDirectory(self, 'open a folder', self.pathStart + r'Frore Systems\RnD - Documents\Characterization\Keyence LJXMappingTool\data')
+                break
+            except PermissionError:
+                return None
+            
+        if path.exists(dir_path + file_name): #testing if file already exists
+            self.state_6.setText('Warning: File already exists')
+            self.state_6.setStyleSheet("background-color: red;  border: 1px solid black;") 
+            print('Could not Save')
+            return None
+        
+        print('**************************')
+        for m in range(len(self.summary)):
+            act_name = file_name + '-' + str(m+1) + '.xlsx'
+            writer = pd.ExcelWriter(dir_path + act_name, engine='xlsxwriter')
+            
+            inputValues = pd.DataFrame({'names' : ['Strip ID', 'Comments'], 
+                                        'values' : self.inputList})
+            
+            inputValues.to_excel(writer, sheet_name='Data', index=False, startcol=0, startrow=0)
+            
+            
+            
+            summaryValues = pd.DataFrame({'Actuator ID' : [self.inputList[0] + '-' + str(m+1),self.inputList[0] + '-' + str(m+1),self.inputList[0] + '-' + str(m+1),self.inputList[0] + '-' + str(m+1),
+                                                           self.inputList[0] + '-' + str(m+1),self.inputList[0] + '-' + str(m+1),self.inputList[0] + '-' + str(m+1),self.inputList[0] + '-' + str(m+1)],
+                                         'side' : sides, 
+                                         'Hammertail Width' : [self.summary[m][i][0]*1000 for i in range(8)],
+                                         'Cavity Depth' : [self.summary[m][i][1]*1000 for i in range(8)],
+                                         'Cavity Width' : [self.summary[m][i][2] for i in range(8)],
+                                         'C2A Width' : [self.summary[m][i][3] for i in range(8)],
+                                         'Anchor Width' : [self.summary[m][i][4] for i in range(8)],
+                                         'Droop' : [self.summary[m][i][5]*1000 for i in range(8)],
+                                         'T Height' : [self.summary[m][i][6]*1000 for i in range(8)],
+                                         })
+            
+            summaryValues.to_excel(writer, sheet_name='Data', index=False, startcol=3, startrow=0)
+            
+            label = []
+            for i in range(len(self.data)):
+                temp = [self.names[i]] * len(self.data[i])
+                label.append(temp)
+                
+            columnNames = ['Hammertail Width', 'Cavity Depth', 'Cavity Width', 'C2A Width', 'Anchor Width', 'Droop', 'T height']
+                
+            for i in range(7):    
+                
+                flat_data = [j for sub in self.data[i::7] for j in sub]
+                flat_names = [j for sub in label[i::7] for j in sub]
+            
+                rawData = pd.DataFrame({columnNames[i] : flat_data, 
+                                        self.inputList[0] + '-' + str(m+1) : flat_names})
+                      
+                rawData.to_excel(writer, sheet_name='Data', index=False, startcol=13 + 3*i, startrow=0)
+            
+        
+            writer.save()
+        print('Finished Saving')
+        self.state_6.setText('Saved File')
+        self.state_6.setStyleSheet("background-color: green;  border: 1px solid black;")     
         
         
 if __name__ == '__main__':
