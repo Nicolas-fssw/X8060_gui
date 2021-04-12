@@ -135,12 +135,19 @@ def X8060_strip_path(programNumber, laserpath, iteration):
     rm = visa.ResourceManager()
     TTA = rm.open_resource('COM4') 
     Servo_on(TTA)
-    Home(TTA)
-    time.sleep(1)
+    if iteration == 1:
+        Home(TTA)
+        time.sleep(1)
         
-    if iteration > 1:
+    if iteration > 1 and iteration < 8:
         for t in range(0,24,3):
             pathDict[laserpath][t] = pathDict[laserpath][t] + 26000 * (iteration-1)
+            
+    if iteration > 7:
+        for t in range(0,24,3):
+            pathDict[laserpath][t] = pathDict[laserpath][t] + 26000 * (iteration-8)
+        for t in range(1,24,3):
+            pathDict[laserpath][t] = pathDict[laserpath][t] - 36300
         
     acc = 20
     dcl = 20
@@ -156,11 +163,11 @@ def X8060_strip_path(programNumber, laserpath, iteration):
         LJX8060.write(b'T1\r') #Switch to communication mode 
         Move_XYZ(TTA,acc,dcl,vel,pathDict[laserpath][i+3],pathDict[laserpath][i+4],pathDict[laserpath][i+5],delay)
 
-    time.sleep(1) 
-    if iteration == 7:  
-        Home(TTA)
-        
-    vel = 150
-    Move_XYZ(TTA,acc,dcl,vel,10,10,10,delay)
+    if iteration == 14:  
+        vel = 150
+        Move_XYZ(TTA,acc,dcl,vel,10,10,10,delay)
+        Home(TTA) 
+    
+    time.sleep(0.8)
     rm.close()
     LJX8060.close()

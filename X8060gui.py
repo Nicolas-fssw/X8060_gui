@@ -592,86 +592,93 @@ class X8060GUI(QMainWindow):
                 progam_number = b'014'
                 save_path = self.pathStart + r'Documents\KEYENCE\LJ-X Series Terminal-Software\USB\SD2\lj-x3d\result\SD1_014'
         
-        for m in range(7):
+        for m in range(14):
             self.summary.append([])
             pass_list.append([])
             color_list.append([])
                   
-            TTA, LJX8060, rm = X8060_strip_path(progam_number, laser_path, m+1)
+            X8060_strip_path(progam_number, laser_path, m+1)
             self.data = readTextFile(save_path,expected_output,self.names)
         
             flag = False
             for i in range(0,len(self.data),7):    
-                
-                if self.data[i][0] != "Fail":
-                    temp.append(np.median(self.data[i]))
-                else:
-                     temp.append(999)
-                     self.state_5.setText('Warning: Bad Data')  
-                     self.state_5.setStyleSheet("background-color: red;  border: 1px solid black;")
-                     pass_list[m] = 'Warning: Bad Data'
-                     color_list[m] = "background-color: red;  border: 1px solid black;"
-                     flag = True
+                try:
+                    if self.data[i][0] != "Fail":
+                        temp.append(np.median(self.data[i]))
+                    else:
+                         temp.append(999)
+                         self.state_5.setText('Warning: Bad Data')  
+                         self.state_5.setStyleSheet("background-color: red;  border: 1px solid black;")
+                         pass_list[m] = 'Warning: Bad Data'
+                         color_list[m] = "background-color: red;  border: 1px solid black;"
+                         flag = True
+    
+                    if self.data[i+1][0] != "Fail":
+                        temp.append(np.median(self.data[i+1]))
+                    else:
+                         temp.append(999)
+                         self.state_5.setText('Warning: Bad Data')  
+                         self.state_5.setStyleSheet("background-color: red;  border: 1px solid black;")
+                         pass_list[m] = 'Warning: Bad Data'
+                         color_list[m] = "background-color: red;  border: 1px solid black;"
+                         flag = True
+    
+                    if self.data[i+2][0] != "Fail":
+                        temp.append(np.median(self.data[i+2]))
+                    else:
+                         temp.append(999)
+                         self.state_5.setText('Warning: Bad Data')  
+                         self.state_5.setStyleSheet("background-color: red;  border: 1px solid black;")
+                         pass_list[m] = 'Warning: Bad Data'
+                         color_list[m] = "background-color: red;  border: 1px solid black;"
+                         flag = True
+    
+                    if self.data[i+3][0] != "Fail":
+                        temp.append(np.median(self.data[i+3]))
+                    else:
+                         temp.append(999)
+                         self.state_5.setText('Warning: Bad Data')  
+                         self.state_5.setStyleSheet("background-color: red;  border: 1px solid black;")
+                         pass_list[m] = 'Warning: Bad Data'
+                         color_list[m] = "background-color: red;  border: 1px solid black;"
+                         flag = True
+    
+                    if self.data[i+4][0] != "Fail":
+                        temp.append(np.median(self.data[i+4]))
+                    else:
+                         temp.append(999)
+                         self.state_5.setText('Warning: Bad Data')  
+                         self.state_5.setStyleSheet("background-color: red;  border: 1px solid black;")
+                         pass_list[m] = 'Warning: Bad Data'
+                         color_list[m] = "background-color: red;  border: 1px solid black;"
+                         flag = True
+    
+                    if self.data[i+5][0] != "Fail":
+                        temp.append(np.median(self.data[i+5]))
+                    else:
+                         temp.append(999)
+                         self.state_5.setText('Warning: Bad Data')  
+                         self.state_5.setStyleSheet("background-color: red;  border: 1px solid black;")
+                         pass_list[m] = 'Warning: Bad Data'
+                         color_list[m] = "background-color: red;  border: 1px solid black;"
+                         flag = True
 
-                if self.data[i+1][0] != "Fail":
-                    temp.append(np.median(self.data[i+1]))
-                else:
-                     temp.append(999)
+                    if self.data[i+6][0] != "Fail":
+                        temp.append(np.median(self.data[i+6]))
+                    else:
+                         temp.append(999)
+                         self.state_5.setText('Warning: Bad Data')  
+                         self.state_5.setStyleSheet("background-color: red;  border: 1px solid black;")
+                         pass_list[m] = 'Warning: Bad Data'
+                         color_list[m] = "background-color: red;  border: 1px solid black;"
+                         flag = True
+                         
+                except:
+                     temp = [999,999,999,999,999,999,999]
                      self.state_5.setText('Warning: Bad Data')  
                      self.state_5.setStyleSheet("background-color: red;  border: 1px solid black;")
                      pass_list[m] = 'Warning: Bad Data'
                      color_list[m] = "background-color: red;  border: 1px solid black;"
-                     flag = True
-
-                if self.data[i+2][0] != "Fail":
-                    temp.append(np.median(self.data[i+2]))
-                else:
-                     temp.append(999)
-                     self.state_5.setText('Warning: Bad Data')  
-                     self.state_5.setStyleSheet("background-color: red;  border: 1px solid black;")
-                     pass_list[m] = 'Warning: Bad Data'
-                     color_list[m] = "background-color: red;  border: 1px solid black;"
-                     flag = True
-
-                if self.data[i+3][0] != "Fail":
-                    temp.append(np.median(self.data[i+3]))
-                else:
-                     temp.append(999)
-                     self.state_5.setText('Warning: Bad Data')  
-                     self.state_5.setStyleSheet("background-color: red;  border: 1px solid black;")
-                     pass_list[m] = 'Warning: Bad Data'
-                     color_list[m] = "background-color: red;  border: 1px solid black;"
-                     flag = True
-
-                if self.data[i+4][0] != "Fail":
-                    temp.append(np.median(self.data[i+4]))
-                else:
-                     temp.append(999)
-                     self.state_5.setText('Warning: Bad Data')  
-                     self.state_5.setStyleSheet("background-color: red;  border: 1px solid black;")
-                     pass_list[m] = 'Warning: Bad Data'
-                     color_list[m] = "background-color: red;  border: 1px solid black;"
-                     flag = True
-
-                if self.data[i+5][0] != "Fail":
-                    temp.append(np.median(self.data[i+5]))
-                else:
-                     temp.append(999)
-                     self.state_5.setText('Warning: Bad Data')  
-                     self.state_5.setStyleSheet("background-color: red;  border: 1px solid black;")
-                     pass_list[m] = 'Warning: Bad Data'
-                     color_list[m] = "background-color: red;  border: 1px solid black;"
-                     flag = True
-
-                if self.data[i+6][0] != "Fail":
-                    temp.append(np.median(self.data[i+6]))
-                else:
-                     temp.append(999)
-                     self.state_5.setText('Warning: Bad Data')  
-                     self.state_5.setStyleSheet("background-color: red;  border: 1px solid black;")
-                     pass_list[m] = 'Warning: Bad Data'
-                     color_list[m] = "background-color: red;  border: 1px solid black;"
-                     flag = True
                  
                 self.summary[m].append(temp)
                 temp = []
@@ -1139,8 +1146,8 @@ class X8060GUI(QMainWindow):
         
             writer.save()
         print('Finished Saving')
-        self.state_2.setText('Saved File')
-        self.state_2.setStyleSheet("background-color: green;  border: 1px solid black;")     
+        self.state_5.setText('Saved File')
+        self.state_5.setStyleSheet("background-color: green;  border: 1px solid black;")     
         
         
 if __name__ == '__main__':
