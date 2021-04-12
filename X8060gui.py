@@ -638,10 +638,10 @@ class X8060GUI(QMainWindow):
         if self.BCH_mask_12.isChecked():
                 laser_path = '2x7 12x8'
                 self.type = '1B_'
-                expected_output = ['3LD', '3RD', '3LHW', '3RHW', '3LHCW', '3RHCW', '3LHCD', '3RHCD', '3LC2A', '3RC2A', '3ANC', '3LT', '3RT',
-                                   '1LD', '1RD', '1LHW', '1RHW', '1LHCW', '1RHCW', '1LHCD', '1RHCD', '1LC2A', '1RC2A', '1ANC', '1LT', '1RT',
-                                   '4LD', '4RD', '4LHW', '4RHW', '4LHCW', '4RHCW', '4LHCD', '4RHCD', '4LC2A', '4RC2A', '4ANC', '4LT', '4RT',
-                                   '2LD', '2RD', '2LHW', '2RHW', '2LHCW', '2RHCW', '2LHCD', '2RHCD', '2LC2A', '2RC2A', '2ANC', '2LT', '2RT']
+                expected_output = ['2RD', '2LD', '2RHW', '2LHW', '2RHCW', '2LHCW', '2RHCD', '2LHCD', '2RC2A', '2LC2A', '2ANC', '2RT', '2LT',
+                                   '4RD', '4LD', '4RHW', '4LHW', '4RHCW', '4LHCW', '4RHCD', '4LHCD', '4RC2A', '4LC2A', '4ANC', '4RT', '4LT',
+                                   '1RD', '1LD', '1RHW', '1LHW', '1RHCW', '1LHCW', '1RHCD', '1LHCD', '1RC2A', '1LC2A', '1ANC', '1RT', '1LT',
+                                   '3RD', '3LD', '3RHW', '3LHW', '3RHCW', '3LHCW', '3RHCD', '3LHCD', '3RC2A', '3LC2A', '3ANC', '3RT', '3LT']
                 progam_number = b'014'
                 save_path = self.pathStart + r'Documents\KEYENCE\LJ-X Series Terminal-Software\USB\SD2\lj-x3d\result\SD1_014'
         
@@ -923,10 +923,10 @@ class X8060GUI(QMainWindow):
         if self.BCH_mask_15.isChecked():
                 laser_path = '3x4 1x4'
                 self.type = '1B-5_'
-                expected_output = ['1LD', '1RD', '1LHW', '1RHW', '1LHCW', '1RHCW', '1LHCD', '1RHCD', '1LC2A', '1RC2A', '1ANC', '1LT', '1RT',
-                                   '2LD', '2RD', '2LHW', '2RHW', '2LHCW', '2RHCW', '2LHCD', '2RHCD', '2LC2A', '2RC2A', '2ANC', '2LT', '2RT',
-                                   '3LD', '3RD', '3LHW', '3RHW', '3LHCW', '3RHCW', '3LHCD', '3RHCD', '3LC2A', '3RC2A', '3ANC', '3LT', '3RT',
-                                   '4LD', '4RD', '4LHW', '4RHW', '4LHCW', '4RHCW', '4LHCD', '4RHCD', '4LC2A', '4RC2A', '4ANC', '4LT', '4RT']
+                expected_output = ['4RD', '4LD', '4RHW', '4LHW', '4RHCW', '4LHCW', '4RHCD', '4LHCD', '4RC2A', '4LC2A', '4ANC', '4RT', '4LT',
+                                   '3RD', '3LD', '3RHW', '3LHW', '3RHCW', '3LHCW', '3RHCD', '3LHCD', '3RC2A', '3LC2A', '3ANC', '3RT', '3LT',
+                                   '2RD', '2LD', '2RHW', '2LHW', '2RHCW', '2LHCW', '2RHCD', '2LHCD', '2RC2A', '2LC2A', '2ANC', '2RT', '2LT',
+                                   '1RD', '1LD', '1RHW', '1LHW', '1RHCW', '1LHCW', '1RHCD', '1LHCD', '1RC2A', '1LC2A', '1ANC', '1RT', '1LT']
                 progam_number = b'014'
                 save_path = self.pathStart + r'Documents\KEYENCE\LJ-X Series Terminal-Software\USB\SD2\lj-x3d\result\SD1_014'
         
@@ -1179,14 +1179,6 @@ class X8060GUI(QMainWindow):
         self.strip_3X4_grade_12.setText(pass_list[11])  
         self.strip_3X4_grade_12.setStyleSheet(color_list[11])  #save indicator
         self.strip_3X4_grade_12.setAlignment(QtCore.Qt.AlignCenter)
-        
-        self.strip_3X4_grade_13.setText(pass_list[12])  
-        self.strip_3X4_grade_13.setStyleSheet(color_list[12])  #save indicator
-        self.strip_3X4_grade_13.setAlignment(QtCore.Qt.AlignCenter)
-        
-        self.strip_3X4_grade_14.setText(pass_list[13])  
-        self.strip_3X4_grade_14.setStyleSheet(color_list[13])  #save indicator
-        self.strip_3X4_grade_14.setAlignment(QtCore.Qt.AlignCenter)
         
         
     def export_1_click(self):
