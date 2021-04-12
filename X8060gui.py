@@ -455,6 +455,7 @@ class X8060GUI(QMainWindow):
                 
         C2A = [] 
         grade = []
+        overall = ''
         for i in [sublist[3] for sublist in self.summary]:
             C2A.append(i)
             
@@ -471,20 +472,20 @@ class X8060GUI(QMainWindow):
         print(difference)
             
         if difference > 0.1:
-            self.grading_2.setText('Grade Fail')  
-            self.grading_2.setStyleSheet("background-color: red;  border: 1px solid black;")
-            
+            pass_list[m] = 'Grade Fail - C2A'
+            overall = 'F'
+        
         if difference <= 0.1 and difference > 0.05:
-            self.grading_2.setText('Grade C')  
-            self.grading_2.setStyleSheet("background-color: yellow;  border: 1px solid black;")
-            
+            pass_list[m] = 'Grade C'
+            overall = 'C'
+        
         if difference <= 0.05 and difference > 0.025:
-            self.grading_2.setText('Grade B')  
-            self.grading_2.setStyleSheet("background-color: green;  border: 1px solid black;")
+            pass_list[m] = 'Grade B'
+            overall = 'B'
         
         if difference <= 0.025:
-            self.grading_2.setText('Grade A')  
-            self.grading_2.setStyleSheet("background-color: green;  border: 1px solid black;")
+            pass_list[m] = 'Grade A'
+            overall = 'A'
             
         ht = []
         grade = []
@@ -492,7 +493,6 @@ class X8060GUI(QMainWindow):
         right = []
         
         for i in [sublist[0] for sublist in self.summary]:
-            print(i)
             ht.append(i)
             
         for n in range(0,len(ht),2):
@@ -509,8 +509,52 @@ class X8060GUI(QMainWindow):
         print(difference)
             
         if difference > 0.05:
-            self.grading_2.setText('Grade Fail, HT')  
-            self.grading_2.setStyleSheet("background-color: red;  border: 1px solid black;")
+            pass_list[m] = pass_list[m] + '\nGrade Fail - HT'
+            overall = 'F'
+        else:
+            pass_list[m] = pass_list[m] + '\nGrade Pass - HT'
+            
+        depth = []
+        grade = []
+        left = []
+        right = []
+        
+        for i in [sublist[1] for sublist in self.summary]:
+            depth.append(i)
+            
+        for n in range(0,len(depth),2):
+            if depth[n] == 999 or depth[n+1] == 999:
+                continue
+            else:
+                grade.append(depth[n])
+                grade.append(depth[n+1])
+                
+                
+        left = [value for value in grade[::2]]
+        right = [value for value in grade[1::2]]
+        difference = np.abs((sum(left) - sum(right))/len(left))
+        print(difference)
+            
+        if difference > 0.02:
+            pass_list[m] = pass_list[m] + '\nGrade Fail - Cavity Depth'
+            overall = 'F'
+            
+        if difference > 0.01:
+            pass_list[m] = pass_list[m] + '\nGrade B - Cavity Depth'
+            if overall == 'A':
+                overall = 'B'
+            
+        if difference <= 0.01:
+            pass_list[m] = pass_list[m] + '\nGrade A - Cavity Depth'
+            
+        if overall == 'A' or overall == 'B':
+            color_list[m] = "background-color: green;  border: 1px solid black;"
+            
+        if overall == 'C':
+            "background-color: yellow;  border: 1px solid black;"
+            
+        if overall == 'F':
+            "background-color: red;  border: 1px solid black;"
             
 
     def measure_3_click(self):
