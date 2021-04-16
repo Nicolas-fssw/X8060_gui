@@ -214,6 +214,7 @@ class X8060GUI(QMainWindow):
         self.measure_5.clicked.connect(self.measure_5_click)
         self.export_5.clicked.connect(self.export_5_click)
         self.measure_6.clicked.connect(self.measure_6_click)
+        self.export_6.clicked.connect(self.export_6_click)
         
     def measure_1_click(self):
         
@@ -344,6 +345,9 @@ class X8060GUI(QMainWindow):
         self.grading_2.setText('Nothing Measured')  
         self.grading_2.setStyleSheet("background-color:lightblue;  border: 1px solid black;")
         
+        pass_list = ''
+        color_list = ''
+        
         for n in range(8):
             for i in range(7):
                 self.tableWidget_2.setItem(n+1, i+1, QTableWidgetItem(999))
@@ -370,8 +374,8 @@ class X8060GUI(QMainWindow):
                                '1LD', '1RD', '1LHW', '1RHW', '1LHCW', '1RHCW', '1LHCD', '1RHCD', '1LC2A', '1RC2A', '1ANC', '1LT', '1RT',
                                '4LD', '4RD', '4LHW', '4RHW', '4LHCW', '4RHCW', '4LHCD', '4RHCD', '4LC2A', '4RC2A', '4ANC', '4LT', '4RT',
                                '2LD', '2RD', '2LHW', '2RHW', '2LHCW', '2RHCW', '2LHCD', '2RHCD', '2LC2A', '2RC2A', '2ANC', '2LT', '2RT']
-            progam_number = b''
-            save_path = self.pathStart + r'Documents\KEYENCE\LJ-X Series Terminal-Software\USB\SD2\lj-x3d\result\SD1_'
+            progam_number = b'001'
+            save_path = self.pathStart + r'Documents\KEYENCE\LJ-X Series Terminal-Software\USB\SD2\lj-x3d\result\SD1_001'
             
         if self.BCH_mask_10.isChecked():
             laser_path = '8by12 Actuator'
@@ -385,7 +389,7 @@ class X8060GUI(QMainWindow):
             
         if self.BCH_mask_4.isChecked():
             laser_path = '1by4 Actuator'
-            self.type = '1by4_'
+            self.type = '1B-5_'
             expected_output = ['1LD', '1RD', '1LHW', '1RHW', '1LHCW', '1RHCW', '1LHCD', '1RHCD', '1LC2A', '1RC2A', '1ANC', '1LT', '1RT',
                            '2LD', '2RD', '2LHW', '2RHW', '2LHCW', '2RHCW', '2LHCD', '2RHCD', '2LC2A', '2RC2A', '2ANC', '2LT', '2RT',
                            '3LD', '3RD', '3LHW', '3RHW', '3LHCW', '3RHCW', '3LHCD', '3RHCD', '3LC2A', '3RC2A', '3ANC', '3LT', '3RT',
@@ -472,19 +476,19 @@ class X8060GUI(QMainWindow):
         print(difference)
             
         if difference > 0.1:
-            pass_list[m] = 'Grade Fail - C2A'
+            pass_list = 'Grade Fail - C2A'
             overall = 'F'
         
         if difference <= 0.1 and difference > 0.05:
-            pass_list[m] = 'Grade C'
+            pass_list = 'Grade C'
             overall = 'C'
         
         if difference <= 0.05 and difference > 0.025:
-            pass_list[m] = 'Grade B'
+            pass_list = 'Grade B'
             overall = 'B'
         
         if difference <= 0.025:
-            pass_list[m] = 'Grade A'
+            pass_list = 'Grade A'
             overall = 'A'
             
         ht = []
@@ -509,10 +513,10 @@ class X8060GUI(QMainWindow):
         print(difference)
             
         if difference > 0.05:
-            pass_list[m] = pass_list[m] + '\nGrade Fail - HT'
+            pass_list = pass_list + '\nGrade Fail - HT'
             overall = 'F'
         else:
-            pass_list[m] = pass_list[m] + '\nGrade Pass - HT'
+            pass_list = pass_list + '\nGrade Pass - HT'
             
         depth = []
         grade = []
@@ -536,25 +540,28 @@ class X8060GUI(QMainWindow):
         print(difference)
             
         if difference > 0.02:
-            pass_list[m] = pass_list[m] + '\nGrade Fail - Cavity Depth'
+            pass_list = pass_list + '\nGrade Fail - Cavity Depth'
             overall = 'F'
             
         if difference > 0.01:
-            pass_list[m] = pass_list[m] + '\nGrade B - Cavity Depth'
+            pass_list = pass_list + '\nGrade B - Cavity Depth'
             if overall == 'A':
                 overall = 'B'
             
         if difference <= 0.01:
-            pass_list[m] = pass_list[m] + '\nGrade A - Cavity Depth'
+            pass_list = pass_list + '\nGrade A - Cavity Depth'
             
         if overall == 'A' or overall == 'B':
-            color_list[m] = "background-color: green;  border: 1px solid black;"
+            color_list = "background-color: green;  border: 1px solid black;"
             
         if overall == 'C':
-            "background-color: yellow;  border: 1px solid black;"
+            color_list = "background-color: yellow;  border: 1px solid black;"
             
         if overall == 'F':
-            "background-color: red;  border: 1px solid black;"
+            color_list = "background-color: red;  border: 1px solid black;"
+            
+        self.grading_2.setText(pass_list)  
+        self.grading_2.setStyleSheet(color_list)
             
 
     def measure_3_click(self):
@@ -599,7 +606,7 @@ class X8060GUI(QMainWindow):
                 self.tableWidget_3.setItem(n+1, i+1, QTableWidgetItem('%.3f' % self.summary[n][i]))   
           
         for i in range(len(self.summary)):
-            if self.summary[i][2] > 0.05 or self.summary[i][2] < 0.04 or self.summary[i][3] > 0.05 or self.summary[i][3] < 0.04:
+            if self.summary[i][2] > 0.052 or self.summary[i][2] < 0.038 or self.summary[i][3] > 0.052 or self.summary[i][3] < 0.038:
                 print(self.summary[i][1])
                 self.grading_3.setText('Grade Fail - Cavity Depth')  
                 self.grading_3.setStyleSheet("background-color: red;  border: 1px solid black;")
@@ -689,10 +696,12 @@ class X8060GUI(QMainWindow):
                 progam_number = b'014'
                 save_path = self.pathStart + r'Documents\KEYENCE\LJ-X Series Terminal-Software\USB\SD2\lj-x3d\result\SD1_014'
         
+        
         for m in range(14):
+            bad_measure = False
             self.summary.append([])
-            pass_list.append([])
-            color_list.append([])
+            pass_list.append('')
+            color_list.append('')
                   
             X8060_strip_path(progam_number, laser_path, m+1)
             self.data = readTextFile(save_path,expected_output,self.names)
@@ -706,8 +715,9 @@ class X8060GUI(QMainWindow):
                          temp.append(999)
                          self.state_5.setText('Warning: Bad Data')  
                          self.state_5.setStyleSheet("background-color: red;  border: 1px solid black;")
-                         pass_list[m] = 'Warning: Bad Data'
-                         color_list[m] = "background-color: red;  border: 1px solid black;"
+                         bad_measure = True
+                         #pass_list[m] = 'Warning: Bad Data'
+                         #color_list[m] = "background-color: red;  border: 1px solid black;"
                          flag = True
     
                     if self.data[i+1][0] != "Fail":
@@ -716,8 +726,9 @@ class X8060GUI(QMainWindow):
                          temp.append(999)
                          self.state_5.setText('Warning: Bad Data')  
                          self.state_5.setStyleSheet("background-color: red;  border: 1px solid black;")
-                         pass_list[m] = 'Warning: Bad Data'
-                         color_list[m] = "background-color: red;  border: 1px solid black;"
+                         bad_measure = True
+                         #pass_list[m] = 'Warning: Bad Data'
+                         #color_list[m] = "background-color: red;  border: 1px solid black;"
                          flag = True
     
                     if self.data[i+2][0] != "Fail":
@@ -726,8 +737,9 @@ class X8060GUI(QMainWindow):
                          temp.append(999)
                          self.state_5.setText('Warning: Bad Data')  
                          self.state_5.setStyleSheet("background-color: red;  border: 1px solid black;")
-                         pass_list[m] = 'Warning: Bad Data'
-                         color_list[m] = "background-color: red;  border: 1px solid black;"
+                         bad_measure = True
+                         #pass_list[m] = 'Warning: Bad Data'
+                         #color_list[m] = "background-color: red;  border: 1px solid black;"
                          flag = True
     
                     if self.data[i+3][0] != "Fail":
@@ -736,8 +748,9 @@ class X8060GUI(QMainWindow):
                          temp.append(999)
                          self.state_5.setText('Warning: Bad Data')  
                          self.state_5.setStyleSheet("background-color: red;  border: 1px solid black;")
-                         pass_list[m] = 'Warning: Bad Data'
-                         color_list[m] = "background-color: red;  border: 1px solid black;"
+                         bad_measure = True
+                         #pass_list[m] = 'Warning: Bad Data'
+                         #color_list[m] = "background-color: red;  border: 1px solid black;"
                          flag = True
     
                     if self.data[i+4][0] != "Fail":
@@ -746,8 +759,9 @@ class X8060GUI(QMainWindow):
                          temp.append(999)
                          self.state_5.setText('Warning: Bad Data')  
                          self.state_5.setStyleSheet("background-color: red;  border: 1px solid black;")
-                         pass_list[m] = 'Warning: Bad Data'
-                         color_list[m] = "background-color: red;  border: 1px solid black;"
+                         bad_measure = True
+                         #pass_list[m] = 'Warning: Bad Data'
+                         #color_list[m] = "background-color: red;  border: 1px solid black;"
                          flag = True
     
                     if self.data[i+5][0] != "Fail":
@@ -756,8 +770,9 @@ class X8060GUI(QMainWindow):
                          temp.append(999)
                          self.state_5.setText('Warning: Bad Data')  
                          self.state_5.setStyleSheet("background-color: red;  border: 1px solid black;")
-                         pass_list[m] = 'Warning: Bad Data'
-                         color_list[m] = "background-color: red;  border: 1px solid black;"
+                         bad_measure = True
+                         #pass_list[m] = 'Warning: Bad Data'
+                         #color_list[m] = "background-color: red;  border: 1px solid black;"
                          flag = True
 
                     if self.data[i+6][0] != "Fail":
@@ -766,16 +781,18 @@ class X8060GUI(QMainWindow):
                          temp.append(999)
                          self.state_5.setText('Warning: Bad Data')  
                          self.state_5.setStyleSheet("background-color: red;  border: 1px solid black;")
-                         pass_list[m] = 'Warning: Bad Data'
-                         color_list[m] = "background-color: red;  border: 1px solid black;"
+                         bad_measure = True
+                         #pass_list[m] = 'Warning: Bad Data'
+                         #color_list[m] = "background-color: red;  border: 1px solid black;"
                          flag = True
                          
                 except:
                      temp = [999,999,999,999,999,999,999]
                      self.state_5.setText('Warning: Bad Data')  
                      self.state_5.setStyleSheet("background-color: red;  border: 1px solid black;")
-                     pass_list[m] = 'Warning: Bad Data'
-                     color_list[m] = "background-color: red;  border: 1px solid black;"
+                     bad_measure = True
+                     #pass_list[m] = 'Warning: Bad Data'
+                     #color_list[m] = "background-color: red;  border: 1px solid black;"
                  
                 self.summary[m].append(temp)
                 temp = []
@@ -788,7 +805,7 @@ class X8060GUI(QMainWindow):
                     
             C2A = [] 
             grade = []
-            overall = ''
+            overall = 'F'
             for i in [sublist[3] for sublist in self.summary[m]]:
                 C2A.append(i)
                 
@@ -807,18 +824,17 @@ class X8060GUI(QMainWindow):
             if difference > 0.1:
                 pass_list[m] = 'Grade Fail - C2A'
                 overall = 'F'
-                continue
             
             if difference <= 0.1 and difference > 0.05:
-                pass_list[m] = 'Grade C'
+                pass_list[m] = 'Grade C - C2A'
                 overall = 'C'
             
             if difference <= 0.05 and difference > 0.025:
-                pass_list[m] = 'Grade B'
+                pass_list[m] = 'Grade B - C2A'
                 overall = 'B'
             
             if difference <= 0.025:
-                pass_list[m] = 'Grade A'
+                pass_list[m] = 'Grade A - C2A'
                 overall = 'A'
                 
             ht = []
@@ -873,7 +889,7 @@ class X8060GUI(QMainWindow):
                 pass_list[m] = pass_list[m] + '\nGrade Fail - Cavity Depth'
                 overall = 'F'
                 
-            if difference > 0.01:
+            if difference > 0.01 and difference <= 0.02:
                 pass_list[m] = pass_list[m] + '\nGrade B - Cavity Depth'
                 if overall == 'A':
                     overall = 'B'
@@ -881,14 +897,20 @@ class X8060GUI(QMainWindow):
             if difference <= 0.01:
                 pass_list[m] = pass_list[m] + '\nGrade A - Cavity Depth'
                 
-            if overall == 'A' or overall == 'B':
-                color_list[m] = "background-color: green;  border: 1px solid black;"
+            if bad_measure == False:
                 
-            if overall == 'C':
-                "background-color: yellow;  border: 1px solid black;"
-                
-            if overall == 'F':
-                "background-color: red;  border: 1px solid black;"
+                if overall == 'A' or overall == 'B':
+                    color_list[m] = "background-color: green;  border: 1px solid black;"
+                    
+                if overall == 'C':
+                    color_list[m] = "background-color: yellow;  border: 1px solid black;"
+                    
+                if overall == 'F':
+                    color_list[m] = "background-color: red;  border: 1px solid black;"
+                    
+            else: 
+                pass_list[m] = 'Warning: Bad Data'
+                color_list[m] = "background-color: red;  border: 1px solid black;"
                 
         self.strip_2X7_grade_1.setText(pass_list[0])  
         self.strip_2X7_grade_1.setStyleSheet(color_list[0])  #save indicator
@@ -974,10 +996,13 @@ class X8060GUI(QMainWindow):
                 progam_number = b'014'
                 save_path = self.pathStart + r'Documents\KEYENCE\LJ-X Series Terminal-Software\USB\SD2\lj-x3d\result\SD1_014'
         
+        bad_measure = False
+        
         for m in range(12):
+            bad_measure = False
             self.summary.append([])
-            pass_list.append([])
-            color_list.append([])
+            pass_list.append('')
+            color_list.append('')
                   
             X8060_strip_path(progam_number, laser_path, m+1)
             self.data = readTextFile(save_path,expected_output,self.names)
@@ -991,8 +1016,9 @@ class X8060GUI(QMainWindow):
                          temp.append(999)
                          self.state_6.setText('Warning: Bad Data')  
                          self.state_6.setStyleSheet("background-color: red;  border: 1px solid black;")
-                         pass_list[m] = 'Warning: Bad Data'
-                         color_list[m] = "background-color: red;  border: 1px solid black;"
+                         bad_measure = True
+                         #pass_list[m] = 'Warning: Bad Data'
+                         #color_list[m] = "background-color: red;  border: 1px solid black;"
                          flag = True
     
                     if self.data[i+1][0] != "Fail":
@@ -1001,8 +1027,9 @@ class X8060GUI(QMainWindow):
                          temp.append(999)
                          self.state_6.setText('Warning: Bad Data')  
                          self.state_6.setStyleSheet("background-color: red;  border: 1px solid black;")
-                         pass_list[m] = 'Warning: Bad Data'
-                         color_list[m] = "background-color: red;  border: 1px solid black;"
+                         bad_measure = True
+                         #pass_list[m] = 'Warning: Bad Data'
+                         #color_list[m] = "background-color: red;  border: 1px solid black;"
                          flag = True
     
                     if self.data[i+2][0] != "Fail":
@@ -1011,8 +1038,9 @@ class X8060GUI(QMainWindow):
                          temp.append(999)
                          self.state_6.setText('Warning: Bad Data')  
                          self.state_6.setStyleSheet("background-color: red;  border: 1px solid black;")
-                         pass_list[m] = 'Warning: Bad Data'
-                         color_list[m] = "background-color: red;  border: 1px solid black;"
+                         bad_measure = True
+                         #pass_list[m] = 'Warning: Bad Data'
+                         #color_list[m] = "background-color: red;  border: 1px solid black;"
                          flag = True
     
                     if self.data[i+3][0] != "Fail":
@@ -1021,8 +1049,9 @@ class X8060GUI(QMainWindow):
                          temp.append(999)
                          self.state_6.setText('Warning: Bad Data')  
                          self.state_6.setStyleSheet("background-color: red;  border: 1px solid black;")
-                         pass_list[m] = 'Warning: Bad Data'
-                         color_list[m] = "background-color: red;  border: 1px solid black;"
+                         bad_measure = True
+                         #pass_list[m] = 'Warning: Bad Data'
+                         #color_list[m] = "background-color: red;  border: 1px solid black;"
                          flag = True
     
                     if self.data[i+4][0] != "Fail":
@@ -1031,8 +1060,9 @@ class X8060GUI(QMainWindow):
                          temp.append(999)
                          self.state_6.setText('Warning: Bad Data')  
                          self.state_6.setStyleSheet("background-color: red;  border: 1px solid black;")
-                         pass_list[m] = 'Warning: Bad Data'
-                         color_list[m] = "background-color: red;  border: 1px solid black;"
+                         bad_measure = True
+                         #pass_list[m] = 'Warning: Bad Data'
+                         #color_list[m] = "background-color: red;  border: 1px solid black;"
                          flag = True
     
                     if self.data[i+5][0] != "Fail":
@@ -1041,8 +1071,9 @@ class X8060GUI(QMainWindow):
                          temp.append(999)
                          self.state_6.setText('Warning: Bad Data')  
                          self.state_6.setStyleSheet("background-color: red;  border: 1px solid black;")
-                         pass_list[m] = 'Warning: Bad Data'
-                         color_list[m] = "background-color: red;  border: 1px solid black;"
+                         bad_measure = True
+                         #pass_list[m] = 'Warning: Bad Data'
+                         #color_list[m] = "background-color: red;  border: 1px solid black;"
                          flag = True
 
                     if self.data[i+6][0] != "Fail":
@@ -1051,16 +1082,18 @@ class X8060GUI(QMainWindow):
                          temp.append(999)
                          self.state_6.setText('Warning: Bad Data')  
                          self.state_6.setStyleSheet("background-color: red;  border: 1px solid black;")
-                         pass_list[m] = 'Warning: Bad Data'
-                         color_list[m] = "background-color: red;  border: 1px solid black;"
+                         bad_measure = True
+                         #pass_list[m] = 'Warning: Bad Data'
+                         #color_list[m] = "background-color: red;  border: 1px solid black;"
                          flag = True
                          
                 except:
                      temp = [999,999,999,999,999,999,999]
                      self.state_6.setText('Warning: Bad Data')  
                      self.state_6.setStyleSheet("background-color: red;  border: 1px solid black;")
-                     pass_list[m] = 'Warning: Bad Data'
-                     color_list[m] = "background-color: red;  border: 1px solid black;"
+                     bad_measure = True
+                     #pass_list[m] = 'Warning: Bad Data'
+                     #color_list[m] = "background-color: red;  border: 1px solid black;"
                  
                 self.summary[m].append(temp)
                 temp = []
@@ -1092,18 +1125,17 @@ class X8060GUI(QMainWindow):
             if difference > 0.1:
                 pass_list[m] = 'Grade Fail - C2A'
                 overall = 'F'
-                continue
             
             if difference <= 0.1 and difference > 0.05:
-                pass_list[m] = 'Grade C'
+                pass_list[m] = 'Grade C - C2A'
                 overall = 'C'
             
             if difference <= 0.05 and difference > 0.025:
-                pass_list[m] = 'Grade B'
+                pass_list[m] = 'Grade B - C2A'
                 overall = 'B'
             
             if difference <= 0.025:
-                pass_list[m] = 'Grade A'
+                pass_list[m] = 'Grade A - C2A'
                 overall = 'A'
                 
             ht = []
@@ -1158,7 +1190,7 @@ class X8060GUI(QMainWindow):
                 pass_list[m] = pass_list[m] + '\nGrade Fail - Cavity Depth'
                 overall = 'F'
                 
-            if difference > 0.01:
+            if difference > 0.01 and difference <= 0.02:
                 pass_list[m] = pass_list[m] + '\nGrade B - Cavity Depth'
                 if overall == 'A':
                     overall = 'B'
@@ -1166,15 +1198,20 @@ class X8060GUI(QMainWindow):
             if difference <= 0.01:
                 pass_list[m] = pass_list[m] + '\nGrade A - Cavity Depth'
                 
-            if overall == 'A' or overall == 'B':
-                color_list[m] = "background-color: green;  border: 1px solid black;"
+            if bad_measure == False:
                 
-            if overall == 'C':
-                "background-color: yellow;  border: 1px solid black;"
-                
-            if overall == 'F':
-                "background-color: red;  border: 1px solid black;"
-                
+                if overall == 'A' or overall == 'B':
+                    color_list[m] = "background-color: green;  border: 1px solid black;"
+                    
+                if overall == 'C':
+                    color_list[m] = "background-color: yellow;  border: 1px solid black;"
+                    
+                if overall == 'F':
+                    color_list[m] = "background-color: red;  border: 1px solid black;"
+                    
+            else: 
+                pass_list[m] = 'Warning: Bad Data'
+                color_list[m] = "background-color: red;  border: 1px solid black;"
                 
         self.strip_3X4_grade_1.setText(pass_list[0])  
         self.strip_3X4_grade_1.setStyleSheet(color_list[0])  #save indicator
