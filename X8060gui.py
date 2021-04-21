@@ -533,7 +533,7 @@ class X8060GUI(QMainWindow):
                 grade.append(depth[n])
                 grade.append(depth[n+1])
                 
-                
+
         left = [value for value in grade[::2]]
         right = [value for value in grade[1::2]]
         difference = np.abs((sum(left) - sum(right))/len(left))
@@ -543,7 +543,7 @@ class X8060GUI(QMainWindow):
             pass_list = pass_list + '\nGrade Fail - Cavity Depth'
             overall = 'F'
             
-        if difference > 0.01:
+        if difference > 0.01 and difference <= 0.02:
             pass_list = pass_list + '\nGrade B - Cavity Depth'
             if overall == 'A':
                 overall = 'B'
