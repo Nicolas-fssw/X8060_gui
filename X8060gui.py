@@ -15,7 +15,7 @@ from PyQt5.QtWidgets import QMainWindow, QFileDialog, QTableWidgetItem
 from PyQt5.QtCore import QCoreApplication
 import pyqtgraph as pg
 import numpy as np
-import visa
+import pyvisa as visa
 import matplotlib.pyplot as plt
 import os
 from os import path
@@ -570,6 +570,11 @@ class X8060GUI(QMainWindow):
         self.grading_3.setText('Nothing Measured')  
         self.grading_3.setStyleSheet("background-color:lightblue;  border: 1px solid black;")
         
+        if self.BCH_mask_16.isChecked():
+            orifice_depth_limits = [0.039, 0.051]
+        if self.BCH_mask_11.isChecked():
+            orifice_depth_limits = [0.049, 0.061]
+        
         for n in range(4):
             for i in range(5):
                 self.tableWidget_3.setItem(n+1, i+1, QTableWidgetItem(999))
@@ -606,7 +611,7 @@ class X8060GUI(QMainWindow):
                 self.tableWidget_3.setItem(n+1, i+1, QTableWidgetItem('%.3f' % self.summary[n][i]))   
           
         for i in range(len(self.summary)):
-            if self.summary[i][2] > 0.052 or self.summary[i][2] < 0.038 or self.summary[i][3] > 0.052 or self.summary[i][3] < 0.038:
+            if self.summary[i][2] > orifice_depth_limits[1] or self.summary[i][2] < orifice_depth_limits[0] or self.summary[i][3] > orifice_depth_limits[1] or self.summary[i][3] < orifice_depth_limits[0]:
                 print(self.summary[i][1])
                 self.grading_3.setText('Grade Fail - Cavity Depth')  
                 self.grading_3.setStyleSheet("background-color: red;  border: 1px solid black;")
