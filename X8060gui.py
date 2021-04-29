@@ -571,9 +571,9 @@ class X8060GUI(QMainWindow):
         self.grading_3.setStyleSheet("background-color:lightblue;  border: 1px solid black;")
         
         if self.BCH_mask_16.isChecked():
-            orifice_depth_limits = [0.039, 0.051]
+            orifice_depth_limits = [0.038, 0.052]
         if self.BCH_mask_11.isChecked():
-            orifice_depth_limits = [0.049, 0.061]
+            orifice_depth_limits = [0.048, 0.062]
         
         for n in range(4):
             for i in range(5):
@@ -904,8 +904,11 @@ class X8060GUI(QMainWindow):
                 
             if bad_measure == False:
                 
-                if overall == 'A' or overall == 'B':
+                if overall == 'A':
                     color_list[m] = "background-color: green;  border: 1px solid black;"
+                    
+                if overall == 'B':
+                    color_list[m] = "background-color: lightgreen;  border: 1px solid black;"
                     
                 if overall == 'C':
                     color_list[m] = "background-color: yellow;  border: 1px solid black;"
@@ -1205,8 +1208,11 @@ class X8060GUI(QMainWindow):
                 
             if bad_measure == False:
                 
-                if overall == 'A' or overall == 'B':
+                if overall == 'A':
                     color_list[m] = "background-color: green;  border: 1px solid black;"
+                    
+                if overall == 'B':
+                    color_list[m] = "background-color: lightgreen;  border: 1px solid black;"
                     
                 if overall == 'C':
                     color_list[m] = "background-color: yellow;  border: 1px solid black;"
