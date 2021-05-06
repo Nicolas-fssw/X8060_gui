@@ -374,8 +374,8 @@ class X8060GUI(QMainWindow):
                                '1LD', '1RD', '1LHW', '1RHW', '1LHCW', '1RHCW', '1LHCD', '1RHCD', '1LC2A', '1RC2A', '1ANC', '1LT', '1RT',
                                '4LD', '4RD', '4LHW', '4RHW', '4LHCW', '4RHCW', '4LHCD', '4RHCD', '4LC2A', '4RC2A', '4ANC', '4LT', '4RT',
                                '2LD', '2RD', '2LHW', '2RHW', '2LHCW', '2RHCW', '2LHCD', '2RHCD', '2LC2A', '2RC2A', '2ANC', '2LT', '2RT']
-            progam_number = b'001'
-            save_path = self.pathStart + r'Documents\KEYENCE\LJ-X Series Terminal-Software\USB\SD2\lj-x3d\result\SD1_001'
+            progam_number = b'003'
+            save_path = self.pathStart + r'Documents\KEYENCE\LJ-X Series Terminal-Software\USB\SD2\lj-x3d\result\SD1_003'
             
         if self.BCH_mask_10.isChecked():
             laser_path = '8by12 Actuator'
@@ -1301,9 +1301,11 @@ class X8060GUI(QMainWindow):
         
         inputValues.to_excel(writer, sheet_name='Data', index=False, startcol=0, startrow=0)
         
-        summaryValues = pd.DataFrame({'side' : sides, 
-                                     self.inputList[0] + '_BCH' : [self.summary[i][0] for i in range(8)],
-                                     self.inputList[0] + '_Droop' : [self.summary[i][1] for i in range(8)],
+        summaryValues = pd.DataFrame({ 'Sample ID' : [self.inputList[0], self.inputList[0], self.inputList[0], self.inputList[0], 
+                                                      self.inputList[0], self.inputList[0], self.inputList[0], self.inputList[0]],
+                                       'Side' : sides, 
+                                       'BCH' : [self.summary[i][0] for i in range(8)],
+                                       'Droop' : [self.summary[i][1] for i in range(8)],
                                      })
         
         summaryValues.to_excel(writer, sheet_name='Data', index=False, startcol=3, startrow=0)
@@ -1319,7 +1321,7 @@ class X8060GUI(QMainWindow):
         BCH = pd.DataFrame({'BCH' : flat_data, 
                           self.inputList[0] : flat_names})
                   
-        BCH.to_excel(writer, sheet_name='Data', index=False, startcol=6, startrow=0)
+        BCH.to_excel(writer, sheet_name='Data', index=False, startcol=8, startrow=0)
         
         flat_data = [j for sub in self.data[1::2] for j in sub]
         flat_names = [j for sub in label[1::2] for j in sub]
@@ -1327,7 +1329,7 @@ class X8060GUI(QMainWindow):
         F2A = pd.DataFrame({'Droop' : flat_data, 
                           self.inputList[0] : flat_names})
         
-        F2A.to_excel(writer, sheet_name='Data', index=False, startcol=9, startrow=0)
+        F2A.to_excel(writer, sheet_name='Data', index=False, startcol=11, startrow=0)
         
         
         writer.save()
