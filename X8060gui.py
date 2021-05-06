@@ -1366,7 +1366,9 @@ class X8060GUI(QMainWindow):
         
         inputValues.to_excel(writer, sheet_name='Data', index=False, startcol=0, startrow=0)
         
-        summaryValues = pd.DataFrame({'side' : sides, 
+        summaryValues = pd.DataFrame({'Sample ID' : [self.inputList[0], self.inputList[0], self.inputList[0], self.inputList[0], 
+                                                      self.inputList[0], self.inputList[0], self.inputList[0], self.inputList[0]],
+                                     'Side' : sides, 
                                      self.inputList[0] + '_HWidth' : [self.summary[i][0]*1000 for i in range(8)],
                                      self.inputList[0] + '_HCDepth' : [self.summary[i][1]*1000 for i in range(8)],
                                      self.inputList[0] + '_HCWidth' : [self.summary[i][2] for i in range(8)],
@@ -1393,7 +1395,7 @@ class X8060GUI(QMainWindow):
             rawData = pd.DataFrame({columnNames[i] : flat_data, 
                           self.inputList[0] : flat_names})
                   
-            rawData.to_excel(writer, sheet_name='Data', index=False, startcol=11 + 3*i, startrow=0)
+            rawData.to_excel(writer, sheet_name='Data', index=False, startcol=13 + 3*i, startrow=0)
         
     
         writer.save()
@@ -1429,7 +1431,9 @@ class X8060GUI(QMainWindow):
         
         inputValues.to_excel(writer, sheet_name='Data', index=False, startcol=0, startrow=0)
         
-        summaryValues = pd.DataFrame({'Cell' : cell, 
+        summaryValues = pd.DataFrame({'Sample ID' : [self.inputList[0], self.inputList[0], self.inputList[0], self.inputList[0], 
+                                                      self.inputList[0], self.inputList[0], self.inputList[0], self.inputList[0]],
+                                     'Cell' : cell, 
                                      'Left Frame to Anchor' : [self.summary[i][0] for i in range(4)],
                                      'Right Frame to Anchor' : [self.summary[i][1] for i in range(4)],
                                      'Left Cavity Depth' : [self.summary[i][2] for i in range(4)],
@@ -1450,7 +1454,7 @@ class X8060GUI(QMainWindow):
         LeftF2A= pd.DataFrame({'Left Frame to Anchor' : flat_data, 
                              self.inputList[0] : flat_names})
                   
-        LeftF2A.to_excel(writer, sheet_name='Data', index=False, startcol=10, startrow=0)
+        LeftF2A.to_excel(writer, sheet_name='Data', index=False, startcol=11, startrow=0)
         
         flat_data = [j for sub in self.data[1::5] for j in sub]
         flat_names = [j for sub in label[1::5] for j in sub]
@@ -1458,7 +1462,7 @@ class X8060GUI(QMainWindow):
         RightF2A = pd.DataFrame({'Right Frame to Anchor' : flat_data, 
                               self.inputList[0] : flat_names})
         
-        RightF2A.to_excel(writer, sheet_name='Data', index=False, startcol=13, startrow=0)
+        RightF2A.to_excel(writer, sheet_name='Data', index=False, startcol=14, startrow=0)
         
         flat_data = [j for sub in self.data[2::5] for j in sub]
         flat_names = [j for sub in label[2::5] for j in sub]
@@ -1466,7 +1470,7 @@ class X8060GUI(QMainWindow):
         Leftdepth = pd.DataFrame({'Left Cavity Depth' : flat_data, 
                               self.inputList[0] : flat_names})
         
-        Leftdepth.to_excel(writer, sheet_name='Data', index=False, startcol=16, startrow=0)
+        Leftdepth.to_excel(writer, sheet_name='Data', index=False, startcol=17, startrow=0)
         
         flat_data = [j for sub in self.data[3::5] for j in sub]
         flat_names = [j for sub in label[3::5] for j in sub]
@@ -1474,7 +1478,7 @@ class X8060GUI(QMainWindow):
         Rightdepth = pd.DataFrame({'Right Cavity Depth' : flat_data, 
                               self.inputList[0] : flat_names})
         
-        Rightdepth.to_excel(writer, sheet_name='Data', index=False, startcol=19, startrow=0)
+        Rightdepth.to_excel(writer, sheet_name='Data', index=False, startcol=20, startrow=0)
         
         flat_data = [j for sub in self.data[4::5] for j in sub]
         flat_names = [j for sub in label[4::5] for j in sub]
@@ -1482,7 +1486,7 @@ class X8060GUI(QMainWindow):
         AnchorW = pd.DataFrame({'Anchor Width' : flat_data, 
                               self.inputList[0] : flat_names})
         
-        AnchorW.to_excel(writer, sheet_name='Data', index=False, startcol=22, startrow=0)
+        AnchorW.to_excel(writer, sheet_name='Data', index=False, startcol=23, startrow=0)
         
         writer.save()
         print('Finished Saving')
@@ -1517,7 +1521,9 @@ class X8060GUI(QMainWindow):
         
         inputValues.to_excel(writer, sheet_name='Data', index=False, startcol=0, startrow=0)
         
-        summaryValues = pd.DataFrame({'Cell' : cell, 
+        summaryValues = pd.DataFrame({'Sample ID' : [self.inputList[0], self.inputList[0], self.inputList[0], self.inputList[0], 
+                                                      self.inputList[0], self.inputList[0], self.inputList[0], self.inputList[0]],
+                                     'Cell' : cell, 
                                      self.inputList[0] + '_Left Frame to Anchor' : [self.summary[i][0] for i in range(4)],
                                      self.inputList[0] + '_Right Frame to Anchor' : [self.summary[i][1] for i in range(4)],
                                      })
@@ -1535,7 +1541,7 @@ class X8060GUI(QMainWindow):
         Left = pd.DataFrame({'Left Frame to Anchor' : flat_data, 
                              self.inputList[0] : flat_names})
                   
-        Left.to_excel(writer, sheet_name='Data', index=False, startcol=7, startrow=0)
+        Left.to_excel(writer, sheet_name='Data', index=False, startcol=8, startrow=0)
         
         flat_data = [j for sub in self.data[1::2] for j in sub]
         flat_names = [j for sub in label[1::2] for j in sub]
@@ -1543,7 +1549,7 @@ class X8060GUI(QMainWindow):
         Right = pd.DataFrame({'Right Frame to Anchor' : flat_data, 
                               self.inputList[0] : flat_names})
         
-        Right.to_excel(writer, sheet_name='Data', index=False, startcol=10, startrow=0)
+        Right.to_excel(writer, sheet_name='Data', index=False, startcol=11, startrow=0)
         
         writer.save()
         print('Finished Saving')
