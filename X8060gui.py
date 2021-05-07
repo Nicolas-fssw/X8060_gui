@@ -1369,13 +1369,13 @@ class X8060GUI(QMainWindow):
         summaryValues = pd.DataFrame({'Sample ID' : [self.inputList[0], self.inputList[0], self.inputList[0], self.inputList[0], 
                                                       self.inputList[0], self.inputList[0], self.inputList[0], self.inputList[0]],
                                      'Side' : sides, 
-                                     self.inputList[0] + '_HWidth' : [self.summary[i][0]*1000 for i in range(8)],
-                                     self.inputList[0] + '_HCDepth' : [self.summary[i][1]*1000 for i in range(8)],
-                                     self.inputList[0] + '_HCWidth' : [self.summary[i][2] for i in range(8)],
-                                     self.inputList[0] + '_C2AWidth' : [self.summary[i][3] for i in range(8)],
-                                     self.inputList[0] + '_AWidth' : [self.summary[i][4] for i in range(8)],
-                                     self.inputList[0] + '_Droop' : [self.summary[i][5]*1000 for i in range(8)],
-                                     self.inputList[0] + '_T' : [self.summary[i][6]*1000 for i in range(8)],
+                                     'Hammertail Width' : [self.summary[m][i][0]*1000 for i in range(8)],
+                                     'Cavity Depth' : [self.summary[m][i][1]*1000 for i in range(8)],
+                                     'Cavity Width' : [self.summary[m][i][2] for i in range(8)],
+                                     'C2A Width' : [self.summary[m][i][3] for i in range(8)],
+                                     'Anchor Width' : [self.summary[m][i][4] for i in range(8)],
+                                     'Droop' : [self.summary[m][i][5]*1000 for i in range(8)],
+                                     'T Height' : [self.summary[m][i][6]*1000 for i in range(8)],
                                      })
         
         summaryValues.to_excel(writer, sheet_name='Data', index=False, startcol=3, startrow=0)
@@ -1431,8 +1431,7 @@ class X8060GUI(QMainWindow):
         
         inputValues.to_excel(writer, sheet_name='Data', index=False, startcol=0, startrow=0)
         
-        summaryValues = pd.DataFrame({'Sample ID' : [self.inputList[0], self.inputList[0], self.inputList[0], self.inputList[0], 
-                                                      self.inputList[0], self.inputList[0], self.inputList[0], self.inputList[0]],
+        summaryValues = pd.DataFrame({'Sample ID' : [self.inputList[0], self.inputList[0], self.inputList[0], self.inputList[0]],
                                      'Cell' : cell, 
                                      'Left Frame to Anchor' : [self.summary[i][0] for i in range(4)],
                                      'Right Frame to Anchor' : [self.summary[i][1] for i in range(4)],
@@ -1521,8 +1520,7 @@ class X8060GUI(QMainWindow):
         
         inputValues.to_excel(writer, sheet_name='Data', index=False, startcol=0, startrow=0)
         
-        summaryValues = pd.DataFrame({'Sample ID' : [self.inputList[0], self.inputList[0], self.inputList[0], self.inputList[0], 
-                                                      self.inputList[0], self.inputList[0], self.inputList[0], self.inputList[0]],
+        summaryValues = pd.DataFrame({'Sample ID' : [self.inputList[0], self.inputList[0], self.inputList[0], self.inputList[0]],
                                      'Cell' : cell, 
                                      self.inputList[0] + '_Left Frame to Anchor' : [self.summary[i][0] for i in range(4)],
                                      self.inputList[0] + '_Right Frame to Anchor' : [self.summary[i][1] for i in range(4)],
@@ -1590,7 +1588,7 @@ class X8060GUI(QMainWindow):
             
             summaryValues = pd.DataFrame({'Actuator ID' : [self.inputList[0] + '-' + str(m+1),self.inputList[0] + '-' + str(m+1),self.inputList[0] + '-' + str(m+1),self.inputList[0] + '-' + str(m+1),
                                                            self.inputList[0] + '-' + str(m+1),self.inputList[0] + '-' + str(m+1),self.inputList[0] + '-' + str(m+1),self.inputList[0] + '-' + str(m+1)],
-                                         'side' : sides, 
+                                         'Side' : sides, 
                                          'Hammertail Width' : [self.summary[m][i][0]*1000 for i in range(8)],
                                          'Cavity Depth' : [self.summary[m][i][1]*1000 for i in range(8)],
                                          'Cavity Width' : [self.summary[m][i][2] for i in range(8)],
@@ -1660,7 +1658,7 @@ class X8060GUI(QMainWindow):
             
             summaryValues = pd.DataFrame({'Actuator ID' : [self.inputList[0] + '-' + str(m+1),self.inputList[0] + '-' + str(m+1),self.inputList[0] + '-' + str(m+1),self.inputList[0] + '-' + str(m+1),
                                                            self.inputList[0] + '-' + str(m+1),self.inputList[0] + '-' + str(m+1),self.inputList[0] + '-' + str(m+1),self.inputList[0] + '-' + str(m+1)],
-                                         'side' : sides, 
+                                         'Side' : sides, 
                                          'Hammertail Width' : [self.summary[m][i][0]*1000 for i in range(8)],
                                          'Cavity Depth' : [self.summary[m][i][1]*1000 for i in range(8)],
                                          'Cavity Width' : [self.summary[m][i][2] for i in range(8)],
