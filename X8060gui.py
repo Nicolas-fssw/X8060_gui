@@ -1296,12 +1296,12 @@ class X8060GUI(QMainWindow):
         print('**************************')
         writer = pd.ExcelWriter(dir_path + file_name, engine='xlsxwriter')
         
-        inputValues = pd.DataFrame({'names' : ['Sample ID', 'Comments', 'Actuator Thickness', 'Frame Thickness'], 
+        inputValues = pd.DataFrame({'names' : ['Tile ID', 'Comments', 'Actuator Thickness', 'Frame Thickness'], 
                                     'values' : self.inputList})
         
         inputValues.to_excel(writer, sheet_name='Data', index=False, startcol=0, startrow=0)
         
-        summaryValues = pd.DataFrame({ 'Sample ID' : [self.inputList[0], self.inputList[0], self.inputList[0], self.inputList[0], 
+        summaryValues = pd.DataFrame({ 'Tile ID' : [self.inputList[0], self.inputList[0], self.inputList[0], self.inputList[0], 
                                                       self.inputList[0], self.inputList[0], self.inputList[0], self.inputList[0]],
                                        'Side' : sides, 
                                        'BCH' : [self.summary[i][0] for i in range(8)],
@@ -1361,21 +1361,21 @@ class X8060GUI(QMainWindow):
         print('**************************')
         writer = pd.ExcelWriter(dir_path + file_name, engine='xlsxwriter')
         
-        inputValues = pd.DataFrame({'names' : ['Sample ID', 'Comments'], 
+        inputValues = pd.DataFrame({'names' : ['Actuator ID', 'Comments'], 
                                     'values' : self.inputList})
         
         inputValues.to_excel(writer, sheet_name='Data', index=False, startcol=0, startrow=0)
         
-        summaryValues = pd.DataFrame({'Sample ID' : [self.inputList[0], self.inputList[0], self.inputList[0], self.inputList[0], 
+        summaryValues = pd.DataFrame({'Actuator ID' : [self.inputList[0], self.inputList[0], self.inputList[0], self.inputList[0], 
                                                       self.inputList[0], self.inputList[0], self.inputList[0], self.inputList[0]],
                                      'Side' : sides, 
-                                     self.inputList[0] + '_HWidth' : [self.summary[i][0]*1000 for i in range(8)],
-                                     self.inputList[0] + '_HCDepth' : [self.summary[i][1]*1000 for i in range(8)],
-                                     self.inputList[0] + '_HCWidth' : [self.summary[i][2] for i in range(8)],
-                                     self.inputList[0] + '_C2AWidth' : [self.summary[i][3] for i in range(8)],
-                                     self.inputList[0] + '_AWidth' : [self.summary[i][4] for i in range(8)],
-                                     self.inputList[0] + '_Droop' : [self.summary[i][5]*1000 for i in range(8)],
-                                     self.inputList[0] + '_T' : [self.summary[i][6]*1000 for i in range(8)],
+                                     'Hammertail Width' : [self.summary[i][0]*1000 for i in range(8)],
+                                     'Cavity Depth' : [self.summary[i][1]*1000 for i in range(8)],
+                                     'Cavity Width' : [self.summary[i][2] for i in range(8)],
+                                     'C2A Width' : [self.summary[i][3] for i in range(8)],
+                                     'Anchor Width' : [self.summary[i][4] for i in range(8)],
+                                     'Droop' : [self.summary[i][5]*1000 for i in range(8)],
+                                     'T Height' : [self.summary[i][6]*1000 for i in range(8)],
                                      })
         
         summaryValues.to_excel(writer, sheet_name='Data', index=False, startcol=3, startrow=0)
@@ -1426,13 +1426,12 @@ class X8060GUI(QMainWindow):
         print('**************************')
         writer = pd.ExcelWriter(dir_path + file_name, engine='xlsxwriter')
         
-        inputValues = pd.DataFrame({'names' : ['Sample ID', 'Comments'], 
+        inputValues = pd.DataFrame({'names' : ['Orifice ID', 'Comments'], 
                                     'values' : self.inputList})
         
         inputValues.to_excel(writer, sheet_name='Data', index=False, startcol=0, startrow=0)
         
-        summaryValues = pd.DataFrame({'Sample ID' : [self.inputList[0], self.inputList[0], self.inputList[0], self.inputList[0], 
-                                                      self.inputList[0], self.inputList[0], self.inputList[0], self.inputList[0]],
+        summaryValues = pd.DataFrame({'Orifice ID' : [self.inputList[0], self.inputList[0], self.inputList[0], self.inputList[0]],
                                      'Cell' : cell, 
                                      'Left Frame to Anchor' : [self.summary[i][0] for i in range(4)],
                                      'Right Frame to Anchor' : [self.summary[i][1] for i in range(4)],
@@ -1516,16 +1515,15 @@ class X8060GUI(QMainWindow):
         print('**************************')
         writer = pd.ExcelWriter(dir_path + file_name, engine='xlsxwriter')
         
-        inputValues = pd.DataFrame({'names' : ['Sample ID', 'Comments'], 
+        inputValues = pd.DataFrame({'names' : ['Jet Channel ID', 'Comments'], 
                                     'values' : self.inputList})
         
         inputValues.to_excel(writer, sheet_name='Data', index=False, startcol=0, startrow=0)
         
-        summaryValues = pd.DataFrame({'Sample ID' : [self.inputList[0], self.inputList[0], self.inputList[0], self.inputList[0], 
-                                                      self.inputList[0], self.inputList[0], self.inputList[0], self.inputList[0]],
+        summaryValues = pd.DataFrame({'Jet Channel ID' : [self.inputList[0], self.inputList[0], self.inputList[0], self.inputList[0]],
                                      'Cell' : cell, 
-                                     self.inputList[0] + '_Left Frame to Anchor' : [self.summary[i][0] for i in range(4)],
-                                     self.inputList[0] + '_Right Frame to Anchor' : [self.summary[i][1] for i in range(4)],
+                                     'Left Frame to Anchor' : [self.summary[i][0] for i in range(4)],
+                                     'Right Frame to Anchor' : [self.summary[i][1] for i in range(4)],
                                      })
         
         summaryValues.to_excel(writer, sheet_name='Data', index=False, startcol=3, startrow=0)
