@@ -480,15 +480,15 @@ class X8060GUI(QMainWindow):
             overall = 'F'
         
         if difference <= 0.1 and difference > 0.05:
-            pass_list = 'Grade C'
+            pass_list = 'Grade C - C2A'
             overall = 'C'
         
         if difference <= 0.05 and difference > 0.025:
-            pass_list = 'Grade B'
+            pass_list = 'Grade B - C2A'
             overall = 'B'
         
         if difference <= 0.025:
-            pass_list = 'Grade A'
+            pass_list = 'Grade A - C2A'
             overall = 'A'
             
         ht = []
@@ -551,14 +551,21 @@ class X8060GUI(QMainWindow):
         if difference <= 0.01:
             pass_list = pass_list + '\nGrade A - Cavity Depth'
             
-        if overall == 'A' or overall == 'B':
+        if overall == 'A':
             color_list = "background-color: green;  border: 1px solid black;"
+            pass_list = pass_list + '\nOverall Grade: A'
+            
+        if overall == 'B':
+            color_list = "background-color: lightgreen;  border: 1px solid black;"
+            pass_list = pass_list + '\nOverall Grade: B'
             
         if overall == 'C':
             color_list = "background-color: yellow;  border: 1px solid black;"
+            pass_list = pass_list + '\nOverall Grade: C'
             
         if overall == 'F':
             color_list = "background-color: red;  border: 1px solid black;"
+            pass_list = pass_list + '\nOverall Grade: F'
             
         self.grading_2.setText(pass_list)  
         self.grading_2.setStyleSheet(color_list)
