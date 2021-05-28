@@ -480,15 +480,15 @@ class X8060GUI(QMainWindow):
             overall = 'F'
         
         if difference <= 0.1 and difference > 0.05:
-            pass_list = 'Grade C'
+            pass_list = 'Grade C - C2A'
             overall = 'C'
         
         if difference <= 0.05 and difference > 0.025:
-            pass_list = 'Grade B'
+            pass_list = 'Grade B - C2A'
             overall = 'B'
         
         if difference <= 0.025:
-            pass_list = 'Grade A'
+            pass_list = 'Grade A - C2A'
             overall = 'A'
             
         ht = []
@@ -551,14 +551,21 @@ class X8060GUI(QMainWindow):
         if difference <= 0.01:
             pass_list = pass_list + '\nGrade A - Cavity Depth'
             
-        if overall == 'A' or overall == 'B':
+        if overall == 'A':
             color_list = "background-color: green;  border: 1px solid black;"
+            pass_list = pass_list + '\nOverall Grade: A'
+            
+        if overall == 'B':
+            color_list = "background-color: lightgreen;  border: 1px solid black;"
+            pass_list = pass_list + '\nOverall Grade: B'
             
         if overall == 'C':
             color_list = "background-color: yellow;  border: 1px solid black;"
+            pass_list = pass_list + '\nOverall Grade: C'
             
         if overall == 'F':
             color_list = "background-color: red;  border: 1px solid black;"
+            pass_list = pass_list + '\nOverall Grade: F'
             
         self.grading_2.setText(pass_list)  
         self.grading_2.setStyleSheet(color_list)
@@ -574,6 +581,8 @@ class X8060GUI(QMainWindow):
             orifice_depth_limits = [0.038, 0.052]
         if self.BCH_mask_11.isChecked():
             orifice_depth_limits = [0.048, 0.062]
+        if self.BCH_mask_17.isChecked():
+            orifice_depth_limits = [0.028, 0.042]
         
         for n in range(4):
             for i in range(5):
@@ -1296,12 +1305,12 @@ class X8060GUI(QMainWindow):
         print('**************************')
         writer = pd.ExcelWriter(dir_path + file_name, engine='xlsxwriter')
         
-        inputValues = pd.DataFrame({'names' : ['Sample ID', 'Comments', 'Actuator Thickness', 'Frame Thickness'], 
+        inputValues = pd.DataFrame({'names' : ['Tile ID', 'Comments', 'Actuator Thickness', 'Frame Thickness'], 
                                     'values' : self.inputList})
         
         inputValues.to_excel(writer, sheet_name='Data', index=False, startcol=0, startrow=0)
         
-        summaryValues = pd.DataFrame({ 'Sample ID' : [self.inputList[0], self.inputList[0], self.inputList[0], self.inputList[0], 
+        summaryValues = pd.DataFrame({ 'Tile ID' : [self.inputList[0], self.inputList[0], self.inputList[0], self.inputList[0], 
                                                       self.inputList[0], self.inputList[0], self.inputList[0], self.inputList[0]],
                                        'Side' : sides, 
                                        'BCH' : [self.summary[i][0] for i in range(8)],
@@ -1361,12 +1370,12 @@ class X8060GUI(QMainWindow):
         print('**************************')
         writer = pd.ExcelWriter(dir_path + file_name, engine='xlsxwriter')
         
-        inputValues = pd.DataFrame({'names' : ['Sample ID', 'Comments'], 
+        inputValues = pd.DataFrame({'names' : ['Actuator ID', 'Comments'], 
                                     'values' : self.inputList})
         
         inputValues.to_excel(writer, sheet_name='Data', index=False, startcol=0, startrow=0)
         
-        summaryValues = pd.DataFrame({'Sample ID' : [self.inputList[0], self.inputList[0], self.inputList[0], self.inputList[0], 
+        summaryValues = pd.DataFrame({'Actuator ID' : [self.inputList[0], self.inputList[0], self.inputList[0], self.inputList[0], 
                                                       self.inputList[0], self.inputList[0], self.inputList[0], self.inputList[0]],
                                      'Side' : sides, 
                                      'Hammertail Width' : [self.summary[m][i][0]*1000 for i in range(8)],
@@ -1376,6 +1385,13 @@ class X8060GUI(QMainWindow):
                                      'Anchor Width' : [self.summary[m][i][4] for i in range(8)],
                                      'Droop' : [self.summary[m][i][5]*1000 for i in range(8)],
                                      'T Height' : [self.summary[m][i][6]*1000 for i in range(8)],
+                                     'Hammertail Width' : [self.summary[i][0]*1000 for i in range(8)],
+                                     'Cavity Depth' : [self.summary[i][1]*1000 for i in range(8)],
+                                     'Cavity Width' : [self.summary[i][2] for i in range(8)],
+                                     'C2A Width' : [self.summary[i][3] for i in range(8)],
+                                     'Anchor Width' : [self.summary[i][4] for i in range(8)],
+                                     'Droop' : [self.summary[i][5]*1000 for i in range(8)],
+                                     'T Height' : [self.summary[i][6]*1000 for i in range(8)],
                                      })
         
         summaryValues.to_excel(writer, sheet_name='Data', index=False, startcol=3, startrow=0)
@@ -1426,12 +1442,11 @@ class X8060GUI(QMainWindow):
         print('**************************')
         writer = pd.ExcelWriter(dir_path + file_name, engine='xlsxwriter')
         
-        inputValues = pd.DataFrame({'names' : ['Sample ID', 'Comments'], 
+        inputValues = pd.DataFrame({'names' : ['Orifice ID', 'Comments'], 
                                     'values' : self.inputList})
         
         inputValues.to_excel(writer, sheet_name='Data', index=False, startcol=0, startrow=0)
-        
-        summaryValues = pd.DataFrame({'Sample ID' : [self.inputList[0], self.inputList[0], self.inputList[0], self.inputList[0]],
+        summaryValues = pd.DataFrame({'Orifice ID' : [self.inputList[0], self.inputList[0], self.inputList[0], self.inputList[0]],
                                      'Cell' : cell, 
                                      'Left Frame to Anchor' : [self.summary[i][0] for i in range(4)],
                                      'Right Frame to Anchor' : [self.summary[i][1] for i in range(4)],
@@ -1515,15 +1530,14 @@ class X8060GUI(QMainWindow):
         print('**************************')
         writer = pd.ExcelWriter(dir_path + file_name, engine='xlsxwriter')
         
-        inputValues = pd.DataFrame({'names' : ['Sample ID', 'Comments'], 
+        inputValues = pd.DataFrame({'names' : ['Jet Channel ID', 'Comments'], 
                                     'values' : self.inputList})
         
         inputValues.to_excel(writer, sheet_name='Data', index=False, startcol=0, startrow=0)
-        
-        summaryValues = pd.DataFrame({'Sample ID' : [self.inputList[0], self.inputList[0], self.inputList[0], self.inputList[0]],
+        summaryValues = pd.DataFrame({'Jet Channel ID' : [self.inputList[0], self.inputList[0], self.inputList[0], self.inputList[0]],
                                      'Cell' : cell, 
-                                     self.inputList[0] + '_Left Frame to Anchor' : [self.summary[i][0] for i in range(4)],
-                                     self.inputList[0] + '_Right Frame to Anchor' : [self.summary[i][1] for i in range(4)],
+                                     'Left Frame to Anchor' : [self.summary[i][0] for i in range(4)],
+                                     'Right Frame to Anchor' : [self.summary[i][1] for i in range(4)],
                                      })
         
         summaryValues.to_excel(writer, sheet_name='Data', index=False, startcol=3, startrow=0)
