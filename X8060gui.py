@@ -369,13 +369,13 @@ class X8060GUI(QMainWindow):
             
         if self.BCH_mask_9.isChecked():
             laser_path = '8by12 Actuator'
-            self.type = '1D_'
+            self.type = '1C_'
             expected_output = ['3LD', '3RD', '3LHW', '3RHW', '3LHCW', '3RHCW', '3LHCD', '3RHCD', '3LC2A', '3RC2A', '3ANC', '3LT', '3RT',
                                '1LD', '1RD', '1LHW', '1RHW', '1LHCW', '1RHCW', '1LHCD', '1RHCD', '1LC2A', '1RC2A', '1ANC', '1LT', '1RT',
                                '4LD', '4RD', '4LHW', '4RHW', '4LHCW', '4RHCW', '4LHCD', '4RHCD', '4LC2A', '4RC2A', '4ANC', '4LT', '4RT',
                                '2LD', '2RD', '2LHW', '2RHW', '2LHCW', '2RHCW', '2LHCD', '2RHCD', '2LC2A', '2RC2A', '2ANC', '2LT', '2RT']
-            progam_number = b'003'
-            save_path = self.pathStart + r'Documents\KEYENCE\LJ-X Series Terminal-Software\USB\SD2\lj-x3d\result\SD1_003'
+            progam_number = b'004'
+            save_path = self.pathStart + r'Documents\KEYENCE\LJ-X Series Terminal-Software\USB\SD2\lj-x3d\result\SD1_004'
             
         if self.BCH_mask_10.isChecked():
             laser_path = '8by12 Actuator'
@@ -620,7 +620,7 @@ class X8060GUI(QMainWindow):
                 self.tableWidget_3.setItem(n+1, i+1, QTableWidgetItem('%.3f' % self.summary[n][i]))   
           
         for i in range(len(self.summary)):
-            if self.summary[i][2] > orifice_depth_limits[1] or self.summary[i][2] < orifice_depth_limits[0] or self.summary[i][3] > orifice_depth_limits[1] or self.summary[i][3] < orifice_depth_limits[0]:
+            if self.summary[i][2] >= orifice_depth_limits[1] or self.summary[i][2] <= orifice_depth_limits[0] or self.summary[i][3] > orifice_depth_limits[1] or self.summary[i][3] < orifice_depth_limits[0]:
                 print(self.summary[i][1])
                 self.grading_3.setText('Grade Fail - Cavity Depth')  
                 self.grading_3.setStyleSheet("background-color: red;  border: 1px solid black;")
@@ -707,8 +707,8 @@ class X8060GUI(QMainWindow):
                                    '4RD', '4LD', '4RHW', '4LHW', '4RHCW', '4LHCW', '4RHCD', '4LHCD', '4RC2A', '4LC2A', '4ANC', '4RT', '4LT',
                                    '1RD', '1LD', '1RHW', '1LHW', '1RHCW', '1LHCW', '1RHCD', '1LHCD', '1RC2A', '1LC2A', '1ANC', '1RT', '1LT',
                                    '3RD', '3LD', '3RHW', '3LHW', '3RHCW', '3LHCW', '3RHCD', '3LHCD', '3RC2A', '3LC2A', '3ANC', '3RT', '3LT']
-                progam_number = b'014'
-                save_path = self.pathStart + r'Documents\KEYENCE\LJ-X Series Terminal-Software\USB\SD2\lj-x3d\result\SD1_014'
+                progam_number = b'004'
+                save_path = self.pathStart + r'Documents\KEYENCE\LJ-X Series Terminal-Software\USB\SD2\lj-x3d\result\SD1_004'
         
         
         for m in range(14):
@@ -1378,13 +1378,6 @@ class X8060GUI(QMainWindow):
         summaryValues = pd.DataFrame({'Actuator ID' : [self.inputList[0], self.inputList[0], self.inputList[0], self.inputList[0], 
                                                       self.inputList[0], self.inputList[0], self.inputList[0], self.inputList[0]],
                                      'Side' : sides, 
-                                     'Hammertail Width' : [self.summary[m][i][0]*1000 for i in range(8)],
-                                     'Cavity Depth' : [self.summary[m][i][1]*1000 for i in range(8)],
-                                     'Cavity Width' : [self.summary[m][i][2] for i in range(8)],
-                                     'C2A Width' : [self.summary[m][i][3] for i in range(8)],
-                                     'Anchor Width' : [self.summary[m][i][4] for i in range(8)],
-                                     'Droop' : [self.summary[m][i][5]*1000 for i in range(8)],
-                                     'T Height' : [self.summary[m][i][6]*1000 for i in range(8)],
                                      'Hammertail Width' : [self.summary[i][0]*1000 for i in range(8)],
                                      'Cavity Depth' : [self.summary[i][1]*1000 for i in range(8)],
                                      'Cavity Width' : [self.summary[i][2] for i in range(8)],
@@ -1630,9 +1623,38 @@ class X8060GUI(QMainWindow):
                                         self.inputList[0] + '-' + str(m+1) : flat_names})
                       
                 rawData.to_excel(writer, sheet_name='Data', index=False, startcol=13 + 3*i, startrow=0)
+                
+            writer.save()
+                
+        
+        for m in range(len(self.summary)):
+            act_name = file_name + '-' + str(m+1) + '.xlsx'
+            writer = pd.ExcelWriter(r'C:\Users\nmadh\Frore Systems\RnD - Documents\Characterization\Keyence LJXMappingTool\data\Actuator\Strip\Individual Files' + act_name, engine='xlsxwriter')
+            
+            inputValues = pd.DataFrame({'names' : ['Strip ID', 'Comments'], 
+                                        'values' : self.inputList})
+            
+            inputValues.to_excel(writer, sheet_name='Data', index=False, startcol=0, startrow=0)
+            
+            
+            
+            summaryValues = pd.DataFrame({'Actuator ID' : [self.inputList[0] + '-' + str(m+1),self.inputList[0] + '-' + str(m+1),self.inputList[0] + '-' + str(m+1),self.inputList[0] + '-' + str(m+1),
+                                                           self.inputList[0] + '-' + str(m+1),self.inputList[0] + '-' + str(m+1),self.inputList[0] + '-' + str(m+1),self.inputList[0] + '-' + str(m+1)],
+                                         'Side' : sides, 
+                                         'Hammertail Width' : [self.summary[m][i][0]*1000 for i in range(8)],
+                                         'Cavity Depth' : [self.summary[m][i][1]*1000 for i in range(8)],
+                                         'Cavity Width' : [self.summary[m][i][2] for i in range(8)],
+                                         'C2A Width' : [self.summary[m][i][3] for i in range(8)],
+                                         'Anchor Width' : [self.summary[m][i][4] for i in range(8)],
+                                         'Droop' : [self.summary[m][i][5]*1000 for i in range(8)],
+                                         'T Height' : [self.summary[m][i][6]*1000 for i in range(8)],
+                                         })
+            
+            summaryValues.to_excel(writer, sheet_name='Data', index=False, startcol=3, startrow=0)
             
         
             writer.save()
+            
         print('Finished Saving')
         self.state_5.setText('Saved File')
         self.state_5.setStyleSheet("background-color: green;  border: 1px solid black;")     
